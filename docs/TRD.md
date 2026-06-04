@@ -36,3 +36,6 @@ The application uses a serverless, decoupled architecture deployed on Vercel.
 - **Linting & Formatting:** ESLint + Prettier + Husky pre-commit hooks.
 - **Branching:** `main` (production), `develop` (staging), `feature/*` (active work).
 - **CI/CD:** Automated builds and preview deployments on Vercel for every Pull Request.
+
+## 6. Dependancy rules
+- always use latest and stable version of tools and dependacies 
