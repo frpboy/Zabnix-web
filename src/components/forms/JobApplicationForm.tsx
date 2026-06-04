@@ -38,13 +38,13 @@ export function JobApplicationForm({ roleTitle }: JobApplicationFormProps) {
   if (submitted) {
     return (
       <div
-        className="border border-emerald-500/20 bg-emerald-500/5 rounded-xl p-6 flex flex-col items-center justify-center text-center gap-4"
+        className="border border-emerald-200 bg-emerald-50/50 rounded-xl p-6 flex flex-col items-center justify-center text-center gap-4 shadow-level-2"
         role="alert"
         aria-live="polite"
       >
-        <CheckCircle2 size={40} className="text-emerald-400" aria-hidden="true" />
-        <h3 className="text-lg font-bold text-white">Application Received</h3>
-        <p className="text-xs text-gray-400">
+        <CheckCircle2 size={40} className="text-emerald-600" aria-hidden="true" />
+        <h3 className="text-lg font-bold text-ink">Application Received</h3>
+        <p className="text-xs text-body">
           Thank you for applying for the <strong>{roleTitle}</strong> position. Our recruiting team will review your profile and get in touch.
         </p>
         <button
@@ -52,7 +52,7 @@ export function JobApplicationForm({ roleTitle }: JobApplicationFormProps) {
             setSubmitted(false);
             setFileName(null);
           }}
-          className="text-xs text-gray-500 hover:text-white transition-colors duration-200"
+          className="text-xs text-mute hover:text-ink transition-colors duration-200 underline"
         >
           Submit another application
         </button>
@@ -65,7 +65,7 @@ export function JobApplicationForm({ roleTitle }: JobApplicationFormProps) {
       <div>
         <label
           htmlFor="app-name"
-          className="block text-[10px] font-semibold text-gray-500 uppercase tracking-widest mb-1.5"
+          className="block text-[10px] font-mono font-semibold text-body uppercase tracking-wider mb-1.5"
         >
           Full Name
         </label>
@@ -76,14 +76,14 @@ export function JobApplicationForm({ roleTitle }: JobApplicationFormProps) {
           autoComplete="name"
           required
           placeholder="Rahul Sharma…"
-          className="w-full bg-black border border-white/10 rounded-xl px-4 py-2.5 text-sm text-white placeholder:text-gray-700 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-violet-500"
+          className="w-full bg-canvas border border-hairline rounded-[6px] px-4 py-2.5 text-sm text-ink placeholder:text-mute focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-link"
         />
       </div>
 
       <div>
         <label
           htmlFor="app-email"
-          className="block text-[10px] font-semibold text-gray-500 uppercase tracking-widest mb-1.5"
+          className="block text-[10px] font-mono font-semibold text-body uppercase tracking-wider mb-1.5"
         >
           Email Address
         </label>
@@ -95,14 +95,14 @@ export function JobApplicationForm({ roleTitle }: JobApplicationFormProps) {
           spellCheck={false}
           required
           placeholder="you@company.com…"
-          className="w-full bg-black border border-white/10 rounded-xl px-4 py-2.5 text-sm text-white placeholder:text-gray-700 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-violet-500"
+          className="w-full bg-canvas border border-hairline rounded-[6px] px-4 py-2.5 text-sm text-ink placeholder:text-mute focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-link"
         />
       </div>
 
       <div>
         <label
           htmlFor="app-phone"
-          className="block text-[10px] font-semibold text-gray-500 uppercase tracking-widest mb-1.5"
+          className="block text-[10px] font-mono font-semibold text-body uppercase tracking-wider mb-1.5"
         >
           Phone Number
         </label>
@@ -113,12 +113,12 @@ export function JobApplicationForm({ roleTitle }: JobApplicationFormProps) {
           autoComplete="tel"
           required
           placeholder="+91 98765 43210…"
-          className="w-full bg-black border border-white/10 rounded-xl px-4 py-2.5 text-sm text-white placeholder:text-gray-700 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-violet-500"
+          className="w-full bg-canvas border border-hairline rounded-[6px] px-4 py-2.5 text-sm text-ink placeholder:text-mute focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-link"
         />
       </div>
 
       <div>
-        <span className="block text-[10px] font-semibold text-gray-500 uppercase tracking-widest mb-1.5">
+        <span className="block text-[10px] font-mono font-semibold text-body uppercase tracking-wider mb-1.5">
           Resume / CV
         </span>
         <div className="relative">
@@ -134,19 +134,19 @@ export function JobApplicationForm({ roleTitle }: JobApplicationFormProps) {
           {!fileName ? (
             <label
               htmlFor="app-resume"
-              className="flex flex-col items-center justify-center border border-dashed border-white/10 hover:border-violet-500/50 bg-black hover:bg-white/[0.02] rounded-xl p-5 cursor-pointer transition-colors duration-200"
+              className="flex flex-col items-center justify-center border border-dashed border-hairline bg-canvas hover:bg-canvas-soft p-5 cursor-pointer rounded-xl transition-colors duration-200"
             >
-              <Upload size={20} className="text-gray-500 mb-2" aria-hidden="true" />
-              <span className="text-xs text-gray-400">Upload PDF, DOC, or DOCX</span>
-              <span className="text-[10px] text-gray-600 mt-1">Drag & drop or click to browse</span>
+              <Upload size={20} className="text-mute mb-2" aria-hidden="true" />
+              <span className="text-xs text-body font-medium">Upload PDF, DOC, or DOCX</span>
+              <span className="text-[10px] text-mute mt-1">Drag &amp; drop or click to browse</span>
             </label>
           ) : (
-            <div className="flex items-center justify-between border border-white/10 bg-white/5 rounded-xl px-4 py-3 text-xs">
-              <span className="text-gray-300 truncate max-w-[200px]">{fileName}</span>
+            <div className="flex items-center justify-between border border-hairline bg-canvas-soft rounded-xl px-4 py-3 text-xs">
+              <span className="text-ink truncate max-w-[200px]">{fileName}</span>
               <button
                 type="button"
                 onClick={handleRemoveFile}
-                className="text-gray-500 hover:text-white transition-colors p-1"
+                className="text-body hover:text-ink transition-colors p-1"
                 aria-label="Remove uploaded resume"
               >
                 <X size={14} aria-hidden="true" />
@@ -159,7 +159,7 @@ export function JobApplicationForm({ roleTitle }: JobApplicationFormProps) {
       <div>
         <label
           htmlFor="app-cover"
-          className="block text-[10px] font-semibold text-gray-500 uppercase tracking-widest mb-1.5"
+          className="block text-[10px] font-mono font-semibold text-body uppercase tracking-wider mb-1.5"
         >
           Message / Cover Letter
         </label>
@@ -168,14 +168,14 @@ export function JobApplicationForm({ roleTitle }: JobApplicationFormProps) {
           name="coverLetter"
           rows={4}
           placeholder="Briefly tell us why you are a good fit for this role…"
-          className="w-full bg-black border border-white/10 rounded-xl px-4 py-2.5 text-sm text-white placeholder:text-gray-700 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-violet-500 resize-none"
+          className="w-full bg-canvas border border-hairline rounded-[6px] px-4 py-2.5 text-sm text-ink placeholder:text-mute focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-link resize-none"
         />
       </div>
 
       <button
         type="submit"
         disabled={submitting}
-        className="w-full inline-flex items-center justify-center gap-2 bg-white text-black text-xs font-semibold px-4 py-3.5 rounded-xl hover:bg-gray-100 disabled:opacity-60 disabled:cursor-not-allowed transition-colors duration-200 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-offset-2 focus-visible:ring-offset-black"
+        className="w-full inline-flex items-center justify-center gap-2 bg-ink text-white text-xs font-semibold px-4 py-3.5 rounded-[6px] hover:bg-ink/90 disabled:opacity-60 disabled:cursor-not-allowed transition-colors duration-200 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ink focus-visible:ring-offset-2 focus-visible:ring-offset-canvas"
       >
         {submitting ? "Submitting Application…" : "Submit Application"}
         {!submitting && <ArrowRight size={14} aria-hidden="true" />}

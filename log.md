@@ -164,3 +164,49 @@ Backend Files:
 - package.json
 
 Timestamp: 2026-06-04 23:26:29
+
+
+### 6) Dynamic Detail Pages and Logo Asset Integration
+
+1. **Shared Data Repository**
+   - Created src/lib/data.ts to centralize all structured marketing datasets (blog posts, products, open roles, case studies) in a single shared file.
+
+2. **Scaffolded Dynamic Detail Routes**
+   - src/app/blog/[slug]/page.tsx — dynamic blog post page with timezone-safe dates to prevent hydration mismatches, back links, and newsletter/consultation sidebars.
+   - src/app/careers/[slug]/page.tsx — dynamic open role detail page rendering department metrics, description, requirements, responsibilities, and application forms.
+   - src/app/products/[slug]/page.tsx — dynamic product detail page rendering capabilities, technical specifications tables, and demo requests.
+   - src/app/case-studies/[slug]/page.tsx — dynamic case study detail page showing outcome metrics, challenge, solution, and final business impact.
+
+3. **Form Interactivity Components**
+   - src/components/forms/JobApplicationForm.tsx — client form component for resume file uploads, cover letters, and validation feedback.
+   - src/components/forms/ProductDemoForm.tsx — client form component for enterprise product demo request.
+
+4. **Logo Asset Implementation**
+   - Moved the brand logo file from the workspace root to the public directory (public/logo.jpeg).
+   - Integrated the logo in the Navbar (src/components/layout/Navbar.tsx) and Footer (src/components/layout/Footer.tsx) utilizing Next.js Image component.
+
+5. **Build Optimization**
+   - Cleared obsolete dev caches, resolved edge-runtime prerendering exceptions by removing inline form submit event handlers from Server Components, and compliance updated metadata viewport config.
+   - Verified clean production build is successful.
+
+Frontend Files:
+- src/lib/data.ts
+- src/app/blog/[slug]/page.tsx
+- src/app/careers/[slug]/page.tsx
+- src/app/products/[slug]/page.tsx
+- src/app/case-studies/[slug]/page.tsx
+- src/components/forms/JobApplicationForm.tsx
+- src/components/forms/ProductDemoForm.tsx
+- src/components/layout/Navbar.tsx
+- src/components/layout/Footer.tsx
+- src/app/blog/page.tsx
+- src/app/careers/page.tsx
+- src/app/products/page.tsx
+- src/app/case-studies/page.tsx
+- src/app/layout.tsx
+
+Backend Files:
+- next.config.mjs
+- package.json
+
+Timestamp: 2026-06-04 23:42:11

@@ -41,16 +41,18 @@ export function Navbar() {
           className="flex items-center gap-2 group"
           aria-label="Zabnix home"
         >
-          <Image
-            src="/logo.jpeg"
-            alt="Zabnix Logo"
-            width={32}
-            height={32}
-            className="rounded-lg object-cover"
-            priority
-          />
+          <div className="bg-white border border-hairline rounded-[6px] p-1 flex items-center justify-center shrink-0 w-8 h-8 shadow-level-1">
+            <Image
+              src="/zabnix-logo.svg"
+              alt="Zabnix Logo"
+              width={24}
+              height={24}
+              className="object-contain"
+              priority
+            />
+          </div>
           <span
-            className="text-white font-semibold text-lg tracking-tight"
+            className="text-ink font-semibold text-lg tracking-tight"
             translate="no"
           >
             Zabnix
@@ -63,7 +65,7 @@ export function Navbar() {
             <Link
               key={link.href}
               href={link.href}
-              className="text-sm text-gray-400 hover:text-white transition-colors duration-200 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-violet-500 rounded"
+              className="text-sm text-body hover:text-ink transition-colors duration-200 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-violet-500 rounded"
             >
               {link.label}
             </Link>
@@ -74,13 +76,13 @@ export function Navbar() {
         <div className="hidden md:flex items-center gap-3">
           <Link
             href="/contact"
-            className="text-sm text-gray-400 hover:text-white transition-colors duration-200 px-3 py-1.5 rounded focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-violet-500"
+            className="text-sm text-body hover:text-ink transition-colors duration-200 px-3 py-1.5 rounded focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-violet-500"
           >
             Contact
           </Link>
           <Link
             href="/contact#consultation"
-            className="text-sm font-medium bg-white text-black px-4 py-2 rounded-lg hover:bg-gray-100 transition-colors duration-200 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-violet-500 focus-visible:ring-offset-2 focus-visible:ring-offset-black"
+            className="text-sm font-medium bg-ink text-white px-4 py-2 rounded-[6px] hover:bg-ink/90 transition-colors duration-200 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-violet-500 focus-visible:ring-offset-2 focus-visible:ring-offset-white"
           >
             Book Consultation
           </Link>
@@ -88,7 +90,7 @@ export function Navbar() {
 
         {/* Mobile menu button */}
         <button
-          className="md:hidden p-2 text-gray-400 hover:text-white focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-violet-500 rounded"
+          className="md:hidden p-2 text-body hover:text-ink focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-violet-500 rounded"
           onClick={() => setMobileOpen(!mobileOpen)}
           aria-label={mobileOpen ? "Close menu" : "Open menu"}
           aria-expanded={mobileOpen}
@@ -100,14 +102,14 @@ export function Navbar() {
       {/* Mobile menu */}
       {mobileOpen && (
         <div
-          className="md:hidden glass-nav border-t border-white/10 px-6 py-6 flex flex-col gap-4"
+          className="md:hidden glass-nav border-t border-hairline px-6 py-6 flex flex-col gap-4"
           style={{ overscrollBehavior: "contain" }}
         >
           {navLinks.map((link) => (
             <Link
               key={link.href}
               href={link.href}
-              className="text-sm text-gray-300 hover:text-white py-2 transition-colors duration-200"
+              className="text-sm text-body hover:text-ink py-2 transition-colors duration-200"
               onClick={() => setMobileOpen(false)}
             >
               {link.label}
@@ -115,7 +117,7 @@ export function Navbar() {
           ))}
           <Link
             href="/contact#consultation"
-            className="mt-2 w-full text-center text-sm font-medium bg-white text-black px-4 py-3 rounded-lg hover:bg-gray-100 transition-colors duration-200"
+            className="mt-2 w-full text-center text-sm font-medium bg-ink text-white px-4 py-3 rounded-[6px] hover:bg-ink/90 transition-colors duration-200"
             onClick={() => setMobileOpen(false)}
           >
             Book Consultation

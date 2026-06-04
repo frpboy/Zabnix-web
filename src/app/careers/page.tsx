@@ -1,14 +1,13 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import { ArrowRight, MapPin, Clock, Building2 } from "lucide-react";
+import { openRoles } from "@/lib/data";
 
 export const metadata: Metadata = {
   title: "Careers",
   description:
     "Join Zabnix — build impactful software for real businesses and grow alongside a talented team of engineers and designers.",
 };
-
-import { openRoles } from "@/lib/data";
 
 const perks = [
   { emoji: "🌍", title: "Remote First", desc: "Work from anywhere, with async-friendly processes." },
@@ -21,32 +20,32 @@ const perks = [
 
 export default function CareersPage() {
   return (
-    <div className="pt-24">
+    <div className="pt-24 min-h-screen bg-canvas-soft">
       {/* Hero */}
-      <section className="py-24 px-6 grid-bg relative overflow-hidden">
+      <section className="py-24 px-6 grid-bg relative overflow-hidden border-b border-hairline bg-canvas">
         <div
-          className="orb orb-purple"
+          className="orb orb-purple pulse-glow"
           style={{
             width: "400px",
             height: "400px",
             top: "50%",
             left: "50%",
             transform: "translate(-50%, -50%)",
-            opacity: 0.15,
+            opacity: 0.08,
           }}
           aria-hidden="true"
         />
         <div className="max-w-4xl mx-auto text-center relative z-10">
-          <p className="text-xs font-semibold tracking-widest text-violet-400 uppercase mb-4">
+          <p className="text-xs font-mono uppercase tracking-[0.2em] text-mute mb-4">
             Careers at Zabnix
           </p>
           <h1
-            className="text-5xl md:text-6xl font-bold text-white tracking-tight mb-6"
+            className="text-5xl md:text-6xl font-semibold text-ink tracking-[-0.03em] mb-6"
             style={{ textWrap: "balance" }}
           >
-            Build the future of enterprise software
+            Build the future of enterprise software.
           </h1>
-          <p className="text-xl text-gray-400 leading-relaxed max-w-2xl mx-auto">
+          <p className="text-xl text-body leading-relaxed max-w-2xl mx-auto">
             Join a team of sharp engineers and designers shipping real products
             that transform how businesses operate.
           </p>
@@ -54,25 +53,25 @@ export default function CareersPage() {
       </section>
 
       {/* Perks */}
-      <section className="py-24 px-6 border-t border-white/8" aria-labelledby="perks-heading">
+      <section className="py-24 px-6 bg-canvas-soft-2/10" aria-labelledby="perks-heading">
         <div className="max-w-7xl mx-auto">
           <h2
             id="perks-heading"
-            className="text-xs font-semibold text-gray-600 uppercase tracking-widest text-center mb-12"
+            className="text-xs font-mono uppercase tracking-[0.2em] text-center text-mute mb-12"
           >
             Why Join Us
           </h2>
-          <div className="grid grid-cols-2 md:grid-cols-3 gap-4">
+          <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6">
             {perks.map((perk) => (
               <div
                 key={perk.title}
-                className="border border-white/8 bg-[#0a0a0a] rounded-2xl p-6"
+                className="border border-hairline bg-canvas rounded-2xl p-6 shadow-level-2 hover:shadow-level-3 transition-all duration-300"
               >
                 <div className="text-3xl mb-4">{perk.emoji}</div>
-                <h3 className="text-sm font-semibold text-white mb-2">
+                <h3 className="text-sm font-semibold text-ink mb-2">
                   {perk.title}
                 </h3>
-                <p className="text-sm text-gray-500">{perk.desc}</p>
+                <p className="text-sm text-body">{perk.desc}</p>
               </div>
             ))}
           </div>
@@ -80,41 +79,41 @@ export default function CareersPage() {
       </section>
 
       {/* Open Roles */}
-      <section className="py-16 px-6 border-t border-white/8" aria-labelledby="roles-heading">
+      <section className="py-24 px-6 bg-canvas-soft" aria-labelledby="roles-heading">
         <div className="max-w-5xl mx-auto">
           <h2
             id="roles-heading"
-            className="text-3xl font-bold text-white mb-12"
+            className="text-3xl font-semibold text-ink mb-12 tracking-tight"
           >
             Open Roles
           </h2>
-          <div className="space-y-3">
+          <div className="space-y-4">
             {openRoles.map((role) => (
               <Link
                 key={role.slug}
                 href={`/careers/${role.slug}`}
-                className="group flex flex-col sm:flex-row sm:items-center justify-between gap-4 border border-white/8 bg-[#0a0a0a] hover:bg-white/3 rounded-xl px-6 py-5 transition-all duration-200 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-violet-500"
+                className="group flex flex-col sm:flex-row sm:items-center justify-between gap-4 border border-hairline bg-canvas hover:bg-canvas-soft-2/50 rounded-xl px-6 py-5 transition-all duration-200 shadow-level-2 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-link"
               >
                 <div className="flex-1 min-w-0">
-                  <h3 className="text-base font-semibold text-white group-hover:text-violet-300 transition-colors duration-200 truncate">
+                  <h3 className="text-base font-semibold text-ink group-hover:text-link transition-colors duration-200 truncate">
                     {role.title}
                   </h3>
-                  <div className="flex flex-wrap items-center gap-3 mt-2 text-xs text-gray-500">
+                  <div className="flex flex-wrap items-center gap-4 mt-2 text-xs text-mute font-mono">
                     <span className="flex items-center gap-1">
-                      <Building2 size={11} aria-hidden="true" />
+                      <Building2 size={12} className="text-mute shrink-0" aria-hidden="true" />
                       {role.department}
                     </span>
                     <span className="flex items-center gap-1">
-                      <MapPin size={11} aria-hidden="true" />
+                      <MapPin size={12} className="text-mute shrink-0" aria-hidden="true" />
                       {role.location}
                     </span>
                     <span className="flex items-center gap-1">
-                      <Clock size={11} aria-hidden="true" />
+                      <Clock size={12} className="text-mute shrink-0" aria-hidden="true" />
                       {role.type}
                     </span>
                   </div>
                 </div>
-                <div className="flex items-center gap-2 text-xs text-gray-500 group-hover:text-violet-400 transition-colors duration-200 shrink-0">
+                <div className="flex items-center gap-2 text-xs text-mute group-hover:text-ink transition-colors duration-200 shrink-0 font-medium">
                   Apply
                   <ArrowRight
                     size={14}
@@ -129,18 +128,18 @@ export default function CareersPage() {
       </section>
 
       {/* Bottom CTA */}
-      <section className="py-24 px-6 border-t border-white/8 text-center">
+      <section className="py-24 px-6 border-t border-hairline text-center bg-canvas">
         <div className="max-w-2xl mx-auto">
-          <h2 className="text-2xl font-bold text-white mb-4">
+          <h2 className="text-2xl font-semibold text-ink mb-4 tracking-tight">
             Don&#39;t see your role?
           </h2>
-          <p className="text-gray-400 mb-8">
+          <p className="text-body mb-8">
             We love meeting talented people. Send us your portfolio and tell us
             how you&#39;d contribute to Zabnix.
           </p>
           <a
             href="mailto:careers@zabnix.com"
-            className="inline-flex items-center gap-2 border border-white/15 bg-white/5 text-white text-sm font-medium px-6 py-3.5 rounded-xl hover:bg-white/10 transition-colors duration-200"
+            className="inline-flex items-center gap-2 border border-hairline bg-canvas text-ink text-sm font-medium px-6 py-3.5 rounded-full hover:bg-canvas-soft transition-colors duration-200 shadow-level-2 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-link"
           >
             Email careers@zabnix.com
           </a>

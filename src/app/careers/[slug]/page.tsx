@@ -35,25 +35,25 @@ export default async function JobRolePage({ params }: Props) {
   }
 
   return (
-    <div className="pt-24 min-h-screen">
+    <div className="pt-24 min-h-screen bg-canvas-soft">
       {/* Header */}
-      <section className="py-20 px-6 grid-bg relative overflow-hidden border-b border-white/8">
+      <section className="py-20 px-6 grid-bg relative overflow-hidden border-b border-hairline bg-canvas">
         <div
-          className="orb orb-purple"
+          className="orb orb-purple pulse-glow"
           style={{
             width: "500px",
             height: "500px",
             top: "50%",
             left: "50%",
             transform: "translate(-50%, -50%)",
-            opacity: 0.12,
+            opacity: 0.08,
           }}
           aria-hidden="true"
         />
         <div className="max-w-4xl mx-auto relative z-10">
           <Link
             href="/careers"
-            className="inline-flex items-center gap-2 text-sm text-gray-500 hover:text-white transition-colors duration-200 mb-8 group"
+            className="inline-flex items-center gap-2 text-sm text-body hover:text-ink transition-colors duration-200 mb-8 group"
           >
             <ArrowLeft
               size={14}
@@ -64,25 +64,25 @@ export default async function JobRolePage({ params }: Props) {
           </Link>
 
           <h1
-            className="text-4xl md:text-5xl font-bold text-white tracking-tight mb-6"
+            className="text-4xl md:text-5xl font-semibold text-ink tracking-[-0.03em] mb-6"
             style={{ textWrap: "balance" }}
           >
             {role.title}
           </h1>
 
-          <div className="flex flex-wrap items-center gap-4 text-sm text-gray-400">
-            <span className="flex items-center gap-1">
-              <Building2 size={14} className="text-gray-500" aria-hidden="true" />
+          <div className="flex flex-wrap items-center gap-4 text-xs font-mono text-mute">
+            <span className="flex items-center gap-1.5">
+              <Building2 size={13} className="text-mute shrink-0" aria-hidden="true" />
               {role.department}
             </span>
-            <span className="text-gray-700" aria-hidden="true">·</span>
-            <span className="flex items-center gap-1">
-              <MapPin size={14} className="text-gray-500" aria-hidden="true" />
+            <span className="text-hairline-strong" aria-hidden="true">·</span>
+            <span className="flex items-center gap-1.5">
+              <MapPin size={13} className="text-mute shrink-0" aria-hidden="true" />
               {role.location}
             </span>
-            <span className="text-gray-700" aria-hidden="true">·</span>
-            <span className="flex items-center gap-1">
-              <Clock size={14} className="text-gray-500" aria-hidden="true" />
+            <span className="text-hairline-strong" aria-hidden="true">·</span>
+            <span className="flex items-center gap-1.5">
+              <Clock size={13} className="text-mute shrink-0" aria-hidden="true" />
               {role.type}
             </span>
           </div>
@@ -95,39 +95,39 @@ export default async function JobRolePage({ params }: Props) {
           {/* Details */}
           <div className="lg:col-span-7 space-y-10">
             <div>
-              <h2 className="text-lg font-bold text-white mb-4">About the Role</h2>
-              <p className="text-gray-400 leading-relaxed text-sm md:text-base">
+              <h2 className="text-lg font-semibold text-ink mb-4">About the Role</h2>
+              <p className="text-body leading-relaxed text-sm md:text-base">
                 {role.description}
               </p>
             </div>
 
             <div>
-              <h2 className="text-lg font-bold text-white mb-4">Key Responsibilities</h2>
+              <h2 className="text-lg font-semibold text-ink mb-4">Key Responsibilities</h2>
               <ul className="space-y-3">
                 {role.responsibilities.map((resp, idx) => (
                   <li key={idx} className="flex items-start gap-3">
                     <CheckCircle2
                       size={15}
-                      className="text-violet-400 mt-0.5 shrink-0"
+                      className="text-link mt-0.5 shrink-0"
                       aria-hidden="true"
                     />
-                    <span className="text-sm text-gray-400 leading-relaxed">{resp}</span>
+                    <span className="text-sm text-body leading-relaxed">{resp}</span>
                   </li>
                 ))}
               </ul>
             </div>
 
             <div>
-              <h2 className="text-lg font-bold text-white mb-4">Requirements</h2>
+              <h2 className="text-lg font-semibold text-ink mb-4">Requirements</h2>
               <ul className="space-y-3">
                 {role.requirements.map((req, idx) => (
                   <li key={idx} className="flex items-start gap-3">
                     <CheckCircle2
                       size={15}
-                      className="text-violet-400 mt-0.5 shrink-0"
+                      className="text-link mt-0.5 shrink-0"
                       aria-hidden="true"
                     />
-                    <span className="text-sm text-gray-400 leading-relaxed">{req}</span>
+                    <span className="text-sm text-body leading-relaxed">{req}</span>
                   </li>
                 ))}
               </ul>
@@ -136,8 +136,8 @@ export default async function JobRolePage({ params }: Props) {
 
           {/* Application Form Sidebar */}
           <div className="lg:col-span-5">
-            <div className="sticky top-28 border border-white/8 bg-[#0a0a0a] rounded-2xl p-6 md:p-8 space-y-6">
-              <h2 className="text-lg font-bold text-white">Apply for this role</h2>
+            <div className="sticky top-28 border border-hairline bg-canvas rounded-2xl p-6 md:p-8 space-y-6 shadow-level-3">
+              <h2 className="text-lg font-semibold text-ink">Apply for this role</h2>
               <JobApplicationForm roleTitle={role.title} />
             </div>
           </div>

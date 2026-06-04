@@ -34,11 +34,11 @@ export default async function BlogPostPage({ params }: Props) {
   }
 
   return (
-    <div className="pt-24 min-h-screen">
+    <div className="pt-24 min-h-screen bg-canvas-soft">
       {/* Hero Section */}
-      <section className="py-20 px-6 grid-bg relative overflow-hidden border-b border-white/8">
+      <section className="py-20 px-6 grid-bg relative overflow-hidden border-b border-hairline bg-canvas">
         <div
-          className={`orb absolute opacity-10 bg-gradient-to-br ${post.gradient}`}
+          className={`orb absolute opacity-5 bg-gradient-to-br ${post.gradient} blur-3xl`}
           style={{
             width: "500px",
             height: "500px",
@@ -51,7 +51,7 @@ export default async function BlogPostPage({ params }: Props) {
         <div className="max-w-4xl mx-auto relative z-10">
           <Link
             href="/blog"
-            className="inline-flex items-center gap-2 text-sm text-gray-500 hover:text-white transition-colors duration-200 mb-8 group"
+            className="inline-flex items-center gap-2 text-sm text-body hover:text-ink transition-colors duration-200 mb-8 group"
           >
             <ArrowLeft
               size={14}
@@ -62,33 +62,33 @@ export default async function BlogPostPage({ params }: Props) {
           </Link>
 
           <div className="flex flex-wrap items-center gap-3 mb-6">
-            <span className="text-xs font-semibold tracking-widest text-violet-400 uppercase">
+            <span className="text-xs font-mono font-semibold tracking-widest text-mute uppercase">
               {post.category}
             </span>
-            <span className="text-gray-700" aria-hidden="true">·</span>
-            <span className="flex items-center gap-1 text-xs text-gray-400">
-              <Clock size={11} aria-hidden="true" />
+            <span className="text-hairline-strong" aria-hidden="true">·</span>
+            <span className="flex items-center gap-1.5 text-xs text-mute font-mono">
+              <Clock size={12} className="text-mute" aria-hidden="true" />
               <span>{post.readTime} min read</span>
             </span>
           </div>
 
           <h1
-            className="text-4xl md:text-5xl lg:text-6xl font-bold text-white tracking-tight mb-8 leading-tight"
+            className="text-4xl md:text-5xl lg:text-6xl font-semibold text-ink tracking-[-0.03em] mb-8 leading-tight"
             style={{ textWrap: "balance" }}
           >
             {post.title}
           </h1>
 
           {/* Author/Date Row */}
-          <div className="flex flex-wrap items-center gap-6 text-sm text-gray-400 pt-6">
+          <div className="flex flex-wrap items-center gap-6 text-xs font-mono text-mute pt-6 border-t border-hairline">
             <div className="flex items-center gap-2">
-              <div className="w-8 h-8 rounded-full bg-white/10 flex items-center justify-center text-white font-semibold">
+              <div className="w-8 h-8 rounded-full bg-canvas border border-hairline flex items-center justify-center text-ink font-semibold shadow-level-1 font-sans">
                 {post.author[0]}
               </div>
               <span>{post.author}</span>
             </div>
             <div className="flex items-center gap-2">
-              <Calendar size={14} className="text-gray-500" aria-hidden="true" />
+              <Calendar size={14} className="text-mute" aria-hidden="true" />
               <time dateTime={post.isoDate}>{post.date}</time>
             </div>
           </div>
@@ -99,8 +99,8 @@ export default async function BlogPostPage({ params }: Props) {
       <section className="py-16 px-6">
         <div className="max-w-4xl mx-auto grid grid-cols-1 lg:grid-cols-12 gap-12">
           {/* Main Body */}
-          <article className="lg:col-span-8 space-y-6 text-gray-300 leading-relaxed text-base md:text-lg">
-            <p className="text-white font-medium text-lg md:text-xl border-l-2 border-violet-500 pl-4 mb-8">
+          <article className="lg:col-span-8 space-y-6 text-body leading-relaxed text-base md:text-lg">
+            <p className="text-ink font-medium text-lg md:text-xl border-l-2 border-link pl-4 mb-8">
               {post.excerpt}
             </p>
             {post.content.map((paragraph, index) => (
@@ -111,16 +111,16 @@ export default async function BlogPostPage({ params }: Props) {
           {/* Sidebar */}
           <aside className="lg:col-span-4 space-y-8">
             {/* Consultation Card */}
-            <div className="border border-white/8 bg-[#0a0a0a] rounded-2xl p-6 space-y-4">
-              <h3 className="text-sm font-semibold text-white">
+            <div className="border border-hairline bg-canvas rounded-2xl p-6 space-y-4 shadow-level-3">
+              <h3 className="text-sm font-semibold text-ink">
                 Have a project in mind?
               </h3>
-              <p className="text-xs text-gray-500 leading-relaxed">
+              <p className="text-xs text-body leading-relaxed">
                 Let&#39;s chat about how we can build, scale, and automate your operations with production-grade engineering.
               </p>
               <Link
                 href="/contact#consultation"
-                className="w-full inline-flex items-center justify-center gap-2 bg-white text-black text-xs font-semibold px-4 py-3 rounded-xl hover:bg-gray-100 transition-colors duration-200"
+                className="w-full inline-flex items-center justify-center gap-2 bg-ink text-white text-xs font-semibold px-4 py-3 rounded-full hover:bg-ink/90 transition-colors duration-200 shadow-level-2 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ink"
               >
                 Book Consultation
                 <ArrowRight size={12} aria-hidden="true" />
@@ -128,11 +128,11 @@ export default async function BlogPostPage({ params }: Props) {
             </div>
 
             {/* Newsletter Card */}
-            <div className="border border-white/8 bg-[#0a0a0a]/50 rounded-2xl p-6 space-y-4">
-              <h3 className="text-sm font-semibold text-white">
+            <div className="border border-hairline bg-canvas rounded-2xl p-6 space-y-4 shadow-level-3">
+              <h3 className="text-sm font-semibold text-ink">
                 Subscribe to our newsletter
               </h3>
-              <p className="text-xs text-gray-500">
+              <p className="text-xs text-body">
                 Get more insights directly in your inbox. No spam.
               </p>
               <form
@@ -146,11 +146,11 @@ export default async function BlogPostPage({ params }: Props) {
                   id="sb-email"
                   type="email"
                   placeholder="you@company.com…"
-                  className="w-full bg-black border border-white/10 rounded-xl px-3 py-2 text-xs text-white placeholder:text-gray-700 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-violet-500"
+                  className="w-full bg-canvas border border-hairline rounded-[6px] px-3 py-2 text-xs text-ink placeholder:text-mute focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-link"
                 />
                 <button
                   type="button"
-                  className="w-full bg-white/10 hover:bg-white/15 text-white text-xs font-semibold px-4 py-2.5 rounded-xl border border-white/10 transition-colors duration-200"
+                  className="w-full bg-canvas border border-hairline text-ink text-xs font-semibold px-4 py-2.5 rounded-[6px] hover:bg-canvas-soft transition-colors duration-200 shadow-level-2"
                 >
                   Subscribe
                 </button>

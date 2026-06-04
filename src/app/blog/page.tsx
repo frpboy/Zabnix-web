@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import { ArrowRight, Clock } from "lucide-react";
+import { blogPosts as posts } from "@/lib/data";
 
 export const metadata: Metadata = {
   title: "Blog",
@@ -8,36 +9,34 @@ export const metadata: Metadata = {
     "Insights on software engineering, AI automation, ERP implementation, and digital transformation from the Zabnix team.",
 };
 
-import { blogPosts as posts } from "@/lib/data";
-
 export default function BlogPage() {
   return (
-    <div className="pt-24">
+    <div className="pt-24 min-h-screen bg-canvas-soft">
       {/* Hero */}
-      <section className="py-24 px-6 grid-bg relative overflow-hidden">
+      <section className="py-24 px-6 grid-bg relative overflow-hidden border-b border-hairline bg-canvas">
         <div
-          className="orb orb-blue"
+          className="orb orb-blue pulse-glow"
           style={{
             width: "400px",
             height: "400px",
             top: "60%",
             left: "40%",
             transform: "translate(-50%, -50%)",
-            opacity: 0.12,
+            opacity: 0.08,
           }}
           aria-hidden="true"
         />
         <div className="max-w-4xl mx-auto relative z-10">
-          <p className="text-xs font-semibold tracking-widest text-violet-400 uppercase mb-4">
+          <p className="text-xs font-mono uppercase tracking-[0.2em] text-mute mb-4">
             The Zabnix Blog
           </p>
           <h1
-            className="text-5xl md:text-6xl font-bold text-white tracking-tight mb-6"
+            className="text-5xl md:text-6xl font-semibold text-ink tracking-[-0.03em] mb-6"
             style={{ textWrap: "balance" }}
           >
-            Engineering insights & deep dives
+            Engineering insights &amp; deep dives.
           </h1>
-          <p className="text-xl text-gray-400 leading-relaxed max-w-2xl">
+          <p className="text-xl text-body leading-relaxed max-w-2xl">
             Practical perspectives from the engineers building production-grade
             software for real businesses.
           </p>
@@ -45,7 +44,7 @@ export default function BlogPage() {
       </section>
 
       {/* Posts */}
-      <section className="py-16 px-6 border-t border-white/8" aria-labelledby="posts-heading">
+      <section className="py-24 px-6 bg-canvas-soft" aria-labelledby="posts-heading">
         <h2 id="posts-heading" className="sr-only">
           Blog Posts
         </h2>
@@ -54,15 +53,15 @@ export default function BlogPage() {
             <article key={post.slug}>
               <Link
                 href={`/blog/${post.slug}`}
-                className={`group flex flex-col gap-4 border ${post.border} bg-gradient-to-br ${post.gradient} rounded-2xl p-7 no-underline hover:border-opacity-40 transition-all duration-300 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-violet-500 block`}
+                className="group flex flex-col gap-4 border border-hairline bg-canvas rounded-2xl p-7 no-underline shadow-level-3 hover:shadow-level-4 hover:border-hairline-strong transition-all duration-300 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-link block"
               >
                 <div className="flex items-center gap-3">
-                  <span className="text-xs font-semibold tracking-widest text-gray-500 uppercase">
+                  <span className="text-xs font-mono font-semibold tracking-widest text-mute uppercase">
                     {post.category}
                   </span>
-                  <span className="text-gray-700">·</span>
-                  <span className="flex items-center gap-1 text-xs text-gray-600">
-                    <Clock size={11} aria-hidden="true" />
+                  <span className="text-hairline-strong">·</span>
+                  <span className="flex items-center gap-1.5 text-xs text-mute font-mono">
+                    <Clock size={12} className="text-mute" aria-hidden="true" />
                     <time dateTime={post.isoDate}>
                       {post.date}
                     </time>
@@ -71,18 +70,18 @@ export default function BlogPage() {
                   </span>
                 </div>
                 <div>
-                  <h2 className="text-xl font-bold text-white leading-snug mb-3 group-hover:text-violet-200 transition-colors duration-200" style={{ textWrap: "balance" }}>
+                  <h2 className="text-xl font-semibold text-ink leading-snug mb-3 group-hover:text-link transition-colors duration-200" style={{ textWrap: "balance" }}>
                     {post.title}
                   </h2>
-                  <p className="text-sm text-gray-500 leading-relaxed line-clamp-2">
+                  <p className="text-sm text-body leading-relaxed line-clamp-2">
                     {post.excerpt}
                   </p>
                 </div>
                 <div className="flex items-center justify-between">
-                  <span className="text-xs text-gray-600">
+                  <span className="text-xs text-mute font-mono">
                     By {post.author}
                   </span>
-                  <div className="flex items-center gap-1 text-xs text-gray-600 group-hover:text-violet-400 transition-colors duration-200">
+                  <div className="flex items-center gap-1 text-xs text-mute group-hover:text-ink transition-colors duration-200 font-medium">
                     Read article
                     <ArrowRight
                       size={12}
@@ -98,15 +97,15 @@ export default function BlogPage() {
       </section>
 
       {/* Newsletter */}
-      <section className="py-24 px-6 border-t border-white/8">
+      <section className="py-24 px-6 border-t border-hairline bg-canvas">
         <div className="max-w-xl mx-auto text-center">
-          <h2 className="text-2xl font-bold text-white mb-3">
+          <h2 className="text-3xl font-semibold text-ink mb-3 tracking-tight">
             Stay updated
           </h2>
-          <p className="text-gray-400 mb-8">
+          <p className="text-body mb-8">
             Get new articles delivered to your inbox — no spam, just signal.
           </p>
-           <form
+          <form
             className="flex gap-2 max-w-sm mx-auto"
             aria-label="Newsletter signup"
           >
@@ -120,11 +119,11 @@ export default function BlogPage() {
               autoComplete="email"
               spellCheck={false}
               placeholder="you@company.com…"
-              className="flex-1 bg-black border border-white/10 rounded-xl px-4 py-3 text-sm text-white placeholder:text-gray-700 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-violet-500"
+              className="flex-1 bg-canvas border border-hairline rounded-[6px] px-4 py-3 text-sm text-ink placeholder:text-mute focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-link"
             />
             <button
               type="button"
-              className="bg-white text-black text-sm font-semibold px-5 py-3 rounded-xl hover:bg-gray-100 transition-colors duration-200 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-offset-2 focus-visible:ring-offset-black whitespace-nowrap"
+              className="bg-ink text-white text-sm font-semibold px-5 py-3 rounded-[6px] hover:bg-ink/90 transition-colors duration-200 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ink focus-visible:ring-offset-2 focus-visible:ring-offset-canvas whitespace-nowrap"
             >
               Subscribe
             </button>

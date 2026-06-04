@@ -31,37 +31,37 @@ const techStack = [
 ];
 
 const categoryColors: Record<string, string> = {
-  Frontend: "text-violet-400",
-  Mobile: "text-blue-400",
-  Language: "text-emerald-400",
-  Backend: "text-orange-400",
-  "AI/ML": "text-pink-400",
-  Database: "text-cyan-400",
-  Platform: "text-yellow-400",
-  Cloud: "text-red-400",
-  DevOps: "text-indigo-400",
-  ORM: "text-teal-400",
-  API: "text-amber-400",
-  Styling: "text-purple-400",
-  Deployment: "text-sky-400",
+  Frontend: "text-violet-600 bg-violet-50/50",
+  Mobile: "text-blue-600 bg-blue-55/50",
+  Language: "text-emerald-600 bg-emerald-50/50",
+  Backend: "text-orange-600 bg-orange-50/50",
+  "AI/ML": "text-pink-600 bg-pink-50/50",
+  Database: "text-cyan-700 bg-cyan-50/50",
+  Platform: "text-amber-700 bg-amber-50/50",
+  Cloud: "text-red-600 bg-red-50/50",
+  DevOps: "text-indigo-600 bg-indigo-50/50",
+  ORM: "text-teal-600 bg-teal-50/50",
+  API: "text-amber-600 bg-amber-50/50",
+  Styling: "text-purple-600 bg-purple-50/50",
+  Deployment: "text-sky-600 bg-sky-50/50",
 };
 
 export function TechStack() {
   return (
     <section
-      className="py-24 border-t border-white/8 overflow-hidden"
+      className="py-24 border-t border-hairline overflow-hidden bg-canvas-soft"
       aria-labelledby="techstack-heading"
     >
       <div className="max-w-7xl mx-auto px-6 mb-12">
-        <p className="text-center text-xs font-semibold tracking-widest text-gray-600 uppercase">
+        <p className="text-center text-xs font-mono uppercase tracking-[0.2em] text-mute">
           Tech Stack
         </p>
         <h2
           id="techstack-heading"
-          className="text-center text-2xl md:text-3xl font-bold text-white mt-3"
+          className="text-center text-2xl md:text-3xl font-semibold text-ink mt-3 tracking-tight"
           style={{ textWrap: "balance" }}
         >
-          Powered by industry-leading technology
+          Powered by industry-leading technology.
         </h2>
       </div>
 
@@ -69,12 +69,12 @@ export function TechStack() {
         {/* Fade edges */}
         <div
           className="absolute left-0 top-0 bottom-0 w-32 z-10 pointer-events-none"
-          style={{ background: "linear-gradient(90deg, #000000 0%, transparent 100%)" }}
+          style={{ background: "linear-gradient(90deg, #fafafa 0%, rgba(250, 250, 250, 0) 100%)" }}
           aria-hidden="true"
         />
         <div
           className="absolute right-0 top-0 bottom-0 w-32 z-10 pointer-events-none"
-          style={{ background: "linear-gradient(270deg, #000000 0%, transparent 100%)" }}
+          style={{ background: "linear-gradient(270deg, #fafafa 0%, rgba(250, 250, 250, 0) 100%)" }}
           aria-hidden="true"
         />
 
@@ -83,14 +83,14 @@ export function TechStack() {
             {techStack.map((tech, i) => (
               <div
                 key={i}
-                className="mx-3 flex items-center gap-2 border border-white/8 bg-white/3 rounded-xl px-4 py-2.5 whitespace-nowrap"
+                className="mx-3 flex items-center gap-2 border border-hairline bg-canvas rounded-xl px-4 py-2.5 whitespace-nowrap shadow-level-1"
               >
                 <span
-                  className={`text-xs font-semibold ${categoryColors[tech.category] ?? "text-gray-500"}`}
+                  className={`text-[10px] font-semibold font-mono uppercase px-2 py-0.5 rounded ${categoryColors[tech.category] ?? "text-body bg-canvas-soft-2"}`}
                 >
                   {tech.category}
                 </span>
-                <span className="text-sm font-medium text-white">
+                <span className="text-sm font-medium text-ink">
                   {tech.name}
                 </span>
               </div>

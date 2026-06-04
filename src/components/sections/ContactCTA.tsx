@@ -4,7 +4,7 @@ import { ArrowRight, Calendar, Mail, Phone, MapPin } from "lucide-react";
 export function ContactCTA() {
   return (
     <section
-      className="py-32 px-6 border-t border-white/8 relative overflow-hidden"
+      className="py-32 px-6 border-t border-hairline relative overflow-hidden bg-canvas-soft"
       aria-labelledby="cta-heading"
     >
       {/* Background orbs */}
@@ -16,7 +16,7 @@ export function ContactCTA() {
           top: "50%",
           left: "50%",
           transform: "translate(-50%, -50%) translate(-80px, 0px)",
-          opacity: 0.15,
+          opacity: 0.08,
         }}
         aria-hidden="true"
       />
@@ -25,17 +25,17 @@ export function ContactCTA() {
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
           {/* Left: CTA text */}
           <div>
-            <p className="text-xs font-semibold tracking-widest text-violet-400 uppercase mb-4">
+            <p className="text-xs font-mono uppercase tracking-[0.2em] text-mute mb-4">
               Get Started
             </p>
             <h2
               id="cta-heading"
-              className="text-4xl md:text-5xl font-bold text-white tracking-tight mb-6"
+              className="text-4xl md:text-5xl font-semibold text-ink tracking-[-0.03em] mb-6"
               style={{ textWrap: "balance" }}
             >
               Ready to transform your business?
             </h2>
-            <p className="text-lg text-gray-400 leading-relaxed mb-10">
+            <p className="text-lg text-body leading-relaxed mb-10">
               Let&#39;s talk about your project. We&#39;ll review your
               requirements, suggest an architecture, and give you a realistic
               timeline and budget estimate — no strings attached.
@@ -67,10 +67,10 @@ export function ContactCTA() {
                 <a
                   key={label}
                   href={href}
-                  className="flex items-center gap-3 text-sm text-gray-400 hover:text-white transition-colors duration-200 group"
+                  className="flex items-center gap-3 text-sm text-body hover:text-ink transition-colors duration-200 group"
                 >
-                  <div className="w-9 h-9 rounded-lg border border-white/10 flex items-center justify-center group-hover:border-violet-500/40 transition-colors duration-200 shrink-0">
-                    <Icon size={15} aria-hidden="true" />
+                  <div className="w-9 h-9 rounded-lg border border-hairline bg-canvas flex items-center justify-center group-hover:border-hairline-strong transition-colors duration-200 shrink-0">
+                    <Icon size={15} className="text-body group-hover:text-ink" aria-hidden="true" />
                   </div>
                   <span>{label}</span>
                 </a>
@@ -78,10 +78,10 @@ export function ContactCTA() {
             </div>
           </div>
 
-          {/* Right: Quick contact card */}
+          {/* Right: Quick contact card (ex-auth-form-card style) */}
           <div className="relative">
-            <div className="border border-white/10 bg-[#0a0a0a] rounded-2xl p-8">
-              <h3 className="text-xl font-semibold text-white mb-6">
+            <div className="border border-hairline bg-canvas rounded-2xl p-8 shadow-level-3">
+              <h3 className="text-xl font-semibold text-ink mb-6">
                 Send us a message
               </h3>
               <form
@@ -91,7 +91,7 @@ export function ContactCTA() {
                 <div>
                   <label
                     htmlFor="contact-name"
-                    className="block text-xs font-semibold text-gray-500 uppercase tracking-widest mb-2"
+                    className="block text-xs font-mono uppercase tracking-wider text-body mb-2"
                   >
                     Your Name
                   </label>
@@ -101,13 +101,13 @@ export function ContactCTA() {
                     name="name"
                     autoComplete="name"
                     placeholder="Rahul Sharma…"
-                    className="w-full bg-black border border-white/10 rounded-xl px-4 py-3 text-sm text-white placeholder:text-gray-700 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-violet-500 transition-colors duration-200"
+                    className="w-full bg-canvas border border-hairline rounded-[6px] px-4 py-3 text-sm text-ink placeholder:text-mute focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-link transition-colors duration-200"
                   />
                 </div>
                 <div>
                   <label
                     htmlFor="contact-email"
-                    className="block text-xs font-semibold text-gray-500 uppercase tracking-widest mb-2"
+                    className="block text-xs font-mono uppercase tracking-wider text-body mb-2"
                   >
                     Work Email
                   </label>
@@ -118,13 +118,13 @@ export function ContactCTA() {
                     autoComplete="email"
                     spellCheck={false}
                     placeholder="you@company.com…"
-                    className="w-full bg-black border border-white/10 rounded-xl px-4 py-3 text-sm text-white placeholder:text-gray-700 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-violet-500 transition-colors duration-200"
+                    className="w-full bg-canvas border border-hairline rounded-[6px] px-4 py-3 text-sm text-ink placeholder:text-mute focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-link transition-colors duration-200"
                   />
                 </div>
                 <div>
                   <label
                     htmlFor="contact-message"
-                    className="block text-xs font-semibold text-gray-500 uppercase tracking-widest mb-2"
+                    className="block text-xs font-mono uppercase tracking-wider text-body mb-2"
                   >
                     What are you building?
                   </label>
@@ -133,12 +133,12 @@ export function ContactCTA() {
                     name="message"
                     rows={4}
                     placeholder="Describe your project or requirements…"
-                    className="w-full bg-black border border-white/10 rounded-xl px-4 py-3 text-sm text-white placeholder:text-gray-700 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-violet-500 transition-colors duration-200 resize-none"
+                    className="w-full bg-canvas border border-hairline rounded-[6px] px-4 py-3 text-sm text-ink placeholder:text-mute focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-link transition-colors duration-200 resize-none"
                   />
                 </div>
                 <button
                   type="button"
-                  className="w-full inline-flex items-center justify-center gap-2 bg-white text-black text-sm font-semibold px-6 py-3.5 rounded-xl hover:bg-gray-100 transition-colors duration-200 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-offset-2 focus-visible:ring-offset-black"
+                  className="w-full inline-flex items-center justify-center gap-2 bg-ink text-white text-sm font-semibold px-6 py-3.5 rounded-[6px] hover:bg-ink/90 transition-colors duration-200 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ink focus-visible:ring-offset-2 focus-visible:ring-offset-canvas"
                 >
                   Send Message
                   <ArrowRight size={16} aria-hidden="true" />
@@ -148,7 +148,7 @@ export function ContactCTA() {
 
             {/* Glow */}
             <div
-              className="absolute inset-0 -z-10 blur-3xl opacity-10 rounded-3xl bg-gradient-to-br from-violet-600 to-blue-600"
+              className="absolute inset-0 -z-10 blur-3xl opacity-5 rounded-3xl bg-gradient-to-br from-violet-600 to-blue-600"
               aria-hidden="true"
             />
           </div>

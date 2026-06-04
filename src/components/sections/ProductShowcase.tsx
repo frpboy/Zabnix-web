@@ -17,7 +17,8 @@ const products = [
     ],
     href: "/products/zerpai",
     gradient: "from-violet-600 to-indigo-600",
-    imageGradient: "from-violet-900/40 via-indigo-900/20 to-transparent",
+    imageGradient: "from-[#1a1325] via-[#121214] to-[#121212]",
+    glowColor: "from-violet-500/20 to-indigo-500/20",
   },
   {
     tag: "Healthcare Suite",
@@ -34,30 +35,31 @@ const products = [
     ],
     href: "/products/healthcare",
     gradient: "from-blue-600 to-cyan-600",
-    imageGradient: "from-blue-900/40 via-cyan-900/20 to-transparent",
+    imageGradient: "from-[#0e1726] via-[#121214] to-[#121212]",
+    glowColor: "from-blue-500/20 to-cyan-500/20",
   },
 ];
 
 export function ProductShowcase() {
   return (
     <section
-      className="py-32 px-6 border-t border-white/8"
+      className="py-32 px-6 border-t border-hairline bg-canvas"
       aria-labelledby="products-heading"
     >
       <div className="max-w-7xl mx-auto">
         {/* Header */}
         <div className="text-center max-w-2xl mx-auto mb-20">
-          <p className="text-xs font-semibold tracking-widest text-violet-400 uppercase mb-4">
+          <p className="text-xs font-mono uppercase tracking-[0.2em] text-mute mb-4">
             Our Products
           </p>
           <h2
             id="products-heading"
-            className="text-4xl md:text-5xl font-bold text-white tracking-tight mb-4"
+            className="text-4xl md:text-5xl font-semibold text-ink tracking-[-0.03em] mb-4"
             style={{ textWrap: "balance" }}
           >
-            Built for real business problems
+            Built for real business problems.
           </h2>
-          <p className="text-lg text-gray-400 leading-relaxed">
+          <p className="text-lg text-body leading-relaxed">
             Purpose-built platforms that go live fast and scale with your
             operations.
           </p>
@@ -74,16 +76,16 @@ export function ProductShowcase() {
             >
               {/* Text */}
               <div>
-                <span className="inline-block text-xs font-semibold tracking-widest uppercase text-gray-500 mb-4">
+                <span className="inline-block text-xs font-mono uppercase tracking-widest text-mute mb-4">
                   {product.tag}
                 </span>
-                <h3 className="text-3xl md:text-4xl font-bold text-white tracking-tight mb-4">
+                <h3 className="text-3xl md:text-4xl font-semibold text-ink tracking-tight mb-4">
                   {product.name}
                 </h3>
-                <p className="text-lg font-medium text-gray-300 mb-4">
+                <p className="text-lg font-medium text-body mb-4">
                   {product.tagline}
                 </p>
-                <p className="text-gray-500 leading-relaxed mb-8">
+                <p className="text-body leading-relaxed mb-8 text-sm md:text-base">
                   {product.description}
                 </p>
                 <ul className="space-y-3 mb-8">
@@ -91,89 +93,85 @@ export function ProductShowcase() {
                     <li key={feature} className="flex items-start gap-3">
                       <CheckCircle2
                         size={16}
-                        className="text-violet-400 mt-0.5 shrink-0"
+                        className="text-link mt-0.5 shrink-0"
                         aria-hidden="true"
                       />
-                      <span className="text-sm text-gray-400">{feature}</span>
+                      <span className="text-sm text-body">{feature}</span>
                     </li>
                   ))}
                 </ul>
                 <div className="flex items-center gap-4">
                   <Link
                     href={product.href}
-                    className="inline-flex items-center gap-2 text-sm font-medium text-white border border-white/15 bg-white/5 px-5 py-2.5 rounded-xl hover:bg-white/10 hover:border-white/25 transition-colors duration-200 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-violet-500"
+                    className="inline-flex items-center gap-2 text-sm font-medium text-ink border border-hairline bg-canvas px-5 py-2.5 rounded-full hover:bg-canvas-soft-2 transition-colors duration-200 shadow-level-2 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-link"
                   >
                     View Product
                     <ArrowRight size={14} aria-hidden="true" />
                   </Link>
                   <Link
                     href={`${product.href}#demo`}
-                    className="inline-flex items-center gap-2 text-sm text-gray-400 hover:text-white transition-colors duration-200"
+                    className="inline-flex items-center gap-2 text-sm text-body font-medium hover:text-ink transition-colors duration-200"
                   >
                     Request Demo →
                   </Link>
                 </div>
               </div>
 
-              {/* Visual mockup */}
+              {/* Visual mockup (Dark code-editor-mockup style band for depth cue) */}
               <div className="relative">
                 <div
-                  className={`relative rounded-2xl overflow-hidden border border-white/10 bg-gradient-to-br ${product.imageGradient}`}
+                  className={`relative rounded-2xl overflow-hidden border border-[#2e2e2e] bg-[#121212] p-6`}
                   style={{ aspectRatio: "16/10" }}
                 >
                   {/* Fake dashboard UI */}
-                  <div className="absolute inset-0 p-6">
+                  <div className="absolute inset-0 p-6 flex flex-col">
                     {/* Top bar */}
-                    <div className="flex items-center gap-2 mb-4">
-                      <div className="w-2 h-2 rounded-full bg-red-500/70" />
-                      <div className="w-2 h-2 rounded-full bg-yellow-500/70" />
-                      <div className="w-2 h-2 rounded-full bg-green-500/70" />
-                      <div className="flex-1 ml-2 h-5 bg-white/5 rounded" />
+                    <div className="flex items-center gap-2 mb-6 shrink-0">
+                      <div className="w-2.5 h-2.5 rounded-full bg-[#ee0000]/80" />
+                      <div className="w-2.5 h-2.5 rounded-full bg-[#f5a623]/80" />
+                      <div className="w-2.5 h-2.5 rounded-full bg-[#0070f3]/80" />
+                      <div className="flex-1 ml-2 h-5 bg-white/5 rounded border border-white/5" />
                     </div>
                     {/* Content blocks */}
-                    <div className="grid grid-cols-3 gap-2 mb-4">
-                      {[...Array(3)].map((_, i) => (
-                        <div
-                          key={i}
-                          className="h-16 bg-white/5 rounded-lg border border-white/8 flex flex-col justify-end p-2 gap-1"
-                        >
+                    <div className="flex-1 flex flex-col justify-between">
+                      <div className="grid grid-cols-3 gap-3">
+                        {[...Array(3)].map((_, i) => (
                           <div
-                            className={`h-1.5 rounded bg-gradient-to-r ${product.gradient} opacity-70`}
-                            style={{ width: `${60 + i * 15}%` }}
-                          />
-                          <div className="h-1 bg-white/10 rounded w-3/4" />
+                            key={i}
+                            className="h-16 bg-[#1a1a1a] rounded-lg border border-[#2e2e2e] flex flex-col justify-end p-3 gap-2"
+                          >
+                            <div
+                              className={`h-1.5 rounded bg-gradient-to-r ${product.gradient} opacity-70`}
+                              style={{ width: `${60 + i * 15}%` }}
+                            />
+                            <div className="h-1 bg-white/10 rounded w-3/4" />
+                          </div>
+                        ))}
+                      </div>
+                      <div className="h-20 bg-[#1a1a1a] rounded-lg border border-[#2e2e2e] flex items-center px-4 gap-4">
+                        <div
+                          className={`w-8 h-8 rounded bg-gradient-to-br ${product.gradient} opacity-80 shrink-0`}
+                        />
+                        <div className="flex-1 space-y-2">
+                          <div className="h-1.5 bg-white/15 rounded w-3/4" />
+                          <div className="h-1.5 bg-white/5 rounded w-1/2" />
                         </div>
-                      ))}
-                    </div>
-                    <div className="h-24 bg-white/3 rounded-lg border border-white/8 mb-2 flex items-center px-4 gap-3">
-                      <div
-                        className={`w-8 h-8 rounded bg-gradient-to-br ${product.gradient} opacity-80 shrink-0`}
-                      />
-                      <div className="flex-1 space-y-1.5">
-                        <div className="h-1.5 bg-white/15 rounded w-3/4" />
-                        <div className="h-1.5 bg-white/8 rounded w-1/2" />
+                      </div>
+                      <div className="grid grid-cols-2 gap-3">
+                        {[...Array(2)].map((_, i) => (
+                          <div
+                            key={i}
+                            className="h-12 bg-[#161616] rounded border border-[#2e2e2e]"
+                          />
+                        ))}
                       </div>
                     </div>
-                    <div className="grid grid-cols-2 gap-2">
-                      {[...Array(2)].map((_, i) => (
-                        <div
-                          key={i}
-                          className="h-12 bg-white/3 rounded border border-white/8"
-                        />
-                      ))}
-                    </div>
                   </div>
-
-                  {/* Gradient overlay */}
-                  <div
-                    className="absolute bottom-0 left-0 right-0 h-24 bg-gradient-to-t from-black/80 to-transparent"
-                    aria-hidden="true"
-                  />
                 </div>
 
                 {/* Glow behind */}
                 <div
-                  className={`absolute inset-0 -z-10 blur-3xl opacity-20 rounded-3xl bg-gradient-to-br ${product.gradient}`}
+                  className={`absolute inset-0 -z-10 blur-3xl opacity-30 rounded-3xl bg-gradient-to-br ${product.glowColor}`}
                   aria-hidden="true"
                 />
               </div>

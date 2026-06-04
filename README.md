@@ -1,6 +1,6 @@
 # Zabnix Web
 
-**Build Faster. Automate Smarter.**
+**Build faster. Automate smarter.**
 
 The corporate website for Zabnix — a premium product engineering firm delivering software development, AI automation, ERP systems, and mobile applications for enterprise clients across healthcare, pharma, retail, and manufacturing.
 
@@ -8,7 +8,7 @@ The corporate website for Zabnix — a premium product engineering firm deliveri
 
 ## What This Is
 
-This is a marketing-grade corporate website that functions as Zabnix's primary lead-generation engine and product showcase. It is not a generic template — every design decision, from the dark-mode grid background to the glassmorphism navbar, was intentionally chosen to position Zabnix alongside tier-1 SaaS companies like Vercel, Linear, and Stripe.
+This is a marketing-grade corporate website that functions as Zabnix's primary lead-generation engine and product showcase. It is not a generic template — every design decision, from the light-canvas layout to the grid background, was intentionally chosen to position Zabnix alongside tier-1 SaaS companies like Vercel, Linear, and Stripe.
 
 The site is **not a CMS-driven brochure**. It is a developer-owned, code-first marketing site where content lives in source code, pages are statically generated at build time, and every interaction is designed to convert B2B decision-makers.
 
@@ -16,49 +16,45 @@ The site is **not a CMS-driven brochure**. It is a developer-owned, code-first m
 
 ## Design Philosophy
 
-The entire aesthetic is modeled after the "Vercel school" of design:
+The visual language is modeled after a premium Vercel-inspired light-canvas design:
 
-- **Dark by default.** Background is pure `#000000`. No dark-grey compromises.
-- **Typography-first.** Headlines carry the weight. No hero illustrations, no stock photos.
-- **Negative space as a feature.** Generous padding, tight type scales, and nothing unnecessary.
-- **Subtle motion.** Gradient orbs pulse. Cards glow on hover. The marquee scrolls. Nothing shouts.
-- **Premium without being expensive.** The site should feel like it costs $500k to build but loads in under 1 second.
+- **Light-Canvas by Default:** The page body sits on a clean near-white canvas (`#fafafa`). Inset regions use `#f5f5f5` and elevated card surfaces use pure white (`#ffffff`).
+- **Mesh Gradients for Decoration:** The single source of color at marketing scale is a multi-stop mesh gradient (Develop blue/teal, Preview violet/pink, and Ship coral/amber). It operates as atmospheric depth backdrops at hero scale.
+- **Typography-First:** Custom geometric sans typography carrying the display weight (display ceiling is 600, never 700+). Headlines feature aggressive negative tracking (`-0.04em` to `-0.05em`) to feel modern and tight.
+- **Sentence-Case, Period-Terminated Headlines:** Headlines like "Build faster. Automate smarter." are sentence-case and end with a deliberate period to communicate authority and finality.
+- **Technical Monospace Layer:** Monospaced typography is reserved as a secondary technical layer for section eyebrows, console prompts, and code blocks to signal engineering rigour.
+- **Subtle Stacked Shadows:** Card surfaces sit held by inset hairline borders and stacked multi-layered low-opacity shadows (Level 1–5), faking natural light elevation without heavy drop-shadow blurs.
 
 ### Brand Tokens
 
-| Token | Value | Usage |
-|---|---|---|
-| `--background` | `#000000` | Page background |
-| `--surface` | `#0a0a0a` | Cards, panels |
-| `--elevated` | `#111111` | Tooltips, dropdowns |
-| `--foreground` | `#ffffff` | Primary text |
-| `--muted` | `#888888` | Secondary text |
-| Accent Purple | `#7c3aed` | Primary brand accent, focus rings |
-| Accent Blue | `#2563eb` | Secondary gradient endpoint |
-| Gradient | `135deg #7c3aed → #2563eb` | CTAs, icons, highlights |
+| Token | CSS Variable | Hex Value | Usage |
+|---|---|---|---|
+| Canvas Soft | `var(--background)` | `#fafafa` | Page body background |
+| Canvas | `var(--surface)` | `#ffffff` | Elevated cards and forms |
+| Canvas Soft 2 | N/A | `#f5f5f5` | Inset code mockup boxes, active rows |
+| Ink / Primary | `var(--foreground)` | `#171717` | Primary conversion target, body text, dark polarity bands |
+| Muted | `var(--muted)` | `#888888` | Low-priority labels, placeholder text |
+| Hairline | `var(--border)` | `#ebebeb` | Card borders, inputs, tables, dividers |
+| Hairline Strong | `var(--border-hover)` | `#a1a1a1` | Focus borders, stronger divider lines |
+| Link Blue | N/A | `#0070f3` | Success states and inline text links |
 
 ---
 
 ## Architecture
 
-### Stack
+### Tech Stack
 
 | Layer | Technology | Why |
 |---|---|---|
-| Framework | Next.js 15 (App Router) | RSC-first, best-in-class DX, Vercel-native |
-| Language | TypeScript | Type safety across all components |
-| Styling | Tailwind CSS v3 | Utility-first, zero dead CSS in production |
-| Icons | Lucide React | Crisp, consistent, tree-shakable |
-| Animation | CSS Keyframes | Compositor-safe, no JavaScript overhead |
-| Hosting | Vercel (planned) | Edge network, preview deployments, analytics |
+| Framework | Next.js 15 (App Router) | React Server Components, fast static generation, Vercel-native |
+| Language | TypeScript | Type safety across dynamic route parameters and state props |
+| Styling | Tailwind CSS v3 | Utility-first styling, zero dead CSS in production |
+| Icons | Lucide React | Clean, tree-shakable svg icons |
+| Animation | CSS Keyframes | Hardware-accelerated transitions without JS overhead |
 
-### Why No CMS (Yet)
+### Content Architecture
 
-Content is in source code for now. This was a deliberate Phase 1 decision — moving fast matters more than a CMS dashboard when you're the only editor. Phase 2 will evaluate Sanity or Contentlayer for blog posts and case studies once the editorial workflow has more than one contributor.
-
-### Why No `framer-motion`
-
-It was in the original `package.json` but removed. Every animation on the site is achievable with CSS keyframes and `transition` properties — no 50kB runtime needed. Framer Motion will be reintroduced only if genuinely complex gesture-driven UI is needed.
+All marketing copy and mock data are structured inside a single file `src/lib/data.ts` using timezone-safe formatting. This design prevents hydration mismatches between server and client environments while keeping lists easily maintainable.
 
 ---
 
@@ -67,20 +63,19 @@ It was in the original `package.json` but removed. Every animation on the site i
 All pages live under `src/app/` using the Next.js App Router.
 
 ```
-/                   → Homepage (Hero, Services, Products, TechStack, CaseStudies, Contact CTA)
+/                   → Homepage (Hero, TrustedBy, ServicesGrid, ProductShowcase, TechStack, CaseStudies, ContactCTA)
 /services           → Services listing with deliverables breakdown
 /services#<id>      → Anchor to specific service (software, mobile, erp, ai, consulting, security)
 /products           → Product catalog (ZerpAI ERP, Healthcare Suite)
-/products/zerpai    → ZerpAI ERP product detail (planned)
-/products/healthcare → Healthcare Suite product detail (planned)
-/company            → Team showcase (Vercel-style grid, stats, global presence)
+/products/[slug]    → Individual product detail + request demo sidebar
+/company            → Team showcase (Vercel-style card grid, stats, global presence)
 /careers            → Open roles list + perks
-/careers/<slug>     → Individual job detail + application form (planned)
+/careers/[slug]     → Individual job detail + resume application sidebar
 /blog               → Blog post listing
-/blog/<slug>        → Individual blog post (planned)
-/case-studies       → Case study listing with metrics
-/case-studies/<slug>→ Full case study (planned)
-/contact            → Full contact form + consultation booking anchor
+/blog/[slug]        → Individual blog post + newsletter aside
+/case-studies       → Case study listing with outcomes
+/case-studies/[slug]→ Full case study detailed problem, approach, and results
+/contact            → Full contact form + info cards
 ```
 
 ---
@@ -91,9 +86,9 @@ All pages live under `src/app/` using the Next.js App Router.
 src/
 ├── app/
 │   ├── layout.tsx          # Root layout: metadata, Navbar, Footer, skip link
-│   ├── globals.css         # Design system: tokens, animations, utilities
+│   ├── globals.css         # Design system: tokens, scrollbars, animations, utilities
 │   ├── page.tsx            # Homepage
-│   ├── not-found.tsx       # 404
+│   ├── not-found.tsx       # Stark 404 page
 │   ├── services/
 │   ├── products/
 │   ├── company/
@@ -102,10 +97,13 @@ src/
 │   ├── case-studies/
 │   └── contact/
 ├── components/
+│   ├── forms/              # Interactive Client Forms
+│   │   ├── JobApplicationForm.tsx  # Resume upload, drag-and-drop form
+│   │   └── ProductDemoForm.tsx     # Demo booking form
 │   ├── layout/
-│   │   ├── Navbar.tsx      # Sticky glass navbar, mobile menu
-│   │   └── Footer.tsx      # 4-column footer, social links
-│   └── sections/           # Homepage sections (one file per section)
+│   │   ├── Navbar.tsx      # Sticky glass navbar with logo and consultation CTAs
+│   │   └── Footer.tsx      # Mono uppercase eyebrows, company links, social rows
+│   └── sections/           # Homepage sections
 │       ├── Hero.tsx
 │       ├── TrustedBy.tsx
 │       ├── ServicesGrid.tsx
@@ -114,148 +112,73 @@ src/
 │       ├── CaseStudies.tsx
 │       └── ContactCTA.tsx
 └── lib/
+    ├── data.ts             # Central mock database for blog posts, jobs, case-studies
     └── utils.ts            # cn() utility: clsx + tailwind-merge
 ```
 
 ### Component Rules
 
-1. **Server Components by default.** Every component is an RSC unless it explicitly needs browser APIs or event handlers.
-2. **`"use client"` at the leaf.** The `Navbar` (scroll detection), `ContactCTA` (form state), and the Contact page (submit state) are the only client components.
-3. **`cn()` for all class composition.** Never raw string concatenation. Always `cn(base, conditional)`.
-4. **No inline styles except for dynamic values.** Position offsets for gradient orbs use inline styles because they're numeric — everything else is Tailwind.
+1. **Server Components by default.** Every page and section remains an RSC unless it requires local state, document access, or event handlers.
+2. **`"use client"` at the leaf.** Interactive form handlers (`JobApplicationForm`, `ProductDemoForm`), the `Navbar` (for scroll threshold detection), and the main `ContactPage` are client components.
+3. **`cn()` for conditional styles.** Never concatenate raw strings for CSS classes. Always use `cn(...)` to merge utility overrides correctly.
+4. **Button & Input Shape Consistency.** Inputs, nav CTA elements, and inner form buttons use a tight `rounded-[6px]` (6px) radius for cohesion. Large marketing CTAs use `rounded-full` (100px) pills to command attention.
 
 ---
 
 ## Key Design Patterns
 
-### The Gradient Orb
+### Grid Background
 
-Used on every hero section to add depth without photography. Two orbs overlapping at slight offsets — one purple, one blue — filtered to `blur(120px)` and animated with a slow `pulseGlow` keyframe. They never distract; they only add atmosphere.
+A light grid pattern is generated via linear CSS gradients at 2% opacity (`rgba(23, 23, 23, 0.02)`). Mapped via the `.grid-bg` class, it delivers a clean "technical blueprint" structure without loading heavy SVG assets.
 
-### The Grid Background
+### Stacked Elevation Shadows
 
-A CSS `background-image` with two orthogonal `linear-gradient` lines at 3% opacity. Applied via `.grid-bg` utility class. Creates the "technical blueprint" feel without any SVG overhead.
+Elevated cards and surfaces use multiple box shadow layers to simulate organic lighting. For instance, Level 3 feature cards apply:
+`box-shadow: 0 0 0 1px rgba(0, 0, 0, 0.05) inset, 0px 2px 2px rgba(0, 0, 0, 0.04), 0px 8px 8px -8px rgba(0, 0, 0, 0.04);`
 
-### The Card Glow
+The inset hairline border guarantees that card contours remain sharp on any display.
 
-Cards use `.card-glow` which on `:hover` adds a `box-shadow` with a purple hue and transitions `border-color` to a violet tint. The transition uses explicit properties (`border-color`, `box-shadow`), never `transition: all`.
+### Polarity Flipped Code Mockups
 
-### The Marquee
-
-Two infinite marquees — one for industry verticals (TrustedBy), one for the tech stack. Both use a single CSS `@keyframes marquee` animation on a `.marquee-track` div that contains its children duplicated to create a seamless loop. Pauses on hover. Disabled by `prefers-reduced-motion`.
-
-### The Glassmorphism Navbar
-
-`.glass-nav` applies `backdrop-filter: blur(20px)` with a semi-transparent black background. Only activates after 16px of scroll (detected in the `Navbar` client component via a passive scroll listener). Below the fold it's transparent to let the grid show through.
+To keep the page active and offer depth cues, specific mockups (like code panels in `ProductShowcase`) use deep ink backgrounds (`bg-[#121212]` with `#2e2e2e` borders) and syntax highlights.
 
 ---
 
-## SEO & Performance Strategy
+## SEO & Accessibility
 
-- **Metadata API.** Every page exports a `metadata` object. Root `layout.tsx` sets `title.template` so child pages inherit the brand suffix automatically.
-- **OpenGraph & Twitter cards.** Defined in the root layout, overrideable per page.
-- **`themeColor: #000000`.** Matches the page background so the browser UI blends seamlessly on mobile.
-- **Skip link.** A visually hidden `<a href="#main-content">` is the first focusable element — required for keyboard and screen reader accessibility.
-- **`Intl.DateTimeFormat`.** All dates (blog post dates, etc.) use the JavaScript Intl API, never hardcoded format strings. This ensures correct locale output on any system.
-- **No layout shift.** No images yet — all visual elements are CSS/DOM. When product screenshots are added, they'll require explicit `width` and `height` attributes.
-
-### Target Metrics (Phase 3)
-
-| Metric | Target |
-|---|---|
-| Lighthouse Performance | 95+ |
-| LCP | < 2.5s |
-| CLS | < 0.1 |
-| FID / INP | < 100ms |
+- **Skip Link:** A keyboard-focusable `<a href="#main-content">` is the first node in `layout.tsx` to enable fast keyboard navigation.
+- **Semantic Tags:** Uses `<header>`, `<main>`, `<footer>`, `<section>`, `<article>`, and `<nav>` with appropriate labels.
+- **ARIA Compliance:** Interactive components have explicit names, labels, and roles. Icon buttons include `aria-label` tags, and decorative assets include `aria-hidden="true"`.
+- **Metadata API:** Page titles are dynamically generated via a layout title template (`%s | Zabnix`) and viewport colors match the canvas theme.
+- **Touch Targets:** Interactive targets comfortably exceed the 44px hit footprint minimum.
 
 ---
 
-## Accessibility Commitments
-
-This site is held to WCAG 2.1 AA. Key decisions:
-
-- **Focus rings** use `:focus-visible` (not `:focus`) to avoid showing rings on mouse click.
-- **All focus rings** are `2px solid #7c3aed` with an offset — visible on both light and dark surfaces.
-- **Icon-only buttons** (`Navbar` hamburger/close) have `aria-label`. Decorative icons have `aria-hidden="true"`.
-- **Form labels** are always explicit `<label htmlFor>` elements, never placeholder-only.
-- **`aria-live="polite"`** is on the contact form success state so screen readers announce the confirmation.
-- **Semantic HTML first.** `<button>` for actions, `<a>` for navigation, `<article>` for blog/case study cards, `<nav>` with `aria-label` for the navbar.
-- **`color-scheme: dark`** on `<html>` ensures browser native elements (scrollbars, inputs, selects) match the dark theme.
-
----
-
-## Content & Copywriting Rules
-
-These rules apply to all content on the site, maintained for consistency across contributors:
-
-- **Active voice.** "Book a consultation" not "A consultation can be booked."
-- **Title Case** for all headings and button labels (Chicago style).
-- **Sentence case** for body copy and descriptions.
-- **Numbers as numerals.** "3 languages" not "three languages."
-- **Ellipsis character `…`** not three dots `...` — including in loading states ("Sending…").
-- **Typographic quotes** `"` `"` in rendered copy, not straight quotes `"`.
-- **Non-breaking spaces** for brand names in running text.
-- **Error messages name the fix,** not just the problem.
-- **`&` over "and"** in space-constrained UI labels.
-
----
-
-## Products Documented
+## Products Cataloged
 
 ### ZerpAI ERP
+An intelligent enterprise resource planning platform purpose-built for manufacturing, retail, logistics, and distribution. Includes real-time inventory tracking, procurement systems, multi-currency accounting, and customized predictive demand forecasting using client historical transactions.
 
-A full-stack enterprise resource planning platform purpose-built for manufacturing, retail, logistics, and distribution companies. Core modules: inventory management, procurement & PO, finance & accounts, AI demand forecasting, role-based access, and a REST API layer for third-party integrations.
-
-Differentiation: the "AI" in ZerpAI is not marketing. The demand forecasting module uses trained time-series models on the client's historical transaction data. This is not a pre-built plugin; it's custom ML per deployment.
-
-### Healthcare Suite
-
-A HIPAA-compliant all-in-one platform for hospitals, clinics, diagnostic centers, and pharmacies. Modules: EMR, appointment scheduling, billing & insurance claims, lab & radiology portal, pharmacy management, and telemedicine with video consultation.
+### Healthcare Solutions
+A HIPAA-compliant platform for clinics, hospital networks, and pharmacies. Manages EMR data, patient scheduling, automated billing, lab reports, and integrates telemedicine services.
 
 ---
 
 ## Roadmap
 
-### Phase 1 — Foundation ✅ (Current)
-- [x] Design system & global CSS
-- [x] Root layout with metadata
-- [x] Navbar & Footer
-- [x] Homepage (all sections)
-- [x] Services, Products, Company, Careers, Blog, Case Studies, Contact pages
+### Phase 1 — Stark Light-Canvas Theme ✅
+- [x] Design token migration (`globals.css`, `tailwind.config.ts`)
+- [x] Translucent white navigation header and clean monospace footer
+- [x] Homepage sections visually adapted to light theme
+- [x] Listing pages redesigned (Products, Services, Company, Careers, Blog, Case Studies)
+- [x] Detail routes adapted (`/products/[slug]`, `/careers/[slug]`, `/blog/[slug]`, `/case-studies/[slug]`)
+- [x] Interactive resumes & product demo client forms redesigned
 
-### Phase 2 — Content & Backend
-- [ ] Individual product detail pages (`/products/[slug]`)
-- [ ] Individual blog post renderer (`/blog/[slug]`)
-- [ ] Individual case study pages (`/case-studies/[slug]`)
-- [ ] Job detail + application form with resume upload
-- [ ] Contact form server action (Resend email notification)
-- [ ] Prisma schema + Neon PostgreSQL (leads, applications)
-- [ ] Sanity CMS integration for blog & case studies
-
-### Phase 3 — Performance & Launch
-- [ ] Dynamic OpenGraph image generation (`og` route)
-- [ ] `sitemap.xml` and `robots.txt` generation
-- [ ] Schema.org JSON-LD structured data
-- [ ] Lighthouse 95+ audit pass
-- [ ] Vercel production deployment + custom domain
-- [ ] Analytics (Vercel Analytics + PostHog)
-
----
-
-## Key Files Reference
-
-| File | Purpose |
-|---|---|
-| `src/app/globals.css` | All design tokens, animations, and utility classes |
-| `src/app/layout.tsx` | Root layout — the single source of truth for metadata |
-| `src/lib/utils.ts` | `cn()` — import this in every component that uses conditional classes |
-| `tailwind.config.ts` | Tailwind extensions: colors, radii, font, animations |
-| `next.config.mjs` | Next.js configuration |
-| `docs/Design_System.md` | Full design token specification |
-| `docs/Frontend_Architecture.md` | RSC patterns, state management, animation rules |
-| `docs/PRD.md` | Product requirements and business context |
-| `AGENTS.md` | Web interface coding guidelines for AI agents |
-| `log.md` | Running dev log of all changes made |
+### Phase 2 — Database & server actions
+- [ ] Neon PostgreSQL schema integration via Prisma (leads, applications)
+- [ ] Email notifications server actions (Resend API)
+- [ ] Dynamic sitemap and robots generation
+- [ ] Production audit check for Lighthouse scoring 95+
 
 ---
 

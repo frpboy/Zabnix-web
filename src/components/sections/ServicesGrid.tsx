@@ -62,55 +62,55 @@ const services = [
 
 export function ServicesGrid() {
   return (
-    <section className="py-32 px-6" aria-labelledby="services-heading">
+    <section className="py-32 px-6 bg-canvas-soft" aria-labelledby="services-heading">
       <div className="max-w-7xl mx-auto">
         {/* Header */}
         <div className="max-w-2xl mb-16">
-          <p className="text-xs font-semibold tracking-widest text-violet-400 uppercase mb-4">
+          <p className="text-xs font-mono uppercase tracking-[0.2em] text-mute mb-4">
             What We Build
           </p>
           <h2
             id="services-heading"
-            className="text-4xl md:text-5xl font-bold text-white tracking-tight mb-4"
+            className="text-4xl md:text-5xl font-semibold text-ink tracking-[-0.03em] mb-4"
             style={{ textWrap: "balance" }}
           >
-            Everything your enterprise needs
+            Everything your enterprise needs.
           </h2>
-          <p className="text-lg text-gray-400 leading-relaxed">
+          <p className="text-lg text-body leading-relaxed">
             From custom software to AI-powered automation — we engineer the full
             stack so you can focus on growing.
           </p>
         </div>
 
         {/* Grid */}
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
           {services.map((service) => {
             const Icon = service.icon;
             return (
               <Link
                 key={service.title}
                 href={service.href}
-                className="group card-glow relative border border-white/8 bg-[#0a0a0a] rounded-2xl p-6 flex flex-col gap-4 no-underline focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-violet-500"
+                className="group relative border border-hairline bg-canvas rounded-2xl p-6 flex flex-col gap-4 no-underline shadow-level-3 hover:shadow-level-4 hover:border-hairline-strong transition-all duration-300 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-link"
               >
-                {/* Icon */}
+                {/* Icon Container with subtle gradient border */}
                 <div
-                  className={`w-10 h-10 rounded-xl bg-gradient-to-br ${service.accent} p-0.5`}
+                  className={`w-10 h-10 rounded-xl bg-gradient-to-br ${service.accent} p-px`}
                 >
-                  <div className="w-full h-full rounded-xl bg-[#0a0a0a] flex items-center justify-center">
-                    <Icon size={18} className="text-white" aria-hidden="true" />
+                  <div className="w-full h-full rounded-xl bg-canvas flex items-center justify-center">
+                    <Icon size={18} className="text-ink" aria-hidden="true" />
                   </div>
                 </div>
 
                 <div className="flex-1">
-                  <h3 className="text-base font-semibold text-white mb-2">
+                  <h3 className="text-base font-semibold text-ink mb-2">
                     {service.title}
                   </h3>
-                  <p className="text-sm text-gray-500 leading-relaxed">
+                  <p className="text-sm text-body leading-relaxed">
                     {service.description}
                   </p>
                 </div>
 
-                <div className="flex items-center gap-1 text-xs text-gray-600 group-hover:text-violet-400 transition-colors duration-200">
+                <div className="flex items-center gap-1 text-xs text-mute group-hover:text-link transition-colors duration-200">
                   <span>Learn more</span>
                   <ArrowRight
                     size={12}

@@ -1,7 +1,6 @@
 "use client";
 
 import { useState } from "react";
-import Link from "next/link";
 import {
   ArrowRight,
   Mail,
@@ -25,32 +24,32 @@ export default function ContactPage() {
   }
 
   return (
-    <div className="pt-24">
+    <div className="pt-24 bg-canvas-soft min-h-screen">
       {/* Hero */}
-      <section className="py-24 px-6 grid-bg relative overflow-hidden">
+      <section className="py-24 px-6 grid-bg relative overflow-hidden border-b border-hairline bg-canvas">
         <div
-          className="orb orb-purple"
+          className="orb orb-purple pulse-glow"
           style={{
             width: "400px",
             height: "400px",
             top: "50%",
             left: "50%",
             transform: "translate(-50%, -50%)",
-            opacity: 0.15,
+            opacity: 0.08,
           }}
           aria-hidden="true"
         />
         <div className="max-w-4xl mx-auto text-center relative z-10">
-          <p className="text-xs font-semibold tracking-widest text-violet-400 uppercase mb-4">
+          <p className="text-xs font-mono uppercase tracking-[0.2em] text-mute mb-4">
             Contact Us
           </p>
           <h1
-            className="text-5xl md:text-6xl font-bold text-white tracking-tight mb-6"
+            className="text-5xl md:text-6xl font-semibold text-ink tracking-[-0.03em] mb-6"
             style={{ textWrap: "balance" }}
           >
-            Let&#39;s talk about your project
+            Let&#39;s talk about your project.
           </h1>
-          <p className="text-xl text-gray-400 leading-relaxed max-w-2xl mx-auto">
+          <p className="text-xl text-body leading-relaxed max-w-2xl mx-auto">
             We&#39;ll review your requirements, suggest an architecture, and
             give you a realistic timeline and budget estimate — no strings
             attached.
@@ -59,12 +58,13 @@ export default function ContactPage() {
       </section>
 
       {/* Contact content */}
-      <section className="py-24 px-6 border-t border-white/8">
+      <section className="py-24 px-6" aria-labelledby="contact-heading">
+        <h2 id="contact-heading" className="sr-only">Contact Details and Form</h2>
         <div className="max-w-6xl mx-auto grid grid-cols-1 lg:grid-cols-5 gap-16">
           {/* Left info */}
           <div className="lg:col-span-2 space-y-10">
             <div>
-              <h2 className="text-xl font-bold text-white mb-6">
+              <h2 className="text-xl font-semibold text-ink mb-6">
                 Contact Information
               </h2>
               <div className="space-y-5">
@@ -99,14 +99,14 @@ export default function ContactPage() {
                     href={href}
                     className="flex items-start gap-4 group"
                   >
-                    <div className="w-10 h-10 border border-white/10 rounded-xl flex items-center justify-center text-gray-500 group-hover:text-white group-hover:border-violet-500/40 transition-colors duration-200 shrink-0 mt-0.5">
+                    <div className="w-10 h-10 border border-hairline rounded-xl flex items-center justify-center text-body bg-canvas group-hover:text-ink group-hover:border-hairline-strong transition-colors duration-200 shrink-0 mt-0.5 shadow-level-1">
                       <Icon size={16} aria-hidden="true" />
                     </div>
                     <div>
-                      <div className="text-xs text-gray-600 mb-0.5">
+                      <div className="text-xs text-mute mb-0.5 font-mono uppercase tracking-wider">
                         {label}
                       </div>
-                      <div className="text-sm text-gray-300 group-hover:text-white transition-colors duration-200">
+                      <div className="text-sm text-body group-hover:text-ink transition-colors duration-200">
                         {value}
                       </div>
                     </div>
@@ -115,21 +115,21 @@ export default function ContactPage() {
               </div>
             </div>
 
-            <div className="border-t border-white/8 pt-8">
-              <h2 className="text-sm font-semibold text-white mb-4">
+            <div className="border-t border-hairline pt-8">
+              <h2 className="text-sm font-semibold text-ink mb-4 font-mono uppercase tracking-wider">
                 What happens next?
               </h2>
               <div className="space-y-4">
                 {[
-                  "We review your submission within 24 hours",
-                  "Schedule a free 30-min discovery call",
-                  "Receive a scoped proposal & timeline",
+                  "We review your submission within 24 hours.",
+                  "Schedule a free 30-min discovery call.",
+                  "Receive a scoped proposal &amp; timeline.",
                 ].map((step, i) => (
                   <div key={step} className="flex items-start gap-3">
-                    <div className="w-5 h-5 rounded-full bg-violet-500/20 text-violet-400 text-xs font-bold flex items-center justify-center shrink-0 mt-0.5">
+                    <div className="w-5 h-5 rounded-full bg-link/10 text-link text-xs font-bold flex items-center justify-center shrink-0 mt-0.5 font-mono">
                       {i + 1}
                     </div>
-                    <span className="text-sm text-gray-400">{step}</span>
+                    <span className="text-sm text-body">{step}</span>
                   </div>
                 ))}
               </div>
@@ -139,22 +139,22 @@ export default function ContactPage() {
           {/* Right: form */}
           <div className="lg:col-span-3">
             {submitted ? (
-              <div className="border border-emerald-500/20 bg-emerald-500/5 rounded-2xl p-12 flex flex-col items-center justify-center text-center gap-4" role="alert" aria-live="polite">
+              <div className="border border-emerald-200 bg-emerald-50/50 rounded-2xl p-12 flex flex-col items-center justify-center text-center gap-4 shadow-level-3" role="alert" aria-live="polite">
                 <CheckCircle2
                   size={48}
-                  className="text-emerald-400"
+                  className="text-emerald-600"
                   aria-hidden="true"
                 />
-                <h2 className="text-2xl font-bold text-white">
+                <h2 className="text-2xl font-semibold text-ink tracking-tight">
                   Message sent!
                 </h2>
-                <p className="text-gray-400 max-w-md">
+                <p className="text-body max-w-md">
                   Thanks for reaching out. We&#39;ll get back to you within 24
                   hours with next steps.
                 </p>
                 <button
                   onClick={() => setSubmitted(false)}
-                  className="mt-4 text-sm text-gray-500 hover:text-white transition-colors duration-200"
+                  className="mt-4 text-sm text-mute hover:text-ink transition-colors duration-200 underline"
                 >
                   Send another message
                 </button>
@@ -164,9 +164,9 @@ export default function ContactPage() {
                 id="consultation"
                 onSubmit={handleSubmit}
                 aria-label="Contact form"
-                className="border border-white/8 bg-[#0a0a0a] rounded-2xl p-8 space-y-6"
+                className="border border-hairline bg-canvas rounded-2xl p-8 space-y-6 shadow-level-3"
               >
-                <h2 className="text-xl font-bold text-white">
+                <h2 className="text-xl font-semibold text-ink">
                   Send us a message
                 </h2>
 
@@ -174,7 +174,7 @@ export default function ContactPage() {
                   <div>
                     <label
                       htmlFor="cf-name"
-                      className="block text-xs font-semibold text-gray-500 uppercase tracking-widest mb-2"
+                      className="block text-xs font-mono font-semibold text-body uppercase tracking-wider mb-2"
                     >
                       Full Name
                     </label>
@@ -185,13 +185,13 @@ export default function ContactPage() {
                       autoComplete="name"
                       required
                       placeholder="Rahul Sharma…"
-                      className="w-full bg-black border border-white/10 rounded-xl px-4 py-3 text-sm text-white placeholder:text-gray-700 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-violet-500"
+                      className="w-full bg-canvas border border-hairline rounded-[6px] px-4 py-3 text-sm text-ink placeholder:text-mute focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-link transition-colors duration-200"
                     />
                   </div>
                   <div>
                     <label
                       htmlFor="cf-company"
-                      className="block text-xs font-semibold text-gray-500 uppercase tracking-widest mb-2"
+                      className="block text-xs font-mono font-semibold text-body uppercase tracking-wider mb-2"
                     >
                       Company
                     </label>
@@ -201,7 +201,7 @@ export default function ContactPage() {
                       name="company"
                       autoComplete="organization"
                       placeholder="Acme Corp…"
-                      className="w-full bg-black border border-white/10 rounded-xl px-4 py-3 text-sm text-white placeholder:text-gray-700 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-violet-500"
+                      className="w-full bg-canvas border border-hairline rounded-[6px] px-4 py-3 text-sm text-ink placeholder:text-mute focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-link transition-colors duration-200"
                     />
                   </div>
                 </div>
@@ -209,7 +209,7 @@ export default function ContactPage() {
                 <div>
                   <label
                     htmlFor="cf-email"
-                    className="block text-xs font-semibold text-gray-500 uppercase tracking-widest mb-2"
+                    className="block text-xs font-mono font-semibold text-body uppercase tracking-wider mb-2"
                   >
                     Work Email
                   </label>
@@ -221,28 +221,28 @@ export default function ContactPage() {
                     spellCheck={false}
                     required
                     placeholder="you@company.com…"
-                    className="w-full bg-black border border-white/10 rounded-xl px-4 py-3 text-sm text-white placeholder:text-gray-700 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-violet-500"
+                    className="w-full bg-canvas border border-hairline rounded-[6px] px-4 py-3 text-sm text-ink placeholder:text-mute focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-link transition-colors duration-200"
                   />
                 </div>
 
                 <div>
                   <label
                     htmlFor="cf-service"
-                    className="block text-xs font-semibold text-gray-500 uppercase tracking-widest mb-2"
+                    className="block text-xs font-mono font-semibold text-body uppercase tracking-wider mb-2"
                   >
                     Service Needed
                   </label>
                   <select
                     id="cf-service"
                     name="service"
-                    className="w-full bg-black border border-white/10 rounded-xl px-4 py-3 text-sm text-white focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-violet-500"
-                    style={{ colorScheme: "dark" }}
+                    className="w-full bg-canvas border border-hairline rounded-[6px] px-4 py-3 text-sm text-ink focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-link"
+                    style={{ colorScheme: "light" }}
                   >
                     <option value="">Select a service…</option>
                     <option value="software">Software Development</option>
                     <option value="mobile">Mobile Application</option>
                     <option value="erp">ERP Solution</option>
-                    <option value="ai">AI & Automation</option>
+                    <option value="ai">AI &amp; Automation</option>
                     <option value="consulting">Consulting</option>
                     <option value="other">Other</option>
                   </select>
@@ -251,7 +251,7 @@ export default function ContactPage() {
                 <div>
                   <label
                     htmlFor="cf-message"
-                    className="block text-xs font-semibold text-gray-500 uppercase tracking-widest mb-2"
+                    className="block text-xs font-mono font-semibold text-body uppercase tracking-wider mb-2"
                   >
                     Tell Us About Your Project
                   </label>
@@ -261,14 +261,14 @@ export default function ContactPage() {
                     required
                     rows={5}
                     placeholder="Describe what you&#x27;re building, your timeline, and budget range…"
-                    className="w-full bg-black border border-white/10 rounded-xl px-4 py-3 text-sm text-white placeholder:text-gray-700 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-violet-500 resize-none"
+                    className="w-full bg-canvas border border-hairline rounded-[6px] px-4 py-3 text-sm text-ink placeholder:text-mute focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-link resize-none"
                   />
                 </div>
 
                 <button
                   type="submit"
                   disabled={submitting}
-                  className="w-full inline-flex items-center justify-center gap-2 bg-white text-black text-sm font-semibold px-6 py-4 rounded-xl hover:bg-gray-100 disabled:opacity-60 disabled:cursor-not-allowed transition-colors duration-200 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-offset-2 focus-visible:ring-offset-black"
+                  className="w-full inline-flex items-center justify-center gap-2 bg-ink text-white text-sm font-semibold px-6 py-4 rounded-[6px] hover:bg-ink/90 disabled:opacity-60 disabled:cursor-not-allowed transition-colors duration-200 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ink focus-visible:ring-offset-2 focus-visible:ring-offset-canvas"
                 >
                   {submitting ? "Sending…" : "Send Message"}
                   {!submitting && <ArrowRight size={16} aria-hidden="true" />}

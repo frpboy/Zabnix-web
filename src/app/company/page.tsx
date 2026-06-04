@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
 import Link from "next/link";
-import { ArrowRight, MapPin, Twitter } from "lucide-react";
+import { ArrowRight, MapPin } from "lucide-react";
 
 export const metadata: Metadata = {
   title: "Company",
@@ -84,32 +84,32 @@ const team = [
 
 export default function CompanyPage() {
   return (
-    <div className="pt-24">
+    <div className="pt-24 min-h-screen bg-canvas-soft">
       {/* Hero */}
-      <section className="py-24 px-6 grid-bg relative overflow-hidden">
+      <section className="py-24 px-6 grid-bg relative overflow-hidden border-b border-hairline bg-canvas">
         <div
-          className="orb orb-purple"
+          className="orb orb-purple pulse-glow"
           style={{
             width: "500px",
             height: "500px",
             top: "50%",
             left: "50%",
             transform: "translate(-50%, -50%)",
-            opacity: 0.12,
+            opacity: 0.08,
           }}
           aria-hidden="true"
         />
         <div className="max-w-4xl mx-auto text-center relative z-10">
-          <p className="text-xs font-semibold tracking-widest text-violet-400 uppercase mb-4">
+          <p className="text-xs font-mono uppercase tracking-[0.2em] text-mute mb-4">
             Our Company
           </p>
           <h1
-            className="text-5xl md:text-6xl font-bold text-white tracking-tight mb-6"
+            className="text-5xl md:text-6xl font-semibold text-ink tracking-[-0.03em] mb-6"
             style={{ textWrap: "balance" }}
           >
-            Meet the people building Zabnix
+            Meet the people building Zabnix.
           </h1>
-          <p className="text-xl text-gray-400 leading-relaxed max-w-2xl mx-auto">
+          <p className="text-xl text-body leading-relaxed max-w-2xl mx-auto">
             Designers, engineers, and strategists united by a belief that great
             software changes how businesses operate.
           </p>
@@ -117,47 +117,47 @@ export default function CompanyPage() {
       </section>
 
       {/* Stats */}
-      <section className="py-16 border-t border-b border-white/8" aria-label="Company statistics">
+      <section className="py-16 border-b border-hairline bg-canvas" aria-label="Company statistics">
         <div className="max-w-4xl mx-auto px-6 grid grid-cols-2 md:grid-cols-4 gap-8 text-center">
           {stats.map((stat) => (
             <div key={stat.label}>
               <div
-                className="text-4xl font-bold text-white mb-2"
+                className="text-4xl font-semibold text-ink mb-2 tracking-tight"
                 style={{ fontVariantNumeric: "tabular-nums" }}
               >
                 {stat.value}
               </div>
-              <div className="text-sm text-gray-500">{stat.label}</div>
+              <div className="text-xs text-mute font-mono uppercase tracking-wider">{stat.label}</div>
             </div>
           ))}
         </div>
       </section>
 
       {/* Global presence */}
-      <section className="py-16 px-6">
+      <section className="py-24 px-6 bg-canvas-soft-2/20">
         <div className="max-w-3xl mx-auto text-center">
-          <p className="text-2xl md:text-3xl font-semibold text-white leading-relaxed" style={{ textWrap: "balance" }}>
+          <p className="text-2xl md:text-3xl font-semibold text-ink leading-relaxed" style={{ textWrap: "balance" }}>
             Remote, but together. We speak{" "}
-            <span className="gradient-brand">3 languages</span> and live in{" "}
-            <span className="gradient-brand">4 countries</span>.
+            <span className="bg-gradient-to-r from-develop-start to-develop-end bg-clip-text text-transparent">3 languages</span> and live in{" "}
+            <span className="bg-gradient-to-r from-preview-start to-preview-end bg-clip-text text-transparent">4 countries</span>.
           </p>
         </div>
       </section>
 
       {/* Team grid */}
-      <section className="py-8 px-6 pb-32" aria-labelledby="team-heading">
+      <section className="py-16 px-6 pb-32" aria-labelledby="team-heading">
         <div className="max-w-7xl mx-auto">
           <h2
             id="team-heading"
-            className="text-xs font-semibold text-gray-600 uppercase tracking-widest text-center mb-12"
+            className="text-xs font-mono font-semibold text-mute uppercase tracking-[0.2em] text-center mb-12"
           >
             The Team
           </h2>
-          <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-4">
+          <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-6">
             {team.map((member) => (
               <div
                 key={member.name}
-                className="group card-glow border border-white/8 bg-[#0a0a0a] rounded-2xl p-5 flex flex-col gap-4 transition-all duration-300"
+                className="group border border-hairline bg-canvas rounded-2xl p-5 flex flex-col gap-4 transition-all duration-300 shadow-level-3 hover:shadow-level-4 hover:border-hairline-strong"
               >
                 {/* Avatar */}
                 <div
@@ -168,18 +168,18 @@ export default function CompanyPage() {
 
                 {/* Info */}
                 <div className="min-w-0">
-                  <p className="text-sm font-semibold text-white truncate">
+                  <p className="text-sm font-semibold text-ink truncate">
                     {member.name}
                   </p>
-                  <p className="text-xs text-gray-500 mb-1 truncate" translate="no">
+                  <p className="text-xs text-mute mb-1 truncate font-mono" translate="no">
                     {member.handle}
                   </p>
-                  <p className="text-xs text-gray-400 font-medium truncate">
+                  <p className="text-xs text-body font-medium truncate">
                     {member.role}
                   </p>
-                  <div className="flex items-center gap-1 mt-2 text-gray-600">
+                  <div className="flex items-center gap-1 mt-2 text-mute">
                     <MapPin size={11} aria-hidden="true" />
-                    <span className="text-xs truncate">{member.location}</span>
+                    <span className="text-xs truncate font-mono">{member.location}</span>
                   </div>
                 </div>
               </div>
@@ -189,16 +189,16 @@ export default function CompanyPage() {
       </section>
 
       {/* CTA */}
-      <section className="py-24 px-6 border-t border-white/8 text-center">
+      <section className="py-24 px-6 border-t border-hairline text-center bg-canvas">
         <div className="max-w-2xl mx-auto">
-          <h2 className="text-3xl font-bold text-white mb-4">Join the team</h2>
-          <p className="text-gray-400 mb-8">
+          <h2 className="text-3xl font-semibold text-ink mb-4 tracking-tight">Join the team</h2>
+          <p className="text-body mb-8">
             We&#39;re always looking for sharp engineers, designers, and
             problem-solvers. See open roles.
           </p>
           <Link
             href="/careers"
-            className="inline-flex items-center gap-2 bg-white text-black text-sm font-semibold px-8 py-4 rounded-xl hover:bg-gray-100 transition-colors duration-200"
+            className="inline-flex items-center gap-2 bg-ink text-white text-sm font-semibold px-8 py-4 rounded-full hover:bg-ink/90 transition-colors duration-200 shadow-level-2 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ink"
           >
             View Open Roles
             <ArrowRight size={16} aria-hidden="true" />

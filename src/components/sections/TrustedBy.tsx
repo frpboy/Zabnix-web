@@ -19,9 +19,9 @@ const industries = [
 
 export function TrustedBy() {
   return (
-    <section className="py-16 border-t border-b border-white/8 overflow-hidden" aria-label="Trusted by industries">
+    <section className="py-16 border-t border-b border-hairline overflow-hidden bg-canvas-soft" aria-label="Trusted by industries">
       <div className="max-w-7xl mx-auto px-6 mb-10">
-        <p className="text-center text-xs font-semibold tracking-widest text-gray-600 uppercase">
+        <p className="text-center text-xs font-mono uppercase tracking-[0.2em] text-mute">
           Trusted Across Industries
         </p>
       </div>
@@ -32,7 +32,7 @@ export function TrustedBy() {
           className="absolute left-0 top-0 bottom-0 w-32 z-10 pointer-events-none"
           style={{
             background:
-              "linear-gradient(90deg, #000000 0%, transparent 100%)",
+              "linear-gradient(90deg, #fafafa 0%, rgba(250, 250, 250, 0) 100%)",
           }}
           aria-hidden="true"
         />
@@ -40,7 +40,7 @@ export function TrustedBy() {
           className="absolute right-0 top-0 bottom-0 w-32 z-10 pointer-events-none"
           style={{
             background:
-              "linear-gradient(270deg, #000000 0%, transparent 100%)",
+              "linear-gradient(270deg, #fafafa 0%, rgba(250, 250, 250, 0) 100%)",
           }}
           aria-hidden="true"
         />
@@ -52,8 +52,8 @@ export function TrustedBy() {
                 key={i}
                 className="flex items-center gap-3 mr-12 whitespace-nowrap"
               >
-                <div className="w-1.5 h-1.5 rounded-full bg-violet-500/60" />
-                <span className="text-sm font-medium text-gray-500 tracking-wide">
+                <div className="w-1.5 h-1.5 rounded-full bg-link/60" />
+                <span className="text-sm font-medium text-body tracking-wide">
                   {industry}
                 </span>
               </div>

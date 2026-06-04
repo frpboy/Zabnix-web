@@ -14,8 +14,6 @@ const caseStudies = [
       { label: "Branches integrated", value: "8" },
     ],
     tag: "Case Study",
-    gradient: "from-blue-600/20 to-cyan-600/20",
-    border: "border-blue-500/20",
     href: "/case-studies/hospital-network",
   },
   {
@@ -30,8 +28,6 @@ const caseStudies = [
       { label: "Supplier integrations", value: "5" },
     ],
     tag: "Case Study",
-    gradient: "from-violet-600/20 to-purple-600/20",
-    border: "border-violet-500/20",
     href: "/case-studies/retail-inventory",
   },
   {
@@ -46,8 +42,6 @@ const caseStudies = [
       { label: "Data records migrated", value: "1M+" },
     ],
     tag: "Case Study",
-    gradient: "from-emerald-600/20 to-teal-600/20",
-    border: "border-emerald-500/20",
     href: "/case-studies/manufacturing-erp",
   },
 ];
@@ -55,27 +49,27 @@ const caseStudies = [
 export function CaseStudies() {
   return (
     <section
-      className="py-32 px-6 border-t border-white/8"
+      className="py-32 px-6 border-t border-hairline bg-canvas"
       aria-labelledby="casestudies-heading"
     >
       <div className="max-w-7xl mx-auto">
         {/* Header */}
         <div className="flex flex-col md:flex-row md:items-end justify-between gap-6 mb-16">
           <div>
-            <p className="text-xs font-semibold tracking-widest text-violet-400 uppercase mb-4">
+            <p className="text-xs font-mono uppercase tracking-[0.2em] text-mute mb-4">
               Results That Speak
             </p>
             <h2
               id="casestudies-heading"
-              className="text-4xl md:text-5xl font-bold text-white tracking-tight"
+              className="text-4xl md:text-5xl font-semibold text-ink tracking-[-0.03em]"
               style={{ textWrap: "balance" }}
             >
-              Real outcomes for real businesses
+              Real outcomes for real businesses.
             </h2>
           </div>
           <Link
             href="/case-studies"
-            className="inline-flex items-center gap-2 text-sm text-gray-400 hover:text-white transition-colors duration-200 shrink-0"
+            className="inline-flex items-center gap-2 text-sm text-body hover:text-ink transition-colors duration-200 shrink-0"
           >
             View all case studies
             <ArrowRight size={14} aria-hidden="true" />
@@ -83,41 +77,41 @@ export function CaseStudies() {
         </div>
 
         {/* Cards */}
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
           {caseStudies.map((cs) => (
             <Link
               key={cs.title}
               href={cs.href}
-              className={`group relative rounded-2xl border ${cs.border} bg-gradient-to-br ${cs.gradient} p-6 flex flex-col gap-6 no-underline hover:border-opacity-40 transition-all duration-300 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-violet-500`}
+              className="group relative rounded-2xl border border-hairline bg-canvas p-6 flex flex-col gap-6 no-underline shadow-level-3 hover:border-hairline-strong hover:shadow-level-4 transition-all duration-300 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-link"
             >
               <div>
                 <div className="flex items-center justify-between mb-4">
-                  <span className="text-xs font-semibold tracking-widest text-gray-500 uppercase">
+                  <span className="text-xs font-mono uppercase tracking-widest text-mute">
                     {cs.industry}
                   </span>
-                  <span className="text-xs text-gray-600 border border-white/8 rounded-full px-2 py-0.5">
+                  <span className="text-xs text-body border border-hairline bg-canvas-soft rounded-full px-2 py-0.5 font-medium">
                     {cs.tag}
                   </span>
                 </div>
-                <h3 className="text-base font-semibold text-white leading-snug mb-3">
+                <h3 className="text-base font-semibold text-ink leading-snug mb-3">
                   {cs.title}
                 </h3>
-                <p className="text-sm text-gray-500 leading-relaxed">
+                <p className="text-sm text-body leading-relaxed">
                   {cs.description}
                 </p>
               </div>
 
               {/* Metrics */}
-              <div className="grid grid-cols-3 gap-2 pt-4 border-t border-white/8">
+              <div className="grid grid-cols-3 gap-2 pt-4 border-t border-hairline mt-auto">
                 {cs.metrics.map((m) => (
                   <div key={m.label} className="text-center">
                     <div
-                      className="text-lg font-bold text-white"
+                      className="text-lg font-semibold text-ink"
                       style={{ fontVariantNumeric: "tabular-nums" }}
                     >
                       {m.value}
                     </div>
-                    <div className="text-xs text-gray-600 mt-0.5 leading-tight">
+                    <div className="text-[10px] text-mute mt-0.5 leading-tight font-mono uppercase">
                       {m.label}
                     </div>
                   </div>
@@ -125,7 +119,7 @@ export function CaseStudies() {
               </div>
 
               {/* Arrow */}
-              <div className="flex items-center gap-1 text-xs text-gray-600 group-hover:text-white transition-colors duration-200">
+              <div className="flex items-center gap-1 text-xs text-mute group-hover:text-ink transition-colors duration-200">
                 <span>Read case study</span>
                 <ArrowRight
                   size={12}

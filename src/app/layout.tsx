@@ -43,7 +43,7 @@ export const metadata: Metadata = {
 };
 
 export const viewport = {
-  themeColor: "#000000",
+  themeColor: "#fafafa",
 };
 
 export default function RootLayout({
@@ -52,9 +52,9 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en" className="dark" style={{ colorScheme: "dark" }}>
+    <html lang="en" className="light" style={{ colorScheme: "light" }}>
       <head>
-        <meta name="theme-color" content="#000000" />
+        <meta name="theme-color" content="#fafafa" />
         <link rel="preconnect" href="https://fonts.googleapis.com" />
         <link
           rel="preconnect"
