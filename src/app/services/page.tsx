@@ -30,7 +30,6 @@ const services = [
       "SaaS platform development",
       "DevOps & CI/CD pipelines",
     ],
-    gradient: "from-violet-500 to-purple-600",
     id: "software",
   },
   {
@@ -45,7 +44,6 @@ const services = [
       "Push notifications & analytics",
       "Offline-first architecture",
     ],
-    gradient: "from-blue-500 to-cyan-600",
     id: "mobile",
   },
   {
@@ -60,7 +58,6 @@ const services = [
       "Multi-branch management",
       "Real-time dashboards & reports",
     ],
-    gradient: "from-emerald-500 to-teal-600",
     id: "erp",
   },
   {
@@ -75,14 +72,13 @@ const services = [
       "RPA & workflow automation",
       "AI model fine-tuning",
     ],
-    gradient: "from-orange-500 to-amber-600",
     id: "ai",
   },
   {
     icon: Globe,
     title: "Business Consulting",
     description:
-      "Technology strategy, architecture reviews, and digital transformation consulting. We help leadership teams make faster, better-informed decisions.",
+      "Technology strategy, architecture reviews, and digital transformation consulting. We help leadership teams make gains, and make faster, better-informed decisions.",
     deliverables: [
       "Technical due diligence",
       "Architecture design sprints",
@@ -90,7 +86,6 @@ const services = [
       "Build vs. buy analysis",
       "Team augmentation",
     ],
-    gradient: "from-pink-500 to-rose-600",
     id: "consulting",
   },
   {
@@ -105,7 +100,6 @@ const services = [
       "Security code review",
       "Access control architecture",
     ],
-    gradient: "from-indigo-500 to-violet-600",
     id: "security",
   },
 ];
@@ -161,12 +155,8 @@ export default function ServicesPage() {
               >
                 {/* Left */}
                 <div className="md:w-80 shrink-0">
-                  <div
-                    className={`w-12 h-12 rounded-xl bg-gradient-to-br ${service.gradient} p-px mb-6`}
-                  >
-                    <div className="w-full h-full rounded-xl bg-canvas flex items-center justify-center">
-                      <Icon size={20} className="text-ink" aria-hidden="true" />
-                    </div>
+                  <div className="w-12 h-12 rounded-xl border border-hairline group-hover:border-hairline-strong bg-canvas flex items-center justify-center transition-colors duration-300 mb-6">
+                    <Icon size={20} className="text-ink" aria-hidden="true" />
                   </div>
                   <h2 className="text-2xl font-semibold text-ink mb-4">
                     {service.title}

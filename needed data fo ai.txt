@@ -1,0 +1,14 @@
+Registered office address
+Corporate office address
+Support email
+Sales email
+Phone number
+GSTIN (if you want it shown)
+CIN (Company Identification Number)
+Founding year
+Founders/Directors
+Team size
+Company registration certificate details
+Official company description (if different)
+Zabnix logo files (SVG preferred)
+Whether Zabnix is a STARLEX company/subsidiary or independent
