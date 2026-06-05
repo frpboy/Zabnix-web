@@ -210,3 +210,29 @@ Backend Files:
 - package.json
 
 Timestamp: 2026-06-04 23:42:11
+
+### 4) Team Showcase Page (Company)
+
+Built a premium Vercel-design-style /company page. Split into server wrapper (metadata) + client component (animations).
+
+**Why split:** Next.js App Router cannot export metadata from a "use client" file. Server wrapper owns SEO, client component owns interactivity.
+
+**Key implementation decisions:**
+- Rotating animated hero word cycles through engineers ? designers ? builders ? strategists using useEffect + opacity/translateY CSS transition — no heavy animation library needed.
+- Portrait-ratio avatar cards (120% padding-bottom trick for consistent aspect ratio across grid breakpoints) with bottom veil gradient for depth.
+- Hover: -translate-y-1 lift + shadow-level-4 — compositor-only 	ransform + ox-shadow, never 	ransition: all.
+- ria-live="polite" on rotating word for screen reader compatibility.
+- 	ranslate="no" on @handles to prevent auto-translation garbling usernames.
+- ont-variant-numeric: tabular-nums on stats.
+- 	extWrap: "balance" on all headings to prevent orphaned words.
+
+**Build result:** ? Compiled successfully in 36.9s
+
+Frontend Files:
+- src/app/company/page.tsx (server wrapper — metadata)
+- src/app/company/CompanyClient.tsx (client component — full UI)
+
+Backend Files:
+- (none this session)
+
+Timestamp: 2026-06-05 10:01:36
