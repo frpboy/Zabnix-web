@@ -21,6 +21,9 @@ export const metadata: Metadata = {
   ],
   authors: [{ name: "Zabnix" }],
   creator: "Zabnix",
+  icons: {
+    icon: "/favicon.svg",
+  },
   metadataBase: new URL("https://zabnix.com"),
   openGraph: {
     type: "website",
@@ -52,6 +55,8 @@ export default function RootLayout({
 }: Readonly<{
   children: React.ReactNode;
 }>) {
+  const isProduction = process.env.NODE_ENV === "production";
+
   return (
     <html lang="en" className="light" style={{ colorScheme: "light" }}>
       <head>
@@ -64,21 +69,31 @@ export default function RootLayout({
         />
       </head>
       <body>
-        <Script id="microsoft-clarity" strategy="afterInteractive">
-          {`
-            (function(c,l,a,r,i,t,y){
-                c[a]=c[a]||function(){(c[a].q=c[a].q||[]).push(arguments)};
-                t=l.createElement(r);t.async=1;t.src="https://www.clarity.ms/tag/"+i;
-                y=l.getElementsByTagName(r)[0];y.parentNode.insertBefore(t,y);
-            })(window, document, "clarity", "script", "x1wa2stzts");
-          `}
-        </Script>
+        {isProduction ? (
+          <Script id="microsoft-clarity" strategy="afterInteractive">
+            {`
+              (function(c,l,a,r,i,t,y){
+                  c[a]=c[a]||function(){(c[a].q=c[a].q||[]).push(arguments)};
+                  t=l.createElement(r);t.async=1;t.src="https://www.clarity.ms/tag/"+i;
+                  y=l.getElementsByTagName(r)[0];y.parentNode.insertBefore(t,y);
+              })(window, document, "clarity", "script", "x1wa2stzts");
+            `}
+          </Script>
+        ) : null}
+
+        {/* Liquid Glass Library */}
+        <Script
+          src="/liquid-glass.js"
+          strategy="afterInteractive"
+        />
+
         <a
           href="#main-content"
           className="sr-only focus:not-sr-only focus:fixed focus:top-4 focus:left-4 focus:z-50 focus:px-4 focus:py-2 focus:bg-white focus:text-black focus:rounded-md"
         >
           Skip to main content
         </a>
+
         <Navbar />
         <main id="main-content">{children}</main>
         <Footer />

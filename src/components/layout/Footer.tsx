@@ -9,9 +9,9 @@ const footerLinks = {
     { label: "Retail Platform", href: "/products/retail" },
     { label: "All Products", href: "/products" },
   ],
-  Company: [
-    { label: "About", href: "/company" },
-    { label: "Team", href: "/company#team" },
+  People: [
+    { label: "About", href: "/people" },
+    { label: "Team", href: "/people#team" },
     { label: "Careers", href: "/careers" },
     { label: "Blog", href: "/blog" },
   ],
@@ -36,7 +36,7 @@ export function Footer() {
           {/* Brand */}
           <div className="col-span-2 md:col-span-1">
             <Link href="/" className="flex items-center gap-2 mb-4" aria-label="Zabnix home">
-              <div className="bg-white border border-hairline rounded-[6px] p-1 flex items-center justify-center shrink-0 w-8 h-8 shadow-level-1">
+              <div className="bg-white dark:bg-zinc-950 border border-hairline rounded-[6px] p-1 flex items-center justify-center shrink-0 w-8 h-8 shadow-level-1">
                 <Image
                   src="/zabnix-logo.svg"
                   alt="Zabnix Logo"

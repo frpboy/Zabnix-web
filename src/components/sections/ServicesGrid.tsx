@@ -56,7 +56,7 @@ const services = [
 
 export function ServicesGrid() {
   return (
-    <section className="py-32 px-6 bg-canvas-soft" aria-labelledby="services-heading">
+    <section className="pt-20 pb-32 px-6 bg-canvas-soft" aria-labelledby="services-heading">
       <div className="max-w-7xl mx-auto">
         {/* Header */}
         <div className="max-w-2xl mb-16">
@@ -77,36 +77,65 @@ export function ServicesGrid() {
         </div>
 
         {/* Grid */}
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+        <div className="grid grid-cols-1 gap-x-6 gap-y-12 sm:grid-cols-2 lg:grid-cols-3">
           {services.map((service) => {
             const Icon = service.icon;
             return (
               <Link
                 key={service.title}
                 href={service.href}
-                className="group relative border border-hairline bg-canvas rounded-2xl p-6 flex flex-col gap-4 no-underline shadow-level-3 hover:shadow-level-4 hover:border-hairline-strong transition-all duration-300 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-link"
+                className="group relative flex min-h-[320px] flex-col rounded-[24px] border border-hairline bg-canvas text-foreground shadow-level-3 transition-all duration-250 hover:-translate-y-1 hover:border-hairline-strong hover:shadow-level-4 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-link"
               >
-                {/* Icon Container with subtle hairline border */}
-                <div className="w-10 h-10 rounded-xl border border-hairline group-hover:border-hairline-strong bg-canvas flex items-center justify-center transition-colors duration-300">
-                  <Icon size={18} className="text-ink" aria-hidden="true" />
+                <div
+                  className="relative mx-4 -mt-6 rounded-[22px] border border-white/45 bg-[linear-gradient(135deg,#f7f7f8_0%,#ececec_45%,#f8f8f8_100%)] shadow-[inset_0_1px_0_rgba(255,255,255,0.65),0_10px_30px_rgba(0,0,0,0.05)] transition-[border-color,box-shadow,transform] duration-250 group-hover:border-indigo-500/25 group-hover:shadow-[inset_0_1px_0_rgba(255,255,255,0.72),0_16px_32px_rgba(0,0,0,0.07)]"
+                  aria-hidden="true"
+                >
+                  <div className="relative h-40 overflow-hidden rounded-[21px] bg-[linear-gradient(135deg,#f7f7f8_0%,#ececec_45%,#f8f8f8_100%)]">
+                    <div className="absolute inset-0 bg-[radial-gradient(circle_at_top_left,rgba(59,130,246,0.08),transparent_36%),radial-gradient(circle_at_bottom_right,rgba(168,85,247,0.08),transparent_34%),linear-gradient(180deg,rgba(255,255,255,0.2),rgba(255,255,255,0.04)_58%,rgba(255,255,255,0)_100%)]" />
+                    <div className="absolute left-6 top-6 flex h-12 w-12 items-center justify-center rounded-2xl border border-white/24 bg-black transition-transform duration-250 group-hover:rotate-[2deg]">
+                      <Icon size={22} className="text-white" aria-hidden="true" />
+                    </div>
+                    <div className="absolute inset-x-6 bottom-6">
+                      <p className="text-[12px] font-normal uppercase tracking-[0.25em] text-neutral-500">
+                        Service
+                      </p>
+                      <p className="mt-2 text-xl font-semibold leading-none text-[#171717]">
+                        <span className="relative inline-block">
+                          <span className="transition-opacity duration-250 ease-out group-hover:opacity-0">
+                            {service.title}
+                          </span>
+                          <span
+                            className="absolute inset-0 bg-gradient-to-r from-develop-start via-preview-start to-ship-start bg-clip-text text-transparent opacity-0 transition-opacity duration-250 ease-out [filter:saturate(0.8)] group-hover:opacity-100"
+                            aria-hidden="true"
+                          >
+                            {service.title}
+                          </span>
+                        </span>
+                      </p>
+                    </div>
+                  </div>
                 </div>
 
-                <div className="flex-1">
-                  <h3 className="text-base font-semibold text-ink mb-2">
-                    {service.title}
-                  </h3>
-                  <p className="text-sm text-body leading-relaxed">
-                    {service.description}
-                  </p>
-                </div>
+                <div className="flex flex-1 flex-col p-6 pt-5">
+                  <div className="flex-1">
+                    <h3 className="mb-3 text-xl font-semibold text-ink">
+                      {service.title}
+                    </h3>
+                    <p className="text-base leading-relaxed text-body">
+                      {service.description}
+                    </p>
+                  </div>
 
-                <div className="flex items-center gap-1 text-xs text-mute group-hover:text-link transition-colors duration-200">
-                  <span>Learn more</span>
-                  <ArrowRight
-                    size={12}
-                    className="translate-x-0 group-hover:translate-x-1 transition-transform duration-200"
-                    aria-hidden="true"
-                  />
+                  <div className="mt-6 pt-0">
+                    <span className="inline-flex items-center rounded-lg bg-ink px-5 py-3 text-center text-xs font-bold uppercase tracking-[0.12em] text-white shadow-md transition-all duration-300 group-hover:bg-ink/92 group-hover:shadow-lg">
+                      Learn More
+                      <ArrowRight
+                        size={12}
+                        className="ml-2 translate-x-0 transition-transform duration-200 group-hover:translate-x-1"
+                        aria-hidden="true"
+                      />
+                    </span>
+                  </div>
                 </div>
               </Link>
             );

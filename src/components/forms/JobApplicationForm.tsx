@@ -70,6 +70,7 @@ export function JobApplicationForm({ roleTitle }: JobApplicationFormProps) {
           Full Name
         </label>
         <input
+          suppressHydrationWarning
           id="app-name"
           type="text"
           name="name"
@@ -88,6 +89,7 @@ export function JobApplicationForm({ roleTitle }: JobApplicationFormProps) {
           Email Address
         </label>
         <input
+          suppressHydrationWarning
           id="app-email"
           type="email"
           name="email"
@@ -107,6 +109,7 @@ export function JobApplicationForm({ roleTitle }: JobApplicationFormProps) {
           Phone Number
         </label>
         <input
+          suppressHydrationWarning
           id="app-phone"
           type="tel"
           name="phone"
@@ -123,6 +126,7 @@ export function JobApplicationForm({ roleTitle }: JobApplicationFormProps) {
         </span>
         <div className="relative">
           <input
+            suppressHydrationWarning
             id="app-resume"
             type="file"
             ref={fileInputRef}
@@ -164,6 +168,7 @@ export function JobApplicationForm({ roleTitle }: JobApplicationFormProps) {
           Message / Cover Letter
         </label>
         <textarea
+          suppressHydrationWarning
           id="app-cover"
           name="coverLetter"
           rows={4}
@@ -173,6 +178,7 @@ export function JobApplicationForm({ roleTitle }: JobApplicationFormProps) {
       </div>
 
       <button
+        suppressHydrationWarning
         type="submit"
         disabled={submitting}
         className="w-full inline-flex items-center justify-center gap-2 bg-ink text-white text-xs font-semibold px-4 py-3.5 rounded-[6px] hover:bg-ink/90 disabled:opacity-60 disabled:cursor-not-allowed transition-colors duration-200 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ink focus-visible:ring-offset-2 focus-visible:ring-offset-canvas"

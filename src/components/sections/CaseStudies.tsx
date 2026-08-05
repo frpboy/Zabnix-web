@@ -4,7 +4,6 @@ import { ArrowRight } from "lucide-react";
 const caseStudies = [
   {
     industry: "Healthcare",
-    company: "Regional Hospital Network",
     title: "Reduced patient wait time by 60% with intelligent scheduling",
     description:
       "Deployed a custom patient management system with AI-driven appointment optimization across 8 hospital branches, processing 3,000+ appointments per day.",
@@ -18,7 +17,6 @@ const caseStudies = [
   },
   {
     industry: "Retail",
-    company: "E-Commerce Retailer",
     title: "Automated inventory replenishment saving ₹2Cr per year",
     description:
       "Built a predictive inventory system integrated with 5 supplier APIs, reducing stockouts by 85% and eliminating manual reorder processes entirely.",
@@ -32,7 +30,6 @@ const caseStudies = [
   },
   {
     industry: "Manufacturing",
-    company: "Auto Parts Manufacturer",
     title: "ERP rollout across 3 plants in under 90 days",
     description:
       "Migrated a legacy manufacturing firm from spreadsheet-driven operations to ZerpAI ERP, with full data migration, staff training, and go-live support.",
@@ -49,19 +46,18 @@ const caseStudies = [
 export function CaseStudies() {
   return (
     <section
-      className="py-32 px-6 border-t border-hairline bg-canvas"
+      className="border-t border-hairline bg-canvas px-6 py-32"
       aria-labelledby="casestudies-heading"
     >
-      <div className="max-w-7xl mx-auto">
-        {/* Header */}
-        <div className="flex flex-col md:flex-row md:items-end justify-between gap-6 mb-16">
+      <div className="mx-auto max-w-7xl">
+        <div className="mb-16 flex flex-col justify-between gap-6 md:flex-row md:items-end">
           <div>
-            <p className="text-xs font-mono uppercase tracking-[0.2em] text-mute mb-4">
+            <p className="mb-4 text-xs font-mono uppercase tracking-[0.2em] text-mute">
               Results That Speak
             </p>
             <h2
               id="casestudies-heading"
-              className="text-4xl md:text-5xl font-semibold text-ink tracking-[-0.03em]"
+              className="text-4xl font-semibold tracking-[-0.03em] text-ink md:text-5xl"
               style={{ textWrap: "balance" }}
             >
               Real outcomes for real businesses.
@@ -69,61 +65,74 @@ export function CaseStudies() {
           </div>
           <Link
             href="/case-studies"
-            className="inline-flex items-center gap-2 text-sm text-body hover:text-ink transition-colors duration-200 shrink-0"
+            className="group relative inline-flex h-11 w-[15.5rem] shrink-0 items-center justify-start overflow-hidden rounded-full bg-transparent focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-link"
           >
-            View all case studies
-            <ArrowRight size={14} aria-hidden="true" />
+            <span className="absolute left-2 top-1/2 block h-9 w-9 -translate-y-1/2 rounded-full bg-[#1f1f1f] transition-[width] duration-500 ease-[cubic-bezier(0.65,0,0.076,1)] group-hover:w-[calc(100%-0.5rem)]" />
+            <span className="absolute left-[1.15rem] top-1/2 z-10 block h-[2px] w-[14px] -translate-y-1/2 bg-transparent transition-[transform,background-color] duration-500 ease-[cubic-bezier(0.65,0,0.076,1)] group-hover:translate-x-4 group-hover:bg-white before:absolute before:right-px before:top-[-4px] before:h-[9px] before:w-[9px] before:rotate-45 before:border-r-2 before:border-t-2 before:border-white before:content-['']" />
+            <span className="relative z-10 w-full pl-12 pr-4 text-center text-sm font-semibold text-[#1f1f1f] transition-colors duration-500 ease-[cubic-bezier(0.65,0,0.076,1)] group-hover:text-white">
+              View all case studies
+            </span>
           </Link>
         </div>
 
-        {/* Cards */}
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+        <div className="grid grid-cols-1 gap-6 md:grid-cols-3">
           {caseStudies.map((cs) => (
             <Link
               key={cs.title}
               href={cs.href}
-              className="group relative rounded-2xl border border-hairline bg-canvas p-6 flex flex-col gap-6 no-underline shadow-level-3 hover:border-hairline-strong hover:shadow-level-4 transition-all duration-300 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-link"
+              className="group relative flex flex-col gap-6 overflow-hidden rounded-2xl border border-[#2a2a2a] bg-[linear-gradient(180deg,#171717_0%,#101010_100%)] p-6 text-white no-underline shadow-[0_18px_40px_rgba(15,23,42,0.12)] transition-transform duration-300 hover:-translate-y-2 hover:shadow-[0_24px_48px_rgba(15,23,42,0.16)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-link"
             >
-              <div>
-                <div className="flex items-center justify-between mb-4">
-                  <span className="text-xs font-mono uppercase tracking-widest text-mute">
+              <div
+                aria-hidden="true"
+                className="absolute inset-x-0 top-0 h-px bg-white/12"
+              />
+              <div
+                aria-hidden="true"
+                className="absolute -right-16 -top-16 h-40 w-40 rounded-full bg-[radial-gradient(circle,rgba(255,255,255,0.1)_0%,rgba(255,255,255,0.03)_45%,rgba(255,255,255,0)_75%)] blur-2xl"
+              />
+              <div
+                aria-hidden="true"
+                className="absolute -bottom-10 -right-10 h-28 w-28 rounded-xl bg-[linear-gradient(135deg,rgba(255,255,255,0.16),rgba(255,255,255,0.08))] shadow-[0_12px_26px_rgba(0,0,0,0.28)] transition-transform duration-500 group-hover:-translate-x-4 group-hover:-translate-y-4"
+              />
+
+              <div className="relative z-10">
+                <div className="mb-4 flex items-center justify-between">
+                  <span className="text-xs font-mono uppercase tracking-widest text-white/55">
                     {cs.industry}
                   </span>
-                  <span className="text-xs text-body border border-hairline bg-canvas-soft rounded-full px-2 py-0.5 font-medium">
+                  <span className="rounded-full border border-white/10 bg-white/5 px-2 py-0.5 text-xs font-medium text-white/80">
                     {cs.tag}
                   </span>
                 </div>
-                <h3 className="text-base font-semibold text-ink leading-snug mb-3">
+                <h3 className="mb-3 text-base font-semibold leading-snug text-white">
                   {cs.title}
                 </h3>
-                <p className="text-sm text-body leading-relaxed">
+                <p className="text-sm leading-relaxed text-white/72">
                   {cs.description}
                 </p>
               </div>
 
-              {/* Metrics */}
-              <div className="grid grid-cols-3 gap-2 pt-4 border-t border-hairline mt-auto">
-                {cs.metrics.map((m) => (
-                  <div key={m.label} className="text-center">
+              <div className="relative z-10 mt-auto grid grid-cols-3 gap-2 border-t border-white/10 pt-4">
+                {cs.metrics.map((metric) => (
+                  <div key={metric.label} className="text-center">
                     <div
-                      className="text-lg font-semibold text-ink"
+                      className="text-lg font-semibold text-white"
                       style={{ fontVariantNumeric: "tabular-nums" }}
                     >
-                      {m.value}
+                      {metric.value}
                     </div>
-                    <div className="text-[10px] text-mute mt-0.5 leading-tight font-mono uppercase">
-                      {m.label}
+                    <div className="mt-0.5 text-[10px] font-mono uppercase leading-tight text-white/42">
+                      {metric.label}
                     </div>
                   </div>
                 ))}
               </div>
 
-              {/* Arrow */}
-              <div className="flex items-center gap-1 text-xs text-mute group-hover:text-ink transition-colors duration-200">
+              <div className="relative z-10 flex items-center gap-1 text-xs text-white/68 transition-colors duration-200 group-hover:text-white">
                 <span>Read case study</span>
                 <ArrowRight
                   size={12}
-                  className="translate-x-0 group-hover:translate-x-1 transition-transform duration-200"
+                  className="translate-x-0 transition-transform duration-200 group-hover:translate-x-1"
                   aria-hidden="true"
                 />
               </div>

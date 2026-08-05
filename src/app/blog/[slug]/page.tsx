@@ -2,21 +2,20 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import { ArrowLeft, Clock, Calendar, ArrowRight } from "lucide-react";
-import { blogPosts } from "@/lib/data";
+import { PortableText } from "next-sanity";
+import { getBlogPost, getBlogSlugs } from "@/sanity/lib/loaders";
 
 type Props = {
   params: Promise<{ slug: string }>;
 };
 
 export async function generateStaticParams() {
-  return blogPosts.map((post) => ({
-    slug: post.slug,
-  }));
+  return getBlogSlugs();
 }
 
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const { slug } = await params;
-  const post = blogPosts.find((p) => p.slug === slug);
+  const post = await getBlogPost(slug);
   if (!post) return {};
 
   return {
@@ -27,7 +26,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
 
 export default async function BlogPostPage({ params }: Props) {
   const { slug } = await params;
-  const post = blogPosts.find((p) => p.slug === slug);
+  const post = await getBlogPost(slug);
 
   if (!post) {
     notFound();
@@ -103,9 +102,11 @@ export default async function BlogPostPage({ params }: Props) {
             <p className="text-ink font-medium text-lg md:text-xl border-l-2 border-link pl-4 mb-8">
               {post.excerpt}
             </p>
-            {post.content.map((paragraph, index) => (
-              <p key={index}>{paragraph}</p>
-            ))}
+            {"content" in post ? (
+              post.content.map((paragraph, index) => <p key={index}>{paragraph}</p>)
+            ) : (
+              <PortableText value={post.body ?? []} />
+            )}
           </article>
 
           {/* Sidebar */}
@@ -143,12 +144,14 @@ export default async function BlogPostPage({ params }: Props) {
                   Email address
                 </label>
                 <input
+                  suppressHydrationWarning
                   id="sb-email"
                   type="email"
                   placeholder="you@company.com…"
                   className="w-full bg-canvas border border-hairline rounded-[6px] px-3 py-2 text-xs text-ink placeholder:text-mute focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-link"
                 />
                 <button
+                  suppressHydrationWarning
                   type="button"
                   className="w-full bg-canvas border border-hairline text-ink text-xs font-semibold px-4 py-2.5 rounded-[6px] hover:bg-canvas-soft transition-colors duration-200 shadow-level-2"
                 >

@@ -78,79 +78,29 @@ export function ContactCTA() {
             </div>
           </div>
 
-          {/* Right: Quick contact card (ex-auth-form-card style) */}
-          <div className="relative">
-            <div className="border border-hairline bg-canvas rounded-2xl p-8 shadow-level-3">
-              <h3 className="text-xl font-semibold text-ink mb-6">
-                Send us a message
-              </h3>
-              <form
-                aria-label="Quick contact form"
-                className="space-y-4"
-              >
+          {/* Right: monochrome contact form */}
+          <div className="rounded-[25px] bg-[linear-gradient(135deg,#171717_0%,#737373_50%,#171717_100%)] p-px shadow-[0_18px_44px_rgba(0,0,0,0.12)] transition-[box-shadow] duration-300 ease-out hover:shadow-[0_24px_52px_rgba(0,0,0,0.18)]">
+            <div className="rounded-[24px] bg-white px-8 pb-8 pt-7">
+              <h3 className="mb-6 text-xl font-semibold text-black">Send us a message</h3>
+              <form aria-label="Quick contact form" className="space-y-4">
                 <div>
-                  <label
-                    htmlFor="contact-name"
-                    className="block text-xs font-mono uppercase tracking-wider text-body mb-2"
-                  >
-                    Your Name
-                  </label>
-                  <input
-                    id="contact-name"
-                    type="text"
-                    name="name"
-                    autoComplete="name"
-                    placeholder="Rahul Sharma…"
-                    className="w-full bg-canvas border border-hairline rounded-[6px] px-4 py-3 text-sm text-ink placeholder:text-mute focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-link transition-colors duration-200"
-                  />
+                  <label htmlFor="contact-name" className="mb-2 block text-xs font-mono uppercase tracking-wider text-neutral-600">Your Name</label>
+                  <input id="contact-name" type="text" name="name" autoComplete="name" placeholder="Rahul Sharma…" className="w-full rounded-full border border-neutral-300 bg-white px-4 py-3 text-sm text-black shadow-[inset_2px_3px_8px_rgba(0,0,0,0.06)] placeholder:text-neutral-400 transition-[border-color,background-color] duration-200 hover:border-neutral-500 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-black" />
                 </div>
                 <div>
-                  <label
-                    htmlFor="contact-email"
-                    className="block text-xs font-mono uppercase tracking-wider text-body mb-2"
-                  >
-                    Work Email
-                  </label>
-                  <input
-                    id="contact-email"
-                    type="email"
-                    name="email"
-                    autoComplete="email"
-                    spellCheck={false}
-                    placeholder="you@company.com…"
-                    className="w-full bg-canvas border border-hairline rounded-[6px] px-4 py-3 text-sm text-ink placeholder:text-mute focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-link transition-colors duration-200"
-                  />
+                  <label htmlFor="contact-email" className="mb-2 block text-xs font-mono uppercase tracking-wider text-neutral-600">Work Email</label>
+                  <input id="contact-email" type="email" name="email" autoComplete="email" spellCheck={false} placeholder="you@company.com…" className="w-full rounded-full border border-neutral-300 bg-white px-4 py-3 text-sm text-black shadow-[inset_2px_3px_8px_rgba(0,0,0,0.06)] placeholder:text-neutral-400 transition-[border-color,background-color] duration-200 hover:border-neutral-500 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-black" />
                 </div>
                 <div>
-                  <label
-                    htmlFor="contact-message"
-                    className="block text-xs font-mono uppercase tracking-wider text-body mb-2"
-                  >
-                    What are you building?
-                  </label>
-                  <textarea
-                    id="contact-message"
-                    name="message"
-                    rows={4}
-                    placeholder="Describe your project or requirements…"
-                    className="w-full bg-canvas border border-hairline rounded-[6px] px-4 py-3 text-sm text-ink placeholder:text-mute focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-link transition-colors duration-200 resize-none"
-                  />
+                  <label htmlFor="contact-message" className="mb-2 block text-xs font-mono uppercase tracking-wider text-neutral-600">What are you building?</label>
+                  <textarea id="contact-message" name="message" rows={4} placeholder="Describe your project or requirements…" className="w-full resize-none rounded-2xl border border-neutral-300 bg-white px-4 py-3 text-sm text-black shadow-[inset_2px_3px_8px_rgba(0,0,0,0.06)] placeholder:text-neutral-400 transition-[border-color,background-color] duration-200 hover:border-neutral-500 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-black" />
                 </div>
-                <button
-                  type="button"
-                  className="w-full inline-flex items-center justify-center gap-2 bg-ink text-white text-sm font-semibold px-6 py-3.5 rounded-[6px] hover:bg-ink/90 transition-colors duration-200 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ink focus-visible:ring-offset-2 focus-visible:ring-offset-canvas"
-                >
+                <button type="button" className="inline-flex w-full items-center justify-center gap-2 rounded-full bg-black px-6 py-3.5 text-sm font-semibold text-white transition-[background-color,box-shadow] duration-200 hover:bg-neutral-800 hover:shadow-[0_10px_22px_rgba(0,0,0,0.2)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-black focus-visible:ring-offset-2">
                   Send Message
                   <ArrowRight size={16} aria-hidden="true" />
                 </button>
               </form>
             </div>
-
-            {/* Glow */}
-            <div
-              className="absolute inset-0 -z-10 blur-3xl opacity-5 rounded-3xl bg-gradient-to-br from-violet-600 to-blue-600"
-              aria-hidden="true"
-            />
           </div>
         </div>
       </div>

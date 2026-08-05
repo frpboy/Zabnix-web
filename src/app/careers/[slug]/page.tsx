@@ -2,22 +2,20 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import { ArrowLeft, MapPin, Clock, Building2, CheckCircle2 } from "lucide-react";
-import { openRoles } from "@/lib/data";
 import { JobApplicationForm } from "@/components/forms/JobApplicationForm";
+import { getJobRole, getJobRoleSlugs } from "@/sanity/lib/loaders";
 
 type Props = {
   params: Promise<{ slug: string }>;
 };
 
 export async function generateStaticParams() {
-  return openRoles.map((role) => ({
-    slug: role.slug,
-  }));
+  return getJobRoleSlugs();
 }
 
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const { slug } = await params;
-  const role = openRoles.find((r) => r.slug === slug);
+  const role = await getJobRole(slug);
   if (!role) return {};
 
   return {
@@ -28,7 +26,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
 
 export default async function JobRolePage({ params }: Props) {
   const { slug } = await params;
-  const role = openRoles.find((r) => r.slug === slug);
+  const role = await getJobRole(slug);
 
   if (!role) {
     notFound();

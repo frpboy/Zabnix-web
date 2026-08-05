@@ -2,22 +2,20 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import { ArrowLeft, CheckCircle2 } from "lucide-react";
-import { products } from "@/lib/data";
 import { ProductDemoForm } from "@/components/forms/ProductDemoForm";
+import { getProduct, getProductSlugs } from "@/sanity/lib/loaders";
 
 type Props = {
   params: Promise<{ slug: string }>;
 };
 
 export async function generateStaticParams() {
-  return products.map((prod) => ({
-    slug: prod.slug,
-  }));
+  return getProductSlugs();
 }
 
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const { slug } = await params;
-  const product = products.find((p) => p.slug === slug);
+  const product = await getProduct(slug);
   if (!product) return {};
 
   return {
@@ -28,7 +26,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
 
 export default async function ProductDetailPage({ params }: Props) {
   const { slug } = await params;
-  const product = products.find((p) => p.slug === slug);
+  const product = await getProduct(slug);
 
   if (!product) {
     notFound();

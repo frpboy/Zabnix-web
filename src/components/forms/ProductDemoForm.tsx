@@ -52,6 +52,7 @@ export function ProductDemoForm({ productName }: ProductDemoFormProps) {
           Full Name
         </label>
         <input
+          suppressHydrationWarning
           id="demo-name"
           type="text"
           name="name"
@@ -71,6 +72,7 @@ export function ProductDemoForm({ productName }: ProductDemoFormProps) {
             Company
           </label>
           <input
+            suppressHydrationWarning
             id="demo-company"
             type="text"
             name="company"
@@ -88,6 +90,7 @@ export function ProductDemoForm({ productName }: ProductDemoFormProps) {
             Job Title
           </label>
           <input
+            suppressHydrationWarning
             id="demo-title"
             type="text"
             name="jobTitle"
@@ -105,6 +108,7 @@ export function ProductDemoForm({ productName }: ProductDemoFormProps) {
           Work Email
         </label>
         <input
+          suppressHydrationWarning
           id="demo-email"
           type="email"
           name="email"
@@ -124,6 +128,7 @@ export function ProductDemoForm({ productName }: ProductDemoFormProps) {
           Phone Number
         </label>
         <input
+          suppressHydrationWarning
           id="demo-phone"
           type="tel"
           name="phone"
@@ -142,6 +147,7 @@ export function ProductDemoForm({ productName }: ProductDemoFormProps) {
           Special Requirements / Notes
         </label>
         <textarea
+          suppressHydrationWarning
           id="demo-notes"
           name="notes"
           rows={3}
@@ -151,6 +157,7 @@ export function ProductDemoForm({ productName }: ProductDemoFormProps) {
       </div>
 
       <button
+        suppressHydrationWarning
         type="submit"
         disabled={submitting}
         className="w-full inline-flex items-center justify-center gap-2 bg-ink text-white text-xs font-semibold px-4 py-3.5 rounded-[6px] hover:bg-ink/90 disabled:opacity-60 disabled:cursor-not-allowed transition-colors duration-200 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ink focus-visible:ring-offset-2 focus-visible:ring-offset-canvas"

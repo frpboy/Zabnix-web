@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import { ArrowRight, MapPin, Clock, Building2 } from "lucide-react";
-import { openRoles } from "@/lib/data";
+import { getJobRoles } from "@/sanity/lib/loaders";
 
 export const metadata: Metadata = {
   title: "Careers",
@@ -18,7 +18,9 @@ const perks = [
   { emoji: "⚡", title: "Flexible Hours", desc: "Own your schedule. We care about output, not hours." },
 ];
 
-export default function CareersPage() {
+export default async function CareersPage() {
+  const openRoles = await getJobRoles();
+
   return (
     <div className="pt-24 min-h-screen bg-canvas-soft">
       {/* Hero */}

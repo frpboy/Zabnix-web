@@ -2,7 +2,7 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import { ArrowLeft, Clock, TrendingUp, Users, ArrowRight } from "lucide-react";
-import { caseStudies } from "@/lib/data";
+import { getCaseStudy, getCaseStudySlugs } from "@/sanity/lib/loaders";
 
 type Props = {
   params: Promise<{ slug: string }>;
@@ -15,14 +15,12 @@ const iconMap = {
 };
 
 export async function generateStaticParams() {
-  return caseStudies.map((cs) => ({
-    slug: cs.slug,
-  }));
+  return getCaseStudySlugs();
 }
 
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const { slug } = await params;
-  const cs = caseStudies.find((c) => c.slug === slug);
+  const cs = await getCaseStudy(slug);
   if (!cs) return {};
 
   return {
@@ -33,7 +31,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
 
 export default async function CaseStudyDetailPage({ params }: Props) {
   const { slug } = await params;
-  const cs = caseStudies.find((c) => c.slug === slug);
+  const cs = await getCaseStudy(slug);
 
   if (!cs) {
     notFound();
