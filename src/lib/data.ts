@@ -204,7 +204,7 @@ export const products: Product[] = [
       { title: "Supplier Replenishment", desc: "Reorder triggers linked directly to real-time sales velocity." },
       { title: "Hardware Integration", desc: "Thermal printers, card terminals, and barcode scanners." },
     ],
-    industries: ["Supermarkets", "Fashion & Apparel", "Electronics", "Convenience Stores"],
+    industries: ["Supermarkets", "Fashion & Apparel", "Electronics"],
     specs: [
       { label: "Offline Mode", value: "IndexedDB local fallback sync" },
       { label: "Integrations", value: "Stripe, Razorpay, Shopify" },
