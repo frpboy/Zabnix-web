@@ -173,8 +173,8 @@ export function StatsSection() {
       className="bg-canvas-soft border-t border-b border-hairline"
       aria-label="Company statistics"
     >
-      <div className="max-w-7xl mx-auto px-6 py-12 md:py-14">
-        <div className="grid grid-cols-3 gap-8 max-w-lg mx-auto">
+      <div className="max-w-7xl mx-auto px-6 py-10 md:py-14">
+        <div className="grid grid-cols-1 sm:grid-cols-3 gap-6 sm:gap-8 max-w-lg mx-auto">
           {stats.map((stat, index) => (
             <StatCard
               key={stat.label}

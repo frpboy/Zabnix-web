@@ -94,14 +94,16 @@ function PreviewShell({ children, label, title, Icon }: PreviewShellProps) {
 function ServicePreview({ id, title, Icon }: { id: string; title: string; Icon: LucideIcon }) {
   const sharedClass = "h-full min-h-[300px]";
   const reduceMotion = useReducedMotion();
-  const loopTransition = reduceMotion ? { duration: 0 } : { duration: 2.8, ease: "easeInOut", repeat: Infinity, repeatDelay: 1.6 };
+  const loopTransition = reduceMotion
+    ? { duration: 0 }
+    : ({ duration: 2.8, ease: "easeInOut", repeat: Infinity, repeatDelay: 1.6 } as const);
 
   if (id === "software") {
     return <PreviewShell label={previewLabels[id]} title={title} Icon={Icon}><div className={`${sharedClass} rounded-2xl border border-[#e6e6e6] bg-white`}><div className="flex items-center gap-2 border-b border-[#ececec] px-4 py-3"><span className="h-2.5 w-2.5 rounded-full bg-[#d4d4d4]" /><span className="h-2.5 w-2.5 rounded-full bg-[#d4d4d4]" /><span className="h-2.5 w-2.5 rounded-full bg-[#d4d4d4]" /><span className="ml-3 text-xs font-medium text-[#737373]">order-service.ts</span></div><div className="grid h-[calc(100%-45px)] grid-cols-[96px_1fr]"><aside className="border-r border-[#ececec] p-3"><div className="mb-5 flex items-center gap-2 text-xs font-medium text-[#171717]"><FileCode2 size={14} />src</div>{["api", "orders", "schema", "tests"].map((item, index) => <motion.div key={item} animate={reduceMotion ? undefined : { opacity: index === 1 ? [0.45, 1, 0.45] : 1 }} transition={{ ...loopTransition, delay: index * 0.2 }} className="mb-3 text-[11px] text-[#8a8a8a]">{item}</motion.div>)}</aside><div className="p-5 font-mono text-xs leading-7 text-[#737373]"><p><span className="text-[#171717]">export async function</span> createOrder()<motion.span animate={reduceMotion ? undefined : { opacity: [1, 1, 0, 0] }} transition={{ duration: 0.9, repeat: Infinity, repeatDelay: 0.8 }} className="ml-0.5 text-[#171717]">|</motion.span></p><p className="pl-4">const order = await validate(payload)</p><p className="pl-4">return inventory.reserve(order)</p><motion.p animate={reduceMotion ? undefined : { opacity: [0.45, 1, 0.45] }} transition={loopTransition} className="mt-6 flex items-center gap-2 font-sans text-xs text-[#404040]"><GitBranch size={14} />main / deployed</motion.p></div></div></div></PreviewShell>;
   }
 
   if (id === "mobile") {
-    return <PreviewShell label={previewLabels[id]} title={title} Icon={Icon}><div className={`${sharedClass} flex items-center justify-center gap-5 bg-[#f5f5f5]`}><motion.div animate={reduceMotion ? undefined : { y: [0, -5, 0] }} transition={loopTransition} className="relative h-[254px] w-[126px] rounded-[24px] border-[5px] border-[#171717] bg-white p-2 shadow-[0_14px_30px_rgba(15,23,42,0.12)]"><div className="mb-3 h-16 rounded-xl bg-[#171717] p-3 text-[10px] text-white">Good morning<br /><span className="text-[#bdbdbd]">Your workspace</span></div><div className="space-y-2">{["Tasks", "Analytics", "Messages"].map((item, index) => <motion.div key={item} animate={reduceMotion ? undefined : { x: index === 0 ? [0, 3, 0] : 0 }} transition={{ ...loopTransition, delay: index * 0.25 }} className="rounded-lg border border-[#e5e5e5] px-2 py-2 text-[9px] text-[#525252]">{item}</motion.div>)}</div><motion.span initial={{ opacity: 0, y: 4 }} animate={reduceMotion ? { opacity: 0 } : { opacity: [0, 1, 1, 0], y: [4, 0, 0, 4] }} transition={{ duration: 3.4, repeat: Infinity, repeatDelay: 2 }} className="absolute -right-12 top-8 rounded-full border border-[#e5e5e5] bg-white px-2 py-1 text-[8px] text-[#525252] shadow-sm">New task</motion.span></motion.div><div className="h-[220px] w-[110px] rounded-[22px] border-[4px] border-[#404040] bg-[#fafafa] p-2"><MonitorSmartphone size={16} className="mb-4 text-[#525252]" /><div className="space-y-2">{Array.from({ length: 5 }).map((_, index) => <motion.div key={index} animate={reduceMotion ? undefined : { opacity: index === 0 ? [1, 0.45, 1] : 1 }} transition={{ ...loopTransition, delay: index * 0.15 }} className={`h-3 rounded-full ${index === 0 ? "bg-[#171717]" : "bg-[#e5e5e5]"}`} />)}</div></div></div></PreviewShell>;
+    return <PreviewShell label={previewLabels[id]} title={title} Icon={Icon}><div className={`${sharedClass} flex items-center justify-center gap-5 bg-[#f5f5f5]`}><motion.div animate={reduceMotion ? undefined : { y: [0, -5, 0] }} transition={loopTransition} className="relative h-[254px] w-[126px] rounded-[24px] border-[5px] border-[#171717] bg-white p-2 shadow-[0_14px_30px_rgba(15,23,42,0.12)]"><div className="mb-3 h-16 rounded-xl bg-[#171717] p-3 text-[10px] text-white">Good morning<br /><span className="text-[#bdbdbd]">Your workspace</span></div><div className="space-y-2">{["Tasks", "Analytics", "Messages"].map((item, index) => <motion.div key={item} animate={reduceMotion ? undefined : { x: index === 0 ? [0, 3, 0] : 0 }} transition={{ ...loopTransition, delay: index * 0.25 }} className="rounded-lg border border-[#e5e5e5] px-2 py-2 text-[9px] text-[#525252]">{item}</motion.div>)}</div></motion.div><div className="h-[220px] w-[110px] rounded-[22px] border-[4px] border-[#404040] bg-[#fafafa] p-2"><MonitorSmartphone size={16} className="mb-4 text-[#525252]" /><div className="space-y-2">{Array.from({ length: 5 }).map((_, index) => <motion.div key={index} animate={reduceMotion ? undefined : { opacity: index === 0 ? [1, 0.45, 1] : 1 }} transition={{ ...loopTransition, delay: index * 0.15 }} className={`h-3 rounded-full ${index === 0 ? "bg-[#171717]" : "bg-[#e5e5e5]"}`} />)}</div></div></div></PreviewShell>;
   }
 
   if (id === "erp") {
@@ -119,7 +121,7 @@ function ServicePreview({ id, title, Icon }: { id: string; title: string; Icon: 
   return <PreviewShell label={previewLabels[id]} title={title} Icon={Icon}><div className={`${sharedClass} relative overflow-hidden rounded-2xl border border-[#e5e5e5] bg-[#171717] p-6 text-white`}><motion.span animate={reduceMotion ? undefined : { y: ["-110%", "110%"] }} transition={{ duration: 2.4, repeat: Infinity, repeatDelay: 2.8, ease: "linear" }} className="pointer-events-none absolute inset-x-0 top-0 h-px bg-white/65" /><div className="flex items-center justify-between"><motion.div animate={reduceMotion ? undefined : { scale: [1, 1.06, 1] }} transition={loopTransition} className="grid h-10 w-10 place-items-center rounded-xl border border-white/20"><ShieldCheck size={19} /></motion.div><motion.span animate={reduceMotion ? undefined : { opacity: [0.55, 1, 0.55] }} transition={loopTransition} className="rounded-full bg-white/10 px-3 py-1 text-[10px]">Protected</motion.span></div><p className="mt-8 text-xl font-semibold">Security posture</p><p className="mt-1 text-xs text-white/60">Continuous compliance monitoring</p><div className="mt-8 grid grid-cols-3 gap-3">{["98", "14", "0"].map((metric, index) => <motion.div key={metric} initial={reduceMotion ? false : { opacity: 0, y: 8 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.35, delay: index * 0.1, ease: "easeOut" }} className="rounded-xl border border-white/10 bg-white/5 p-3"><p className="text-lg font-semibold">{metric}{index === 0 ? "%" : ""}</p><p className="mt-1 text-[9px] uppercase tracking-wider text-white/55">{["Score", "Controls", "Risks"][index]}</p></motion.div>)}</div><motion.div animate={reduceMotion ? undefined : { opacity: [0.55, 1, 0.55] }} transition={{ ...loopTransition, delay: 0.4 }} className="mt-7 flex items-center gap-2 text-xs text-white/70"><LockKeyhole size={14} />SOC 2 controls synchronized</motion.div></div></PreviewShell>;
 }
 
-export function ServiceEditorialBlock({ service, index }: ServiceEditorialBlockProps) {
+function DesktopServiceEditorialBlock({ service, index }: ServiceEditorialBlockProps) {
   const reduceMotion = useReducedMotion();
   const Icon = serviceIcons[service.icon];
   const content = (
@@ -175,3 +177,58 @@ export function ServiceEditorialBlock({ service, index }: ServiceEditorialBlockP
     </motion.article>
   );
 }
+
+function MobileServiceEditorialBlock({ service }: ServiceEditorialBlockProps) {
+  const reduceMotion = useReducedMotion();
+  const Icon = serviceIcons[service.icon];
+
+  return (
+    <article
+      id={`${service.id}-mobile`}
+      className="scroll-mt-20 rounded-[24px] border border-[#ececec] bg-white px-5 py-7 shadow-[0_8px_24px_rgba(15,23,42,0.04)]"
+    >
+      <div className="flex flex-col gap-6">
+        {/* Content First */}
+        <div>
+          <div className="mb-4 grid h-10 w-10 place-items-center rounded-xl border border-[#e5e5e5] bg-white text-[#171717]">
+            <Icon size={18} strokeWidth={1.75} aria-hidden="true" />
+          </div>
+          <h2 className="text-2xl font-semibold tracking-tight text-ink">{service.title}</h2>
+          <p className="mt-3 text-sm leading-relaxed text-body">{service.description}</p>
+          <h3 className="mt-6 text-xs font-mono font-medium uppercase tracking-[0.18em] text-mute">What We Deliver</h3>
+          <ul className="mt-3 flex flex-col gap-2.5">
+            {service.deliverables.map((item) => (
+              <li key={item} className="flex items-center gap-2.5 text-xs text-body">
+                <CheckCircle2 size={15} strokeWidth={1.75} className="shrink-0 text-[#171717]" aria-hidden="true" />
+                <span>{item}</span>
+              </li>
+            ))}
+          </ul>
+          <Link href="/contact#consultation" className="mt-6 inline-flex w-full items-center justify-center gap-2 rounded-xl bg-ink py-3 text-sm font-semibold text-white focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ink">
+            <span>Start Project</span>
+            <span aria-hidden="true">→</span>
+          </Link>
+        </div>
+
+        {/* Preview Shell */}
+        <div className="w-full">
+          <ServicePreview id={service.id} title={service.title} Icon={Icon} />
+        </div>
+      </div>
+    </article>
+  );
+}
+
+export function ServiceEditorialBlock({ service, index }: ServiceEditorialBlockProps) {
+  return (
+    <>
+      <div className="hidden lg:block">
+        <DesktopServiceEditorialBlock service={service} index={index} />
+      </div>
+      <div className="block lg:hidden">
+        <MobileServiceEditorialBlock service={service} index={index} />
+      </div>
+    </>
+  );
+}
+

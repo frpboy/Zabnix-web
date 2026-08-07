@@ -188,7 +188,7 @@ export default function PillNav({
     if (!timeline) return;
     activeTweenRefs.current[index]?.kill();
     activeTweenRefs.current[index] = timeline.tweenTo(timeline.duration(), {
-      duration: 0.3,
+      duration: 0.5,
       ease,
       overwrite: "auto",
     });
@@ -199,7 +199,7 @@ export default function PillNav({
     if (!timeline) return;
     activeTweenRefs.current[index]?.kill();
     activeTweenRefs.current[index] = timeline.tweenTo(0, {
-      duration: 0.2,
+      duration: 0.4,
       ease,
       overwrite: "auto",
     });

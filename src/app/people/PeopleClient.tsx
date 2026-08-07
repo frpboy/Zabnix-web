@@ -895,7 +895,7 @@ export default function PeopleClient() {
       <ValuesSection />
 
       {/* ── Join CTA ─────────────────────────────────────────────────────────── */}
-      <section className="bg-canvas px-6 pb-28 pt-10 text-center md:pt-12">
+      <section className="border-t border-hairline bg-canvas px-6 pb-28 pt-16 text-center md:pt-20">
         <div className="max-w-2xl mx-auto">
           <h2
             className="text-3xl md:text-4xl font-semibold text-ink mb-4 tracking-tight"

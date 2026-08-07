@@ -105,7 +105,7 @@ export default async function BlogPostPage({ params }: Props) {
             {"content" in post ? (
               post.content.map((paragraph, index) => <p key={index}>{paragraph}</p>)
             ) : (
-              <PortableText value={post.body ?? []} />
+              <PortableText value={(post.body as any) ?? []} />
             )}
           </article>
 

@@ -57,52 +57,8 @@ export default async function CaseStudiesPage() {
           Case Studies
         </h2>
         <div className="max-w-5xl mx-auto space-y-6">
-          {caseStudies.map((cs) => cs.slug === "hospital-network" || cs.slug === "manufacturing-erp" ? (
+          {caseStudies.map((cs) => (
             <InteractiveCaseStudyCard key={cs.slug} caseStudy={cs} />
-          ) : (
-            <article
-              key={cs.slug}
-              className="rounded-[28px] border border-hairline bg-canvas shadow-level-3 transition-[border-color,box-shadow,transform] duration-500 ease-out hover:-translate-y-1.5 hover:border-hairline-strong hover:shadow-level-4"
-            >
-              <div className="p-6 md:p-7">
-                <div className="mb-4 flex items-center gap-3">
-                  <span className="text-xs font-mono font-semibold tracking-widest text-mute uppercase">
-                    {cs.industry}
-                  </span>
-                  <span className="text-hairline-strong">·</span>
-                  <span className="text-xs text-mute font-mono">{cs.company}</span>
-                </div>
-
-                <h2 className="mb-4 text-2xl font-semibold leading-tight text-ink md:text-3xl" style={{ textWrap: "balance" }}>
-                  {cs.title}
-                </h2>
-
-                <div className="mb-6 grid grid-cols-1 gap-5 md:grid-cols-2">
-                  <div>
-                    <h3 className="text-[10px] font-mono font-semibold text-mute uppercase tracking-widest mb-3">
-                      The Problem
-                    </h3>
-                    <p className="text-sm text-body leading-relaxed">
-                      {cs.problem}
-                    </p>
-                  </div>
-                  <div>
-                    <h3 className="text-[10px] font-mono font-semibold text-mute uppercase tracking-widest mb-3">
-                      Our Solution
-                    </h3>
-                    <p className="text-sm text-body leading-relaxed">
-                      {cs.solution}
-                    </p>
-                  </div>
-                </div>
-
-                <div className="mb-6">
-                  <CaseStudyVisualization slug={cs.slug} />
-                </div>
-
-                <CaseStudyCta href={`/case-studies/${cs.slug}`} />
-              </div>
-            </article>
           ))}
         </div>
       </section>

@@ -7,6 +7,8 @@ type RevealSectionProps = {
   children: ReactNode;
 };
 
+const easeOut = [0.22, 1, 0.36, 1] as const;
+
 export const revealContainer = {
   hidden: { opacity: 0, y: 40 },
   visible: {
@@ -14,8 +16,8 @@ export const revealContainer = {
     y: 0,
     transition: {
       duration: 0.8,
-      ease: "easeOut",
-      when: "beforeChildren",
+      ease: easeOut,
+      when: "beforeChildren" as const,
       staggerChildren: 0.1,
     },
   },

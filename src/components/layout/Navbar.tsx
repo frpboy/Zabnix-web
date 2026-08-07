@@ -112,12 +112,12 @@ export function Navbar() {
 
           {/* Mobile menu button */}
           <button
-            className="md:hidden p-2 text-body hover:text-ink focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-violet-500 rounded"
+            className="md:hidden p-2.5 min-h-[44px] min-w-[44px] flex items-center justify-center text-body hover:text-ink focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ink rounded-lg"
             onClick={() => setMobileOpen(!mobileOpen)}
             aria-label={mobileOpen ? "Close menu" : "Open menu"}
             aria-expanded={mobileOpen}
           >
-            {mobileOpen ? <X size={20} /> : <Menu size={20} />}
+            {mobileOpen ? <X size={22} /> : <Menu size={22} />}
           </button>
         </nav>
       </LiquidGlass>
@@ -125,26 +125,28 @@ export function Navbar() {
       {/* Mobile menu */}
       {mobileOpen && (
         <div
-          className="md:hidden glass-nav border-t border-hairline px-6 py-6 flex flex-col gap-4"
+          className="md:hidden glass-nav border-t border-hairline px-6 py-6 flex flex-col gap-2 shadow-2xl bg-white/95 backdrop-blur-xl"
           style={{ overscrollBehavior: "contain" }}
         >
           {navLinks.map((link) => (
             <Link
               key={link.href}
               href={link.href}
-              className="text-sm text-body hover:text-ink py-2 transition-colors duration-200"
+              className="min-h-[44px] flex items-center text-base font-medium text-body hover:text-ink px-3 py-2 rounded-lg transition-colors duration-200 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ink"
               onClick={() => setMobileOpen(false)}
             >
               {link.label}
             </Link>
           ))}
-          <Link
-            href="/contact#consultation"
-            className="mt-2 w-full text-center text-sm font-medium bg-ink text-white dark:bg-white dark:text-black px-4 py-3 rounded-[6px] hover:bg-ink/90 dark:hover:bg-white/90 transition-colors duration-200"
-            onClick={() => setMobileOpen(false)}
-          >
-            Book Consultation
-          </Link>
+          <div className="pt-2">
+            <Link
+              href="/contact#consultation"
+              className="min-h-[48px] flex items-center justify-center w-full text-center text-sm font-semibold bg-ink text-white dark:bg-white dark:text-black px-4 py-3 rounded-xl hover:bg-ink/90 dark:hover:bg-white/90 transition-colors duration-200 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ink"
+              onClick={() => setMobileOpen(false)}
+            >
+              Book Consultation
+            </Link>
+          </div>
         </div>
       )}
     </header>

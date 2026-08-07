@@ -53,18 +53,20 @@ const categories: readonly TechnologyCategory[] = [
   { title: "Data & Storage", icon: Database, technologies: [{ name: "PostgreSQL", icon: SiPostgresql }, { name: "Redis", icon: SiRedis }, { name: "MongoDB", icon: SiMongodb }, { name: "Supabase", icon: SiSupabase }] },
 ];
 
+const easeOut = [0.22, 1, 0.36, 1] as const;
+
 const sectionVariants = {
   hidden: { opacity: 0, y: 20 },
   visible: {
     opacity: 1,
     y: 0,
-    transition: { duration: 0.6, ease: "easeOut", staggerChildren: 0.08 },
+    transition: { duration: 0.6, ease: easeOut, staggerChildren: 0.08 },
   },
 };
 
 const cardVariants = {
   hidden: { opacity: 0, y: 20 },
-  visible: { opacity: 1, y: 0, transition: { duration: 0.6, ease: "easeOut" } },
+  visible: { opacity: 1, y: 0, transition: { duration: 0.6, ease: easeOut } },
 };
 
 export function ServicesTechnologyShowcase() {

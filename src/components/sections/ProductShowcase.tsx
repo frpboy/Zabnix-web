@@ -77,16 +77,16 @@ function SidebarItem({
 }) {
   return (
     <div
-      className={`flex items-center gap-3 rounded-xl px-3 py-2.5 text-sm font-medium ${
+      className={`flex items-center gap-3 rounded-xl px-3 py-2.5 text-sm font-medium transition-all duration-200 ${
         active
-          ? "bg-[#30415f] text-white"
-          : "text-slate-200/86 transition-colors duration-200 hover:bg-white/5"
+          ? "bg-[#30415f] text-white font-semibold"
+          : "text-white opacity-90 hover:bg-white/10 hover:opacity-100"
       }`}
     >
-      <Icon size={16} aria-hidden="true" />
-      <span>{label}</span>
+      <Icon size={16} className="text-white shrink-0" aria-hidden="true" />
+      <span className="text-white font-medium">{label}</span>
       {!active && label === "Items" ? (
-        <ChevronRight size={14} className="ml-auto opacity-70" aria-hidden="true" />
+        <ChevronRight size={14} className="ml-auto text-white opacity-70" aria-hidden="true" />
       ) : null}
     </div>
   );
@@ -358,95 +358,191 @@ function ZerpAIDashboardPreview({ start }: { start: boolean }) {
   );
 }
 
+function MobileZerpAIDashboardPreview({ start }: { start: boolean }) {
+  return (
+    <motion.div
+      initial={{ opacity: 0, y: 16 }}
+      animate={{ opacity: start ? 1 : 0, y: start ? 0 : 16 }}
+      transition={{ duration: 0.6, ease: "easeOut" }}
+      className="w-full mt-6"
+    >
+      <div className="rounded-[24px] border border-[#ececec] bg-white p-4 shadow-[0_12px_32px_rgba(15,23,42,0.06)]">
+        {/* Mobile Header Bar */}
+        <div className="flex items-center justify-between border-b border-[#f0f0f0] pb-3 mb-4">
+          <div className="flex items-center gap-2.5">
+            <div className="flex h-8 w-8 items-center justify-center rounded-xl bg-[#1f7a52] text-white">
+              <Grid2x2 size={16} aria-hidden="true" />
+            </div>
+            <div>
+              <p className="text-sm font-semibold text-slate-800">Zerpai ERP</p>
+              <p className="text-[11px] text-neutral-500">Live Operations</p>
+            </div>
+          </div>
+          <span className="rounded-full bg-emerald-50 px-2.5 py-1 text-[10px] font-semibold text-emerald-600 border border-emerald-200">
+            Active
+          </span>
+        </div>
+
+        {/* 2-col Metrics Grid */}
+        <div className="grid grid-cols-2 gap-2.5 mb-4">
+          {summaryCards.slice(0, 4).map((card, index) => (
+            <motion.div
+              key={card.title}
+              initial={{ opacity: 0, y: 12 }}
+              animate={{ opacity: start ? 1 : 0, y: start ? 0 : 12 }}
+              transition={{ duration: 0.35, delay: 0.2 + index * 0.06 }}
+            >
+              <SummaryCard {...card} start={start} />
+            </motion.div>
+          ))}
+        </div>
+
+        {/* Sales Trend graph */}
+        <div className="mb-4">
+          <SalesTrend start={start} />
+        </div>
+
+        {/* Order Stream */}
+        <div>
+          <OrderStream />
+        </div>
+      </div>
+    </motion.div>
+  );
+}
+
+function DesktopProductShowcase({ start }: { start: boolean }) {
+  return (
+    <motion.article
+      initial={{ opacity: 0, y: 20 }}
+      animate={{ opacity: start ? 1 : 0, y: start ? 0 : 20 }}
+      transition={{ duration: 0.8, ease: "easeOut" }}
+      className="rounded-[32px] border border-[#ececec] bg-white px-8 py-8 shadow-[0_16px_40px_rgba(15,23,42,0.05)] md:px-10 lg:px-12 lg:py-9"
+    >
+      <div className="grid items-center gap-10 lg:grid-cols-[0.86fr_1.14fr] lg:gap-12">
+        <div className="min-w-0">
+          <p className="mb-4 text-xs font-mono uppercase tracking-[0.24em] text-mute">
+            Operations Intelligence
+          </p>
+
+          <h2
+            id="products-heading"
+            className="text-4xl font-semibold tracking-[-0.05em] text-ink md:text-[3.25rem]"
+            style={{ textWrap: "balance" }}
+          >
+            ZerpAI ERP
+          </h2>
+
+          <p className="mt-4 text-xl font-medium tracking-[-0.02em] text-body">
+            The intelligent ERP for modern operations.
+          </p>
+
+          <p className="mt-5 max-w-[42ch] text-base leading-7 text-body">
+            A unified operations workspace for finance, procurement,
+            inventory and fulfillment, designed to give teams real-time
+            visibility without operational clutter.
+          </p>
+
+          <div className="mt-7">
+            <FeatureList start={start} />
+          </div>
+
+          <div className="mt-8 flex flex-col gap-3 sm:flex-row sm:items-center">
+            <Link
+              href="/products"
+              className="neu-button neu-button-dark inline-flex items-center justify-center gap-2"
+            >
+              View Product
+              <ArrowRight size={16} aria-hidden="true" />
+            </Link>
+            <Link
+              href="/products/zerpai#demo"
+              className="neu-button neu-button-light inline-flex items-center justify-center gap-2"
+            >
+              Request Demo
+              <ArrowRight size={16} aria-hidden="true" />
+            </Link>
+          </div>
+        </div>
+
+        <div className="min-w-0">
+          <ZerpAIDashboardPreview start={start} />
+        </div>
+      </div>
+    </motion.article>
+  );
+}
+
+function MobileProductShowcase({ start }: { start: boolean }) {
+  return (
+    <article className="rounded-[28px] border border-[#ececec] bg-white p-5 shadow-[0_12px_32px_rgba(15,23,42,0.05)]">
+      <div>
+        <p className="mb-2 text-xs font-mono uppercase tracking-[0.2em] text-mute">
+          Operations Intelligence
+        </p>
+
+        <h2 className="text-3xl font-semibold tracking-[-0.04em] text-ink">
+          ZerpAI ERP
+        </h2>
+
+        <p className="mt-2 text-base font-medium text-body">
+          The intelligent ERP for modern operations.
+        </p>
+
+        <p className="mt-3 text-sm leading-relaxed text-body">
+          A unified operations workspace for finance, procurement,
+          inventory and fulfillment, designed to give teams real-time
+          visibility without operational clutter.
+        </p>
+
+        <div className="mt-5">
+          <FeatureList start={start} />
+        </div>
+
+        <div className="mt-6 flex flex-col gap-3">
+          <Link
+            href="/products"
+            className="neu-button neu-button-dark w-full min-h-[48px] inline-flex items-center justify-center gap-2 text-sm font-semibold"
+          >
+            View Product
+            <ArrowRight size={16} aria-hidden="true" />
+          </Link>
+          <Link
+            href="/products/zerpai#demo"
+            className="neu-button neu-button-light w-full min-h-[48px] inline-flex items-center justify-center gap-2 text-sm font-semibold"
+          >
+            Request Demo
+            <ArrowRight size={16} aria-hidden="true" />
+          </Link>
+        </div>
+
+        <MobileZerpAIDashboardPreview start={start} />
+      </div>
+    </article>
+  );
+}
+
 export function ProductShowcase() {
   const sectionRef = useRef<HTMLElement | null>(null);
-  const isInView = useInView(sectionRef, { once: true, amount: 0.25 });
+  const isInView = useInView(sectionRef, { once: true, amount: 0.2 });
   const reduceMotion = useReducedMotion();
   const start = reduceMotion || isInView;
 
   return (
     <section
       ref={sectionRef}
-      className="border-t border-hairline bg-canvas px-6 py-20"
+      className="border-t border-hairline bg-canvas px-4 py-12 md:px-6 md:py-20"
       aria-labelledby="products-heading"
     >
       <div className="mx-auto max-w-[1400px]">
-        <motion.article initial={reduceMotion ? false : { opacity: 0, y: 20 }} animate={{ opacity: start ? 1 : 0, y: start ? 0 : 20 }} transition={{ duration: 0.8, ease: "easeOut" }} className="rounded-[32px] border border-[#ececec] bg-white px-8 py-8 shadow-[0_16px_40px_rgba(15,23,42,0.05)] md:px-10 lg:px-12 lg:py-9">
-          <div className="grid items-center gap-10 lg:grid-cols-[0.86fr_1.14fr] lg:gap-12">
-            <div className="min-w-0">
-              <motion.p
-                initial={{ opacity: 0, y: 16 }}
-                animate={{ opacity: start ? 1 : 0, y: start ? 0 : 16 }}
-                transition={{ duration: 0.45, delay: 0.1, ease: "easeOut" }}
-                className="mb-4 text-xs font-mono uppercase tracking-[0.24em] text-mute"
-              >
-                Operations Intelligence
-              </motion.p>
-
-              <motion.h2
-                id="products-heading"
-                initial={{ opacity: 0, y: 20 }}
-                animate={{ opacity: start ? 1 : 0, y: start ? 0 : 20 }}
-                transition={{ duration: 0.55, delay: 0.18, ease: "easeOut" }}
-                className="text-4xl font-semibold tracking-[-0.05em] text-ink md:text-[3.25rem]"
-                style={{ textWrap: "balance" }}
-              >
-                ZerpAI ERP
-              </motion.h2>
-
-              <motion.p
-                initial={{ opacity: 0, y: 16 }}
-                animate={{ opacity: start ? 1 : 0, y: start ? 0 : 16 }}
-                transition={{ duration: 0.45, delay: 0.28, ease: "easeOut" }}
-                className="mt-4 text-xl font-medium tracking-[-0.02em] text-body"
-              >
-                The intelligent ERP for modern operations.
-              </motion.p>
-
-              <motion.p
-                initial={{ opacity: 0, y: 16 }}
-                animate={{ opacity: start ? 1 : 0, y: start ? 0 : 16 }}
-                transition={{ duration: 0.45, delay: 0.36, ease: "easeOut" }}
-                className="mt-5 max-w-[42ch] text-base leading-7 text-body"
-              >
-                A unified operations workspace for finance, procurement,
-                inventory and fulfillment, designed to give teams real-time
-                visibility without operational clutter.
-              </motion.p>
-
-              <div className="mt-7">
-                <FeatureList start={start} />
-              </div>
-
-              <motion.div
-                initial={{ opacity: 0, y: 16 }}
-                animate={{ opacity: start ? 1 : 0, y: start ? 0 : 16 }}
-                transition={{ duration: 0.4, delay: 0.84, ease: "easeOut" }}
-                className="mt-8 flex flex-col gap-3 sm:flex-row sm:items-center"
-              >
-                <Link
-                  href="/products/zerpai"
-                  className="neu-button neu-button-dark inline-flex items-center justify-center gap-2"
-                >
-                  View Product
-                  <ArrowRight size={16} aria-hidden="true" />
-                </Link>
-                <Link
-                  href="/products/zerpai#demo"
-                  className="neu-button neu-button-light inline-flex items-center justify-center gap-2"
-                >
-                  Request Demo
-                  <ArrowRight size={16} aria-hidden="true" />
-                </Link>
-              </motion.div>
-            </div>
-
-            <div className="min-w-0">
-              <ZerpAIDashboardPreview start={start} />
-            </div>
-          </div>
-        </motion.article>
+        <div className="hidden lg:block">
+          <DesktopProductShowcase start={start} />
+        </div>
+        <div className="block lg:hidden">
+          <MobileProductShowcase start={start} />
+        </div>
       </div>
     </section>
   );
 }
+

@@ -2,7 +2,7 @@ import Link from "next/link";
 import { ArrowRight } from "lucide-react";
 import InteractiveHeroTitle from "@/components/ui/InteractiveHeroTitle";
 
-export function Hero() {
+function DesktopHero() {
   return (
     <section className="relative flex min-h-[74vh] items-center justify-center overflow-hidden bg-canvas-soft grid-bg lg:min-h-[80vh]">
       {/* Vercel-Inspired Mesh Gradient Backdrop */}
@@ -74,5 +74,75 @@ export function Hero() {
         aria-hidden="true"
       />
     </section>
+  );
+}
+
+function MobileHero() {
+  return (
+    <section className="relative flex min-h-[70vh] items-center justify-center overflow-hidden bg-canvas-soft grid-bg py-16 px-4">
+      {/* Optimized Glow Backdrop for Mobile */}
+      <div className="absolute inset-0 pointer-events-none" aria-hidden="true">
+        <div
+          className="absolute w-[320px] h-[320px] rounded-full filter blur-[70px] opacity-35"
+          style={{
+            background: "radial-gradient(circle, rgba(0, 124, 240, 0.2) 0%, rgba(121, 40, 202, 0.05) 70%)",
+            top: "25%",
+            left: "50%",
+            transform: "translate(-50%, -50%)",
+          }}
+        />
+      </div>
+
+      {/* Content */}
+      <div className="relative z-10 w-full max-w-md mx-auto pt-10 text-center">
+        <InteractiveHeroTitle
+          title="Build faster."
+          highlightText="Automate smarter."
+        />
+
+        <p
+          className="fade-in-up fade-in-up-delay-2 text-base text-body mx-auto my-6 leading-relaxed"
+          style={{ textWrap: "pretty" }}
+        >
+          From startups to enterprises, we create custom digital solutions that
+          streamline operations, enhance customer experiences, and drive
+          business growth.
+        </p>
+
+        <div className="fade-in-up fade-in-up-delay-3 flex flex-col gap-3.5 w-full pt-2">
+          <Link
+            href="/contact#consultation"
+            className="neu-button neu-button-dark w-full min-h-[48px] inline-flex items-center justify-center gap-2 text-base font-semibold"
+          >
+            Book Consultation
+            <ArrowRight size={18} aria-hidden="true" />
+          </Link>
+          <Link
+            href="/products"
+            className="neu-button neu-button-light w-full min-h-[48px] inline-flex items-center justify-center gap-2 text-base font-semibold"
+          >
+            View Products
+          </Link>
+        </div>
+      </div>
+
+      <div
+        className="absolute bottom-0 left-0 right-0 h-20 bg-gradient-to-t from-canvas-soft to-transparent pointer-events-none"
+        aria-hidden="true"
+      />
+    </section>
+  );
+}
+
+export function Hero() {
+  return (
+    <>
+      <div className="hidden lg:block">
+        <DesktopHero />
+      </div>
+      <div className="block lg:hidden">
+        <MobileHero />
+      </div>
+    </>
   );
 }

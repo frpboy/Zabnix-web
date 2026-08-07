@@ -52,42 +52,42 @@ export function Footer() {
             <p className="text-sm text-body leading-relaxed mb-6 max-w-[200px]">
               Build Faster. Automate Smarter. Engineering excellence for modern enterprises.
             </p>
-            <div className="flex items-center gap-3">
+            <div className="flex items-center gap-2">
               <a
                 href="https://x.com/zabnix"
                 aria-label="Zabnix on X"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="w-8 h-8 flex items-center justify-center rounded-md border border-hairline text-body hover:text-ink hover:border-hairline-strong transition-colors duration-200"
+                className="w-11 h-11 flex items-center justify-center rounded-lg border border-hairline text-body hover:text-ink hover:border-hairline-strong transition-colors duration-200 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ink"
               >
-                <Twitter size={14} aria-hidden="true" />
+                <Twitter size={16} aria-hidden="true" />
               </a>
               <a
                 href="https://instagram.com/zabnix"
                 aria-label="Zabnix on Instagram"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="w-8 h-8 flex items-center justify-center rounded-md border border-hairline text-body hover:text-ink hover:border-hairline-strong transition-colors duration-200"
+                className="w-11 h-11 flex items-center justify-center rounded-lg border border-hairline text-body hover:text-ink hover:border-hairline-strong transition-colors duration-200 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ink"
               >
-                <Instagram size={14} aria-hidden="true" />
+                <Instagram size={16} aria-hidden="true" />
               </a>
               <a
                 href="https://github.com/zabnix"
                 aria-label="Zabnix on GitHub"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="w-8 h-8 flex items-center justify-center rounded-md border border-hairline text-body hover:text-ink hover:border-hairline-strong transition-colors duration-200"
+                className="w-11 h-11 flex items-center justify-center rounded-lg border border-hairline text-body hover:text-ink hover:border-hairline-strong transition-colors duration-200 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ink"
               >
-                <Github size={14} aria-hidden="true" />
+                <Github size={16} aria-hidden="true" />
               </a>
               <a
                 href="https://linkedin.com/company/zabnix"
                 aria-label="Zabnix on LinkedIn"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="w-8 h-8 flex items-center justify-center rounded-md border border-hairline text-body hover:text-ink hover:border-hairline-strong transition-colors duration-200"
+                className="w-11 h-11 flex items-center justify-center rounded-lg border border-hairline text-body hover:text-ink hover:border-hairline-strong transition-colors duration-200 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ink"
               >
-                <Linkedin size={14} aria-hidden="true" />
+                <Linkedin size={16} aria-hidden="true" />
               </a>
             </div>
           </div>
@@ -98,12 +98,12 @@ export function Footer() {
               <h3 className="text-xs font-semibold text-ink uppercase tracking-widest mb-4 font-mono">
                 {section}
               </h3>
-              <ul className="space-y-3">
+              <ul className="space-y-2">
                 {links.map((link) => (
                   <li key={link.href}>
                     <Link
                       href={link.href}
-                      className="text-sm text-body hover:text-ink transition-colors duration-200"
+                      className="inline-block py-1 text-sm text-body hover:text-ink transition-colors duration-200 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ink rounded"
                     >
                       {link.label}
                     </Link>

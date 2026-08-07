@@ -92,9 +92,17 @@ function ProductPreview({ slug }: { slug: "healthcare" | "retail" }) {
   );
 }
 
-export function ProductExperienceCard({ product }: { product: Product }) {
-  const [activeIndustry, setActiveIndustry] = useState<string | null>(null);
-  const [isDialogOpen, setIsDialogOpen] = useState(false);
+function DesktopProductExperienceCard({
+  product,
+  activeIndustry,
+  setActiveIndustry,
+  setIsDialogOpen,
+}: {
+  product: Product;
+  activeIndustry: string | null;
+  setActiveIndustry: React.Dispatch<React.SetStateAction<string | null>>;
+  setIsDialogOpen: (open: boolean) => void;
+}) {
   const slug = product.slug === "healthcare" ? "healthcare" : "retail";
   const icons = featureIcons[slug];
 
@@ -125,7 +133,134 @@ export function ProductExperienceCard({ product }: { product: Product }) {
         </div>
         <div className="min-w-0"><ProductPreview slug={slug} /></div>
       </div>
-      <AnimatePresence>{isDialogOpen && <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }} className="fixed inset-0 z-[100] grid place-items-center bg-black/35 p-6" onClick={() => setIsDialogOpen(false)}><motion.section initial={{ opacity: 0, y: 10, scale: 0.98 }} animate={{ opacity: 1, y: 0, scale: 1 }} exit={{ opacity: 0, y: 10, scale: 0.98 }} transition={{ duration: 0.2 }} className="w-full max-w-md rounded-2xl border border-hairline bg-canvas p-6 shadow-2xl" onClick={(event) => event.stopPropagation()} role="dialog" aria-modal="true" aria-labelledby={`${product.slug}-demo-title`}><div className="flex items-center justify-between"><h3 id={`${product.slug}-demo-title`} className="text-lg font-semibold text-ink">Request a {product.name} demo</h3><button type="button" onClick={() => setIsDialogOpen(false)} aria-label="Close demo request" className="rounded-md p-2 transition-colors duration-200 hover:bg-canvas-soft focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-link"><X size={16} aria-hidden="true" /></button></div><p className="mt-2 text-sm text-body">We&apos;ll arrange a walkthrough tailored to your operations.</p><Link href={`/contact?product=${product.slug}#demo`} className="mt-5 inline-flex w-full justify-center rounded-full bg-ink py-2.5 text-sm font-semibold text-white transition-colors duration-200 hover:bg-ink/90 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ink focus-visible:ring-offset-2">Continue to Request</Link></motion.section></motion.div>}</AnimatePresence>
     </article>
   );
 }
+
+function MobileProductExperienceCard({
+  product,
+  activeIndustry,
+  setActiveIndustry,
+  setIsDialogOpen,
+}: {
+  product: Product;
+  activeIndustry: string | null;
+  setActiveIndustry: React.Dispatch<React.SetStateAction<string | null>>;
+  setIsDialogOpen: (open: boolean) => void;
+}) {
+  const slug = product.slug === "healthcare" ? "healthcare" : "retail";
+  const icons = featureIcons[slug];
+
+  return (
+    <article className="relative overflow-hidden rounded-[24px] border border-hairline bg-canvas p-5 shadow-level-2">
+      <div className="flex flex-col gap-6">
+        <div>
+          <p className="mb-2 text-xs font-mono uppercase tracking-[0.2em] text-mute">{product.tag}</p>
+          <h2 className="text-3xl font-semibold tracking-tight text-ink">{product.name}</h2>
+          <p className="mt-2 text-base font-medium text-body">{product.tagline}</p>
+          <p className="mt-3 text-sm leading-relaxed text-body">{product.description}</p>
+
+          <div className="mt-4 flex flex-nowrap gap-2 overflow-x-auto pb-2 [scrollbar-width:none]">
+            {product.industries.map((industry) => (
+              <button key={industry} type="button" onClick={() => setActiveIndustry((current) => current === industry ? null : industry)} aria-pressed={activeIndustry === industry} className={`inline-flex shrink-0 items-center justify-center rounded-full border-2 border-white/35 px-3 py-1.5 text-[10px] font-medium uppercase tracking-[0.02em] transition-[color,background-color] duration-200 ${activeIndustry === industry ? "bg-[#d7e2ec] text-black" : "bg-[#e0e8ef] text-black"}`}>{industry}</button>
+            ))}
+          </div>
+
+          <ul className="mt-5 space-y-3">
+            {product.features.slice(0, 4).map((feature, index) => {
+              const Icon = icons[index];
+              return (
+                <li key={feature.title} className="flex items-center gap-2.5 text-xs text-body">
+                  <Icon size={18} strokeWidth={2} className="shrink-0 text-black" aria-hidden="true" />
+                  <span>{feature.title}</span>
+                </li>
+              );
+            })}
+          </ul>
+
+          <div className="mt-6 flex flex-col gap-3">
+            <Link href={`/products/${product.slug}`} className="inline-flex w-full items-center justify-center rounded-full border border-black bg-white py-3 text-sm font-semibold text-black transition-colors duration-200 hover:bg-black hover:text-white">View Full Product</Link>
+            <button type="button" onClick={() => setIsDialogOpen(true)} className="inline-flex w-full items-center justify-center rounded-full bg-ink py-3 text-sm font-semibold text-white transition-colors duration-200 hover:bg-ink/90">Request Demo</button>
+          </div>
+        </div>
+
+        <div className="min-w-0">
+          <ProductPreview slug={slug} />
+        </div>
+      </div>
+    </article>
+  );
+}
+
+export function ProductExperienceCard({ product }: { product: Product }) {
+  const [activeIndustry, setActiveIndustry] = useState<string | null>(null);
+  const [isDialogOpen, setIsDialogOpen] = useState(false);
+
+  return (
+    <>
+      <div className="hidden lg:block">
+        <DesktopProductExperienceCard
+          product={product}
+          activeIndustry={activeIndustry}
+          setActiveIndustry={setActiveIndustry}
+          setIsDialogOpen={setIsDialogOpen}
+        />
+      </div>
+      <div className="block lg:hidden">
+        <MobileProductExperienceCard
+          product={product}
+          activeIndustry={activeIndustry}
+          setActiveIndustry={setActiveIndustry}
+          setIsDialogOpen={setIsDialogOpen}
+        />
+      </div>
+      <AnimatePresence>
+        {isDialogOpen && (
+          <motion.div
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            className="fixed inset-0 z-[100] grid place-items-center bg-black/35 p-6"
+            onClick={() => setIsDialogOpen(false)}
+          >
+            <motion.section
+              initial={{ opacity: 0, y: 10, scale: 0.98 }}
+              animate={{ opacity: 1, y: 0, scale: 1 }}
+              exit={{ opacity: 0, y: 10, scale: 0.98 }}
+              transition={{ duration: 0.2 }}
+              className="w-full max-w-md rounded-2xl border border-hairline bg-canvas p-6 shadow-2xl"
+              onClick={(event) => event.stopPropagation()}
+              role="dialog"
+              aria-modal="true"
+              aria-labelledby={`${product.slug}-demo-title`}
+            >
+              <div className="flex items-center justify-between">
+                <h3 id={`${product.slug}-demo-title`} className="text-lg font-semibold text-ink">
+                  Request a {product.name} demo
+                </h3>
+                <button
+                  type="button"
+                  onClick={() => setIsDialogOpen(false)}
+                  aria-label="Close demo request"
+                  className="rounded-md p-2 transition-colors duration-200 hover:bg-canvas-soft focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-link"
+                >
+                  <X size={16} aria-hidden="true" />
+                </button>
+              </div>
+              <p className="mt-2 text-sm text-body">
+                We&apos;ll arrange a walkthrough tailored to your operations.
+              </p>
+              <Link
+                href={`/contact?product=${product.slug}#demo`}
+                className="mt-5 inline-flex w-full justify-center rounded-full bg-ink py-2.5 text-sm font-semibold text-white transition-colors duration-200 hover:bg-ink/90 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ink focus-visible:ring-offset-2"
+              >
+                Continue to Request
+              </Link>
+            </motion.section>
+          </motion.div>
+        )}
+      </AnimatePresence>
+    </>
+  );
+}
+
