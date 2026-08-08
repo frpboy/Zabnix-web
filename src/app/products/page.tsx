@@ -16,7 +16,7 @@ export default async function ProductsPage() {
   return (
     <div className="pt-24 min-h-screen bg-canvas-soft">
       {/* Hero */}
-      <section className="py-24 px-6 grid-bg relative overflow-hidden border-b border-hairline bg-canvas">
+      <section className="py-12 md:py-24 px-6 grid-bg relative overflow-hidden border-b border-hairline bg-canvas">
         <div
           className="orb orb-blue pulse-glow"
           style={{
@@ -34,12 +34,12 @@ export default async function ProductsPage() {
             Our Products
           </p>
           <h1
-            className="text-5xl md:text-6xl font-semibold text-ink tracking-[-0.03em] mb-6"
+            className="text-4xl md:text-6xl font-semibold text-ink tracking-[-0.03em] mb-6"
             style={{ textWrap: "balance" }}
           >
             Built for real business problems.
           </h1>
-          <p className="text-xl text-body leading-relaxed max-w-2xl mx-auto">
+          <p className="text-lg md:text-xl text-body leading-relaxed max-w-2xl mx-auto">
             Purpose-built platforms that go live fast and grow with your
             operations. No bloated features, no unnecessary complexity.
           </p>
@@ -47,11 +47,11 @@ export default async function ProductsPage() {
       </section>
 
       {/* Products */}
-      <section className="py-24 px-6 bg-canvas-soft" aria-labelledby="products-list-heading">
+      <section className="py-8 md:py-24 px-6 bg-canvas-soft" aria-labelledby="products-list-heading">
         <h2 id="products-list-heading" className="sr-only">
           Product Catalog
         </h2>
-        <div className="max-w-7xl mx-auto space-y-20">
+        <div className="max-w-7xl mx-auto space-y-8 md:space-y-20">
           {products.map((product) => product.slug === "zerpai" ? (
             <ZerpAIProductCard key={product.slug} />
           ) : (

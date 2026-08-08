@@ -318,7 +318,7 @@ export const openRoles: JobRole[] = [
   {
     title: "Business Development Manager",
     department: "Sales",
-    location: "Hyderabad, India",
+    location: "Kerala, India",
     type: "Full-time",
     slug: "business-development-manager",
     description: "We are seeking a B2B sales leader to drive partnerships with mid-market and enterprise accounts across India and APAC. You will represent our software development and AI engineering capabilities.",

@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import "./globals.css";
 import { Navbar } from "@/components/layout/Navbar";
 import { Footer } from "@/components/layout/Footer";
+import { ZabnixChatbot } from "@/components/ui/ZabnixChatbot";
 import Script from "next/script";
 
 export const metadata: Metadata = {
@@ -97,6 +98,7 @@ export default function RootLayout({
         <Navbar />
         <main id="main-content">{children}</main>
         <Footer />
+        <ZabnixChatbot />
       </body>
     </html>
   );

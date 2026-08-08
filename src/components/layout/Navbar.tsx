@@ -61,13 +61,13 @@ export function Navbar() {
         }}
       >
         <nav
-          className="max-w-7xl mx-auto px-1 sm:px-2 md:px-3 lg:px-4 h-20 flex items-center justify-between"
+          className="max-w-7xl mx-auto px-3 sm:px-6 lg:px-8 h-20 flex items-center justify-between"
           aria-label="Main navigation"
         >
           {/* Logo */}
           <Link
             href="/"
-            className="-ml-6 flex items-center group sm:-ml-8 md:-ml-10"
+            className="ml-2 sm:ml-0 md:-ml-8 lg:-ml-12 flex items-center group"
             aria-label="Zabnix home"
           >
             <Image
@@ -124,9 +124,23 @@ export function Navbar() {
 
       {/* Mobile menu */}
       {mobileOpen && (
-        <div
-          className="md:hidden glass-nav border-t border-hairline px-6 py-6 flex flex-col gap-2 shadow-2xl bg-white/95 backdrop-blur-xl"
-          style={{ overscrollBehavior: "contain" }}
+        <LiquidGlass
+          className="md:hidden glass-nav border-t border-hairline px-6 py-6 flex flex-col gap-2 shadow-2xl"
+          style={{
+            background: "linear-gradient(180deg, rgba(255, 255, 255, 0.88) 0%, rgba(255, 255, 255, 0.72) 100%)",
+            borderColor: "rgba(255, 255, 255, 0.5)",
+            boxShadow: "inset 0 1px 0 rgba(255, 255, 255, 0.72), inset 0 -1px 0 rgba(255, 255, 255, 0.22), 0 14px 32px rgba(15, 23, 42, 0.12)",
+            overscrollBehavior: "contain",
+          }}
+          options={{
+            scale: -175,
+            chroma: 6,
+            blur: 5,
+            mapBlur: 14,
+            border: 0.08,
+            saturate: 1.45,
+            fallbackBlur: 22,
+          }}
         >
           {navLinks.map((link) => (
             <Link
@@ -147,7 +161,7 @@ export function Navbar() {
               Book Consultation
             </Link>
           </div>
-        </div>
+        </LiquidGlass>
       )}
     </header>
   );

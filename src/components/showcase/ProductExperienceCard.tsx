@@ -117,7 +117,7 @@ function DesktopProductExperienceCard({
           <p className="mt-4 max-w-[42ch] text-sm leading-6 text-body">{product.description}</p>
           <div className="mt-6 flex flex-nowrap gap-2 overflow-x-auto pb-2 [scrollbar-width:none]">
             {product.industries.map((industry) => (
-              <button key={industry} type="button" onClick={() => setActiveIndustry((current) => current === industry ? null : industry)} aria-pressed={activeIndustry === industry} className={`inline-flex shrink-0 items-center justify-center rounded-full border-2 border-white/35 px-3 py-1.5 text-[10px] font-medium uppercase tracking-[0.02em] transition-[color,background-color,box-shadow] duration-200 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-link ${activeIndustry === industry ? "bg-[#d7e2ec] text-black shadow-[inset_-2px_-1px_8px_0_#ffffff,inset_2px_1px_8px_0_rgba(95,157,231,0.32)]" : "bg-[#e0e8ef] text-black shadow-[-4px_-2px_16px_0_#ffffff,4px_2px_16px_0_rgba(95,157,231,0.32)] hover:bg-[#e5edf5] hover:text-black hover:shadow-[-2px_-1px_8px_0_#ffffff,2px_1px_8px_0_rgba(95,157,231,0.32)] active:shadow-none"}`}>{industry}</button>
+              <button key={industry} type="button" suppressHydrationWarning onClick={() => setActiveIndustry((current) => current === industry ? null : industry)} aria-pressed={activeIndustry === industry} className={`inline-flex shrink-0 items-center justify-center rounded-full border-2 border-white/35 px-3 py-1.5 text-[10px] font-medium uppercase tracking-[0.02em] transition-[color,background-color,box-shadow] duration-200 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-link ${activeIndustry === industry ? "bg-[#d7e2ec] text-black shadow-[inset_-2px_-1px_8px_0_#ffffff,inset_2px_1px_8px_0_rgba(95,157,231,0.32)]" : "bg-[#e0e8ef] text-black shadow-[-4px_-2px_16px_0_#ffffff,4px_2px_16px_0_rgba(95,157,231,0.32)] hover:bg-[#e5edf5] hover:text-black hover:shadow-[-2px_-1px_8px_0_#ffffff,2px_1px_8px_0_rgba(95,157,231,0.32)] active:shadow-none"}`}>{industry}</button>
             ))}
           </div>
           <ul className="mt-7 space-y-4">
@@ -162,7 +162,7 @@ function MobileProductExperienceCard({
 
           <div className="mt-4 flex flex-nowrap gap-2 overflow-x-auto pb-2 [scrollbar-width:none]">
             {product.industries.map((industry) => (
-              <button key={industry} type="button" onClick={() => setActiveIndustry((current) => current === industry ? null : industry)} aria-pressed={activeIndustry === industry} className={`inline-flex shrink-0 items-center justify-center rounded-full border-2 border-white/35 px-3 py-1.5 text-[10px] font-medium uppercase tracking-[0.02em] transition-[color,background-color] duration-200 ${activeIndustry === industry ? "bg-[#d7e2ec] text-black" : "bg-[#e0e8ef] text-black"}`}>{industry}</button>
+              <button key={industry} type="button" suppressHydrationWarning onClick={() => setActiveIndustry((current) => current === industry ? null : industry)} aria-pressed={activeIndustry === industry} className={`inline-flex shrink-0 items-center justify-center rounded-full border-2 border-white/35 px-3 py-1.5 text-[10px] font-medium uppercase tracking-[0.02em] transition-[color,background-color] duration-200 ${activeIndustry === industry ? "bg-[#d7e2ec] text-black" : "bg-[#e0e8ef] text-black"}`}>{industry}</button>
             ))}
           </div>
 

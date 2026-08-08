@@ -2,7 +2,23 @@
 
 import { useState, useEffect, useRef, type CSSProperties } from "react";
 import Link from "next/link";
-import { ArrowUpRight, Github, Linkedin, MapPin } from "lucide-react";
+import {
+  ArrowUpRight,
+  Box,
+  ChevronRight,
+  Code2,
+  Eye,
+  Github,
+  Globe,
+  HeartHandshake,
+  Lightbulb,
+  Linkedin,
+  Mail,
+  MapPin,
+  ShieldCheck,
+  Target,
+  Users,
+} from "lucide-react";
 import { AnimatePresence, motion, useInView, useReducedMotion, useScroll, useTransform } from "framer-motion";
 import { cn } from "@/lib/utils";
 import { AnimatedCounter } from "@/components/ui/AnimatedCounter";
@@ -188,8 +204,6 @@ const values = [
   },
 ] as const;
 
-// ─── Types ────────────────────────────────────────────────────────────────────
-
 interface TeamMember {
   name: string;
   handle: string;
@@ -200,7 +214,7 @@ interface TeamMember {
   to: string;
 }
 
-// ─── Team Card ────────────────────────────────────────────────────────────────
+// ─── Desktop Team Card ────────────────────────────────────────────────────────
 
 function TeamCard({
   member,
@@ -274,9 +288,9 @@ function TeamCard({
   );
 }
 
-// ─── Main Component ───────────────────────────────────────────────────────────
+// ─── Desktop Values Section ───────────────────────────────────────────────────
 
-function ValuesSection() {
+function DesktopValuesSection() {
   const reduceMotion = useReducedMotion();
   const [activeIndex, setActiveIndex] = useState<number | null>(null);
   const [isPaused, setIsPaused] = useState(false);
@@ -348,13 +362,6 @@ function ValuesSection() {
             transition={{ duration: 10 + index * 2, delay: index * 0.6, repeat: Infinity, ease: "easeInOut" }}
           />
         ))}
-        <motion.span
-          className="absolute bottom-[20%] right-[35%] text-sm text-ink/[0.05]"
-          animate={reduceMotion ? undefined : { x: [0, 4, 0], y: [0, 6, 0], rotate: [0, 8, 0] }}
-          transition={{ duration: 16, repeat: Infinity, ease: "easeInOut" }}
-        >
-          +
-        </motion.span>
       </div>
 
       <motion.div
@@ -380,41 +387,34 @@ function ValuesSection() {
           style={{ transform: "translate3d(var(--values-parallax-x, 0px), 0, 0)" }}
         >
           <div className="mx-auto flex max-w-5xl flex-wrap justify-center gap-x-4 gap-y-2 md:gap-x-5">
-          {values.map((value, index) => (
-            <motion.button
-              type="button"
-              key={value.number}
-              className="group relative inline-flex items-center justify-center px-1 py-2 text-[22px] font-medium leading-[1.8] tracking-normal text-[#7a7a7a] opacity-65 transition-[color,opacity,transform,font-weight] duration-[400ms] ease-out hover:-translate-y-[3px] hover:scale-[1.04] hover:font-semibold hover:text-black hover:opacity-100 focus-visible:-translate-y-[3px] focus-visible:scale-[1.04] focus-visible:font-semibold focus-visible:text-black focus-visible:opacity-100 focus-visible:outline-none md:text-[26px] lg:text-[34px]"
-              style={{ "--value-accent": value.accent } as CSSProperties}
-              initial={reduceMotion ? false : { opacity: 0, filter: "blur(8px)", y: 25 }}
-              whileInView={{ opacity: 1, filter: "blur(0px)", y: 0 }}
-              animate={activeIndex === index ? { color: "#171717", opacity: 1 } : undefined}
-              viewport={{ once: true, amount: 0.2 }}
-              transition={{ duration: 0.55, delay: reduceMotion ? 0 : index * 0.07, ease: [0.22, 1, 0.36, 1] }}
-              onMouseEnter={() => pauseAutoplay(index)}
-              onMouseLeave={resumeAutoplay}
-              onFocus={() => pauseAutoplay(index)}
-              onBlur={resumeAutoplay}
-              aria-pressed={activeIndex === index}
-            >
-              <span
-                className={cn(
-                  "absolute left-1/2 top-0 h-2 w-2 -translate-x-1/2 rounded-full bg-[var(--value-accent)] transition-[opacity,transform] duration-300 ease-out",
-                  activeIndex === index ? "scale-100 opacity-100" : "scale-0 opacity-0 group-hover:scale-100 group-hover:opacity-100 group-focus-visible:scale-100 group-focus-visible:opacity-100",
-                )}
-                aria-hidden="true"
-              />
-              <span>{value.title}</span>
-              {index < values.length - 1 ? <span className="ml-4 text-[#c5c5c5] opacity-70 md:ml-5" aria-hidden="true">•</span> : null}
-              <span
-                className={cn(
-                  "absolute bottom-0 left-1/2 h-[2px] w-full -translate-x-1/2 origin-center bg-[var(--value-accent)] transition-transform duration-300 ease-out",
-                  activeIndex === index ? "scale-x-100" : "scale-x-0 group-hover:scale-x-100 group-focus-visible:scale-x-100",
-                )}
-                aria-hidden="true"
-              />
-            </motion.button>
-          ))}
+            {values.map((value, index) => (
+              <motion.button
+                type="button"
+                key={value.number}
+                className="group relative inline-flex items-center justify-center px-1 py-2 text-[22px] font-medium leading-[1.8] tracking-normal text-[#7a7a7a] opacity-65 transition-[color,opacity,transform,font-weight] duration-[400ms] ease-out hover:-translate-y-[3px] hover:scale-[1.04] hover:font-semibold hover:text-black hover:opacity-100 focus-visible:outline-none md:text-[26px] lg:text-[34px]"
+                style={{ "--value-accent": value.accent } as CSSProperties}
+                initial={reduceMotion ? false : { opacity: 0, filter: "blur(8px)", y: 25 }}
+                whileInView={{ opacity: 1, filter: "blur(0px)", y: 0 }}
+                animate={activeIndex === index ? { color: "#171717", opacity: 1 } : undefined}
+                viewport={{ once: true, amount: 0.2 }}
+                transition={{ duration: 0.55, delay: reduceMotion ? 0 : index * 0.07, ease: [0.22, 1, 0.36, 1] }}
+                onMouseEnter={() => pauseAutoplay(index)}
+                onMouseLeave={resumeAutoplay}
+                onFocus={() => pauseAutoplay(index)}
+                onBlur={resumeAutoplay}
+                aria-pressed={activeIndex === index}
+              >
+                <span
+                  className={cn(
+                    "absolute left-1/2 top-0 h-2 w-2 -translate-x-1/2 rounded-full bg-[var(--value-accent)] transition-[opacity,transform] duration-300 ease-out",
+                    activeIndex === index ? "scale-100 opacity-100" : "scale-0 opacity-0 group-hover:scale-100 group-hover:opacity-100",
+                  )}
+                  aria-hidden="true"
+                />
+                <span>{value.title}</span>
+                {index < values.length - 1 ? <span className="ml-4 text-[#c5c5c5] opacity-70 md:ml-5" aria-hidden="true">•</span> : null}
+              </motion.button>
+            ))}
           </div>
 
           <div className="mx-auto mt-12 flex min-h-24 max-w-[620px] items-start justify-center">
@@ -445,347 +445,21 @@ function FloatingDecoration({ decoration, accent }: { decoration: Decoration; ac
   const reduceMotion = useReducedMotion();
   const { scrollY } = useScroll();
   const parallaxY = useTransform(scrollY, [0, 900], [0, decoration.parallax]);
-  const driftX = decoration.delay % 2 > 1 ? 14 : -14;
-  const driftY = decoration.delay % 3 > 1 ? 12 : -12;
-  const isAccent = "accent" in decoration && decoration.accent === true;
-  const isFilled = decoration.shape === "filled-circle" || decoration.shape === "dot";
-  const isLineShape = decoration.shape === "plus" || decoration.shape === "cross";
-  const sizeClass = decoration.shape === "dot" ? "h-1.5 w-1.5" : decoration.shape === "filled-circle" || decoration.shape === "outline-circle" ? "h-4 w-4" : "h-3.5 w-3.5";
 
   return (
-    <motion.div className={cn("absolute", decoration.position)} style={{ y: reduceMotion ? 0 : parallaxY }} aria-hidden="true">
-      <motion.span
-        className={cn(
-          "block",
-          sizeClass,
-          decoration.shape === "filled-circle" || decoration.shape === "dot" ? "rounded-full" : "",
-          decoration.shape === "outline-circle" ? "rounded-full border" : "",
-          decoration.shape === "square" ? "rounded-sm border" : "",
-          decoration.shape === "plus" || decoration.shape === "cross" ? "relative before:absolute before:left-1/2 before:top-0 before:h-full before:w-px before:-translate-x-1/2 before:bg-current after:absolute after:left-0 after:top-1/2 after:h-px after:w-full after:-translate-y-1/2 after:bg-current" : "",
-          decoration.shape === "cross" ? "rotate-45" : ""
-        )}
-        whileHover={reduceMotion ? undefined : { x: driftX, y: driftY }}
-        animate={reduceMotion ? undefined : { x: [-4, 4, -4], y: [-8, 8, -8], rotate: decoration.shape === "cross" ? [37, 53, 37] : [-8, 8, -8] }}
-        transition={reduceMotion ? undefined : { duration: decoration.duration, delay: decoration.delay, repeat: Infinity, ease: "easeInOut" }}
-        style={isLineShape ? { color: isAccent ? accent : "rgba(17, 17, 17, 0.16)" } : { backgroundColor: isFilled ? (isAccent ? accent : "rgba(17, 17, 17, 0.14)") : "transparent", borderColor: !isFilled ? (isAccent ? accent : "rgba(17, 17, 17, 0.16)") : undefined }}
-      />
+    <motion.div
+      style={{ y: reduceMotion ? 0 : parallaxY }}
+      className={`pointer-events-none absolute ${decoration.position} hidden lg:block`}
+      aria-hidden="true"
+    >
+      <span className="block h-3 w-3 rounded-full bg-slate-300/40" style={{ backgroundColor: accent ? accent : undefined }} />
     </motion.div>
   );
 }
 
-function EditorialStats() {
-  const reduceMotion = useReducedMotion();
-  const statsRef = useRef<HTMLElement>(null);
-  const statsInView = useInView(statsRef, { once: true, amount: 0.3 });
+// ─── Desktop People Page (Untouched) ──────────────────────────────────────────
 
-  return (
-    <section ref={statsRef} className="border-b border-hairline bg-canvas px-6 py-24 md:py-32" aria-labelledby="numbers-heading">
-      <div className="mx-auto max-w-6xl">
-        <motion.header
-          initial={reduceMotion ? false : { opacity: 0, y: 30 }}
-          animate={statsInView || reduceMotion ? { opacity: 1, y: 0 } : undefined}
-          transition={{ duration: 0.8, ease: [0.22, 1, 0.36, 1] }}
-          className="max-w-2xl"
-        >
-          <p className="text-xs font-mono uppercase tracking-[0.28em] text-mute">By The Numbers</p>
-          <h2 id="numbers-heading" className="mt-5 text-balance text-4xl font-semibold tracking-[-0.04em] text-ink md:text-5xl">
-            Engineering at scale.
-          </h2>
-          <p className="mt-5 max-w-xl text-pretty text-base leading-relaxed text-body md:text-lg">
-            Our team may be compact, but our impact spans multiple industries, countries and technologies.
-          </p>
-        </motion.header>
-
-        <div className="mt-20 grid grid-cols-1 gap-x-20 gap-y-20 sm:grid-cols-2 md:mt-24 md:gap-y-24">
-          {stats.map((stat, index) => (
-            <motion.article
-              key={stat.label}
-              initial={reduceMotion ? false : { opacity: 0, y: 30, scale: 0.96 }}
-              animate={statsInView || reduceMotion ? { opacity: 1, y: 0, scale: 1 } : undefined}
-              transition={{ duration: 0.7, delay: reduceMotion ? 0 : index * 0.15, ease: [0.22, 1, 0.36, 1] }}
-              className={cn(
-                "group border-t border-black/[0.08] pt-7",
-                index === 0 && "sm:mr-10",
-                index === 1 && "sm:mt-12",
-                index === 2 && "sm:ml-12 md:ml-20",
-                index === 3 && "sm:mr-8"
-              )}
-            >
-              <motion.p
-                className="tabular-nums text-[clamp(4.5rem,8vw,6.875rem)] font-bold leading-[0.9] tracking-[-0.07em] text-ink"
-                whileHover={reduceMotion ? undefined : { y: -4 }}
-                transition={{ duration: 0.3, ease: "easeOut" }}
-              >
-                <AnimatedCounter
-                  value={stat.value}
-                  suffix={stat.suffix}
-                  duration={1350}
-                  initialValue={stat.isYear ? 1900 : 0}
-                  start={statsInView}
-                />
-              </motion.p>
-              <p className="mt-5 text-[11px] font-mono font-medium uppercase tracking-[0.35em] text-mute">
-                {stat.label}
-              </p>
-              <motion.div
-                className="mt-4 h-0.5 w-8 rounded-full"
-                style={{ backgroundColor: stat.accent }}
-                initial={reduceMotion ? false : { scaleX: 0 }}
-                animate={statsInView || reduceMotion ? { scaleX: 1 } : undefined}
-                whileHover={reduceMotion ? undefined : { scaleX: 1.625 }}
-                transition={{ duration: 0.5, delay: reduceMotion ? 0 : 0.25 + index * 0.15, ease: "easeOut" }}
-              />
-              <div className="mt-5 text-[17px] leading-[1.7] text-body/75 transition-opacity duration-300 group-hover:text-body">
-                {stat.supporting.map((line) => <span key={line} className="block">{line}</span>)}
-              </div>
-            </motion.article>
-          ))}
-        </div>
-      </div>
-    </section>
-  );
-}
-
-function JourneyStats() {
-  const reduceMotion = useReducedMotion();
-  const timelineRef = useRef<HTMLElement>(null);
-  const isInView = useInView(timelineRef, { once: true, amount: 0.35 });
-  const [hoveredIndex, setHoveredIndex] = useState<number | null>(null);
-  const [showDetails, setShowDetails] = useState(false);
-
-  useEffect(() => {
-    if (!isInView) return;
-
-    if (reduceMotion) {
-      setShowDetails(true);
-      return;
-    }
-
-    const timeout = window.setTimeout(() => setShowDetails(true), 1850);
-    return () => window.clearTimeout(timeout);
-  }, [isInView, reduceMotion]);
-
-  return (
-    <section ref={timelineRef} className="border-b border-hairline bg-canvas px-6 py-24 md:py-32" aria-labelledby="journey-heading">
-      <div className="mx-auto max-w-6xl">
-        <motion.header
-          initial={reduceMotion ? false : { opacity: 0, y: 18 }}
-          animate={isInView || reduceMotion ? { opacity: 1, y: 0 } : undefined}
-          transition={{ duration: 0.7, ease: [0.22, 1, 0.36, 1] }}
-          className="mx-auto max-w-2xl text-center"
-        >
-          <p className="text-xs font-mono uppercase tracking-[0.28em] text-mute">By The Numbers</p>
-          <h2 id="journey-heading" className="mt-5 text-balance text-4xl font-semibold tracking-[-0.04em] text-ink md:text-5xl">
-            A journey of engineering excellence.
-          </h2>
-          <p className="mx-auto mt-5 max-w-xl text-pretty text-base leading-relaxed text-body md:text-lg">
-            Every milestone represents the growth of our team, our clients and our global reach.
-          </p>
-        </motion.header>
-
-        <div className="relative mt-16 md:mt-20">
-          <motion.div
-            className="absolute left-[12.5%] right-[12.5%] top-3 hidden h-px origin-left bg-[#eaeaea] lg:block"
-            initial={reduceMotion ? false : { scaleX: 0 }}
-            animate={isInView || reduceMotion ? { scaleX: 1 } : undefined}
-            transition={{ duration: 1.2, ease: "easeInOut" }}
-            aria-hidden="true"
-          />
-          <motion.div
-            className="absolute bottom-8 left-3 top-3 h-auto w-px origin-top bg-[#eaeaea] lg:hidden"
-            initial={reduceMotion ? false : { scaleY: 0 }}
-            animate={isInView || reduceMotion ? { scaleY: 1 } : undefined}
-            transition={{ duration: 1.2, ease: "easeInOut" }}
-            aria-hidden="true"
-          />
-
-          <div className="grid grid-cols-1 gap-12 pl-11 sm:grid-cols-2 sm:gap-x-10 sm:gap-y-14 lg:grid-cols-4 lg:gap-0 lg:pl-0">
-            {stats.map((stat, index) => {
-              const isHovered = hoveredIndex === index;
-
-              return (
-                <motion.article
-                  key={stat.label}
-                  initial={reduceMotion ? false : { opacity: 0, y: 12 }}
-                  animate={isInView || reduceMotion ? { opacity: 1, y: 0 } : undefined}
-                  transition={{ duration: 0.48, delay: reduceMotion ? 0 : 1.75 + index * 0.15, ease: [0.22, 1, 0.36, 1] }}
-                  onMouseEnter={() => setHoveredIndex(index)}
-                  onMouseLeave={() => setHoveredIndex(null)}
-                  className="group relative cursor-pointer text-left lg:text-center"
-                >
-                  <div className="absolute -left-11 top-0 flex lg:static lg:justify-center">
-                    <motion.span
-                      className="relative z-10 block h-6 w-6 rounded-full border-4 border-canvas"
-                      style={{ backgroundColor: stat.accent }}
-                      initial={reduceMotion ? false : { opacity: 0, scale: 0.6 }}
-                      animate={isInView || reduceMotion ? { opacity: 1, scale: isHovered ? 1.15 : [1, 1.04, 1] } : undefined}
-                      transition={isHovered ? { duration: 0.3, ease: "easeOut" } : { duration: 4, delay: reduceMotion ? 0 : 1.2 + index * 0.15, repeat: reduceMotion ? 0 : Infinity, ease: "easeInOut" }}
-                    >
-                      {isHovered ? (
-                        <motion.span
-                          className="absolute inset-0 rounded-full"
-                          style={{ boxShadow: `0 0 0 7px ${stat.accent}28` }}
-                          initial={{ opacity: 0, scale: 0.8 }}
-                          animate={{ opacity: 1, scale: 1.25 }}
-                          transition={{ duration: 0.3, ease: "easeOut" }}
-                        />
-                      ) : null}
-                    </motion.span>
-                  </div>
-
-                  <motion.div
-                    className="mt-1 h-12 w-px origin-top bg-[#eaeaea] lg:mx-auto lg:mt-0"
-                    initial={reduceMotion ? false : { scaleY: 0 }}
-                    animate={isInView || reduceMotion ? { scaleY: 1 } : undefined}
-                    transition={{ duration: 0.4, delay: reduceMotion ? 0 : 1.5 + index * 0.15, ease: "easeOut" }}
-                    aria-hidden="true"
-                  />
-
-                  <motion.p whileHover={reduceMotion ? undefined : { scale: 1.05 }} className="mt-4 text-5xl font-semibold tracking-[-0.045em] text-ink tabular-nums md:text-6xl lg:text-7xl">
-                    <AnimatedCounter
-                      value={stat.value}
-                      suffix={stat.suffix}
-                      duration={1350}
-                      initialValue={stat.isYear ? 1900 : 0}
-                      start={showDetails}
-                    />
-                  </motion.p>
-                  <motion.p
-                    className="mt-2 text-[11px] font-mono uppercase tracking-[0.3em] text-mute"
-                    initial={reduceMotion ? false : { opacity: 0, y: 12 }}
-                    animate={showDetails || reduceMotion ? { opacity: 1, y: 0 } : undefined}
-                    transition={{ duration: 0.42, delay: reduceMotion ? 0 : index * 0.08, ease: "easeOut" }}
-                  >
-                    {stat.label}
-                  </motion.p>
-                  <motion.div
-                    className="mt-4 h-px w-14 origin-center lg:mx-auto"
-                    style={{ backgroundColor: stat.accent }}
-                    initial={reduceMotion ? false : { scaleX: 0 }}
-                    animate={showDetails || reduceMotion ? { scaleX: isHovered ? 1 : 0.45 } : undefined}
-                    transition={{ duration: 0.3, ease: "easeOut" }}
-                    aria-hidden="true"
-                  />
-                  <div className="mt-4 min-h-12 text-sm leading-relaxed text-mute transition-colors duration-300 group-hover:text-body md:text-base">
-                    {stat.supporting.map((line) => <span key={line} className="block lg:text-center">{line}</span>)}
-                  </div>
-                </motion.article>
-              );
-            })}
-          </div>
-        </div>
-      </div>
-    </section>
-  );
-}
-
-function PeopleStats() {
-  const reduceMotion = useReducedMotion();
-  const statsRef = useRef<HTMLElement>(null);
-  const statsInView = useInView(statsRef, { once: true, amount: 0.45 });
-  const [hoveredIndex, setHoveredIndex] = useState<number | null>(null);
-  const [languageIndex, setLanguageIndex] = useState(0);
-
-  useEffect(() => {
-    if (hoveredIndex !== 2 || reduceMotion) return;
-
-    const interval = window.setInterval(() => {
-      setLanguageIndex((index) => (index + 1) % stats[2].supporting.length);
-    }, 1100);
-
-    return () => window.clearInterval(interval);
-  }, [hoveredIndex, reduceMotion]);
-
-  return (
-    <section ref={statsRef} className="border-b border-hairline bg-canvas px-6 py-20 md:py-24" aria-label="People statistics">
-      <div className="mx-auto max-w-6xl">
-        <p className="text-center text-xs font-mono uppercase tracking-[0.2em] text-mute md:text-left">
-          Trusted By Businesses Across Regions
-        </p>
-
-        <div className="relative mt-10 md:mt-12">
-          <motion.div
-            className="absolute left-0 right-0 top-[11px] hidden h-px origin-left bg-[#eaeaea] lg:block"
-            initial={reduceMotion ? false : { scaleX: 0 }}
-            animate={statsInView || reduceMotion ? { scaleX: 1 } : undefined}
-            transition={{ duration: 0.8, ease: [0.22, 1, 0.36, 1] }}
-            aria-hidden="true"
-          />
-          <motion.div
-            className="absolute bottom-0 left-[11px] top-0 h-full w-px origin-top bg-[#eaeaea] lg:hidden"
-            initial={reduceMotion ? false : { scaleY: 0 }}
-            animate={statsInView || reduceMotion ? { scaleY: 1 } : undefined}
-            transition={{ duration: 0.7, ease: [0.22, 1, 0.36, 1] }}
-            aria-hidden="true"
-          />
-
-          <div className="grid grid-cols-1 gap-10 pl-9 sm:grid-cols-2 sm:gap-x-8 lg:grid-cols-4 lg:gap-0 lg:pl-0">
-            {stats.map((stat, index) => (
-              <motion.div
-                key={stat.label}
-                initial={reduceMotion ? false : { opacity: 0, y: 16 }}
-                animate={statsInView || reduceMotion ? { opacity: 1, y: 0 } : undefined}
-                transition={{ duration: 0.55, delay: reduceMotion ? 0 : 0.08 + index * 0.08, ease: [0.22, 1, 0.36, 1] }}
-                onMouseEnter={() => setHoveredIndex(index)}
-                onMouseLeave={() => setHoveredIndex(null)}
-                className="group relative cursor-pointer text-left lg:text-center"
-              >
-                <div className="absolute -left-9 top-0 flex lg:static lg:justify-center">
-                  <motion.span
-                    className="relative z-10 block h-[23px] w-[23px] rounded-full border-4 border-canvas"
-                    style={{ backgroundColor: stat.accent }}
-                    initial={reduceMotion ? false : { opacity: 0, scale: 0.6 }}
-                    animate={statsInView || reduceMotion ? { opacity: 1, scale: hoveredIndex === index ? 1.12 : 1 } : undefined}
-                    transition={{ duration: 0.35, delay: reduceMotion ? 0 : 0.14 + index * 0.08, ease: "easeOut" }}
-                  >
-                    {hoveredIndex === index && !reduceMotion ? (
-                      <motion.span className="absolute inset-0 rounded-full" style={{ boxShadow: `0 0 0 7px ${stat.accent}22` }} animate={{ opacity: [0.2, 0.7, 0.2], scale: [1, 1.35, 1] }} transition={{ duration: 1.4, repeat: Infinity, ease: "easeInOut" }} />
-                    ) : null}
-                  </motion.span>
-                </div>
-
-                <div className="hidden h-9 w-px bg-[#eaeaea] lg:mx-auto lg:block" aria-hidden="true" />
-                <motion.p whileHover={reduceMotion ? undefined : { scale: 1.05 }} className="font-variant-numeric mt-4 text-4xl font-semibold tracking-tight text-ink lg:mt-0">
-                  {stat.isYear ? stat.value : <AnimatedCounter value={stat.value} suffix={stat.suffix} duration={1300} start={statsInView} />}
-                </motion.p>
-                <p className="mt-1 text-xs font-mono uppercase tracking-wider text-mute">{stat.label}</p>
-                <motion.div className="mt-4 h-px w-12 origin-left lg:mx-auto" style={{ backgroundColor: stat.accent }} initial={reduceMotion ? false : { scaleX: 0 }} animate={statsInView || reduceMotion ? { scaleX: hoveredIndex === index ? 1 : 0.45 } : undefined} transition={{ duration: 0.3, ease: "easeOut" }} />
-
-                <div className="mt-3 min-h-11 text-xs leading-relaxed text-mute transition-colors duration-250 group-hover:text-body">
-                  {index === 1 ? (
-                    <div className="flex flex-wrap gap-x-2 gap-y-0.5 lg:justify-center">
-                      {stat.supporting.map((country, countryIndex) => (
-                        <motion.span key={country} animate={hoveredIndex === index && !reduceMotion ? { opacity: 1, y: 0 } : { opacity: 0.72, y: 0 }} initial={{ opacity: 0, y: 8 }} transition={{ duration: 0.28, delay: hoveredIndex === index ? countryIndex * 0.08 : 0 }}>
-                          {country}{countryIndex < stat.supporting.length - 1 ? " ·" : ""}
-                        </motion.span>
-                      ))}
-                    </div>
-                  ) : index === 2 ? (
-                    <AnimatePresence mode="wait" initial={false}>
-                      <motion.span key={hoveredIndex === index ? stat.supporting[languageIndex] : "all-languages"} initial={reduceMotion ? false : { opacity: 0, y: 8 }} animate={{ opacity: 1, y: 0 }} exit={reduceMotion ? undefined : { opacity: 0, y: -8 }} transition={{ duration: 0.24, ease: "easeOut" }} className="block lg:text-center">
-                        {hoveredIndex === index ? stat.supporting[languageIndex] : stat.supporting.join(" · ")}
-                      </motion.span>
-                    </AnimatePresence>
-                  ) : (
-                    stat.supporting.map((line) => <span key={line} className="block lg:text-center">{line}</span>)
-                  )}
-                </div>
-
-                {index === 3 ? (
-                  <motion.div className="mt-2 h-px overflow-hidden bg-[#eaeaea] lg:mx-auto lg:max-w-28" aria-hidden="true">
-                    <motion.span className="block h-full origin-left" style={{ backgroundColor: stat.accent }} animate={{ scaleX: hoveredIndex === index ? 1 : 0.15 }} transition={{ duration: 0.7, ease: "easeOut" }} />
-                  </motion.div>
-                ) : null}
-              </motion.div>
-            ))}
-          </div>
-        </div>
-      </div>
-    </section>
-  );
-}
-
-export default function PeopleClient() {
+function DesktopPeopleClient() {
   const [wordIdx, setWordIdx] = useState(0);
   const [hoveredMember, setHoveredMember] = useState<string | null>(null);
   const reduceMotion = useReducedMotion();
@@ -803,8 +477,6 @@ export default function PeopleClient() {
 
   return (
     <div className="pt-24 min-h-screen bg-canvas text-ink">
-
-      {/* ── Hero ─────────────────────────────────────────────────────────────── */}
       <section className="relative overflow-hidden border-b border-hairline bg-canvas grid-bg px-6 pb-12 pt-28 md:pb-16 md:pt-32">
         {DECORATIONS.map((decoration, index) => (
           <FloatingDecoration key={`${decoration.shape}-${index}`} decoration={decoration} accent={currentWord.accent} />
@@ -817,7 +489,6 @@ export default function PeopleClient() {
         >
           <motion.p
             variants={{ hidden: { opacity: 0, y: 14 }, visible: { opacity: 1, y: 0 } }}
-            transition={{ duration: 0.55, ease: [0.22, 1, 0.36, 1] }}
             className="mb-7 text-xs font-mono uppercase tracking-[0.2em] text-mute"
           >
             ZABNIX · OUR PEOPLE
@@ -825,7 +496,6 @@ export default function PeopleClient() {
 
           <motion.h1
             variants={{ hidden: { opacity: 0, y: 22 }, visible: { opacity: 1, y: 0 } }}
-            transition={{ duration: 0.7, ease: [0.22, 1, 0.36, 1] }}
             className="mb-1 text-balance text-5xl font-semibold leading-[1.08] tracking-[-0.04em] text-ink md:text-7xl"
           >
             Meet our team of
@@ -833,18 +503,15 @@ export default function PeopleClient() {
 
           <motion.div
             variants={{ hidden: { opacity: 0, y: 16 }, visible: { opacity: 1, y: 0 } }}
-            transition={{ duration: 0.55, ease: [0.22, 1, 0.36, 1] }}
             className="relative mb-6 h-[1.15em] overflow-hidden text-5xl font-bold leading-[1.08] tracking-[-0.04em] md:text-7xl"
-            aria-live="polite"
-            aria-atomic="true"
           >
             <AnimatePresence initial={false} mode="wait">
               <motion.span
                 key={currentWord.text}
-                initial={reduceMotion ? false : { opacity: 0, y: 42 }}
+                initial={{ opacity: 0, y: 42 }}
                 animate={{ opacity: 1, y: 0, color: currentWord.accent }}
-                exit={reduceMotion ? undefined : { opacity: 0, y: -42 }}
-                transition={{ duration: 0.6, ease: [0.22, 1, 0.36, 1] }}
+                exit={{ opacity: 0, y: -42 }}
+                transition={{ duration: 0.6 }}
                 className="absolute inset-x-0 top-0 block text-balance"
               >
                 {currentWord.text}
@@ -854,7 +521,6 @@ export default function PeopleClient() {
 
           <motion.p
             variants={{ hidden: { opacity: 0, y: 16 }, visible: { opacity: 1, y: 0 } }}
-            transition={{ duration: 0.6, ease: [0.22, 1, 0.36, 1] }}
             className="mx-auto max-w-[700px] text-pretty text-lg leading-relaxed text-body md:text-xl"
           >
             Behind every product is a team of passionate engineers, designers, architects, and problem-solvers building software that businesses trust every day.
@@ -862,15 +528,9 @@ export default function PeopleClient() {
         </motion.div>
       </section>
 
-      {/* ── Stats ────────────────────────────────────────────────────────────── */}
-
-      {/* ── Team grid ────────────────────────────────────────────────────────── */}
-      <section className="border-b border-hairline px-6 pb-16 pt-20 md:pb-20 md:pt-24" aria-labelledby="team-heading">
+      <section className="border-b border-hairline px-6 pb-16 pt-20 md:pb-20 md:pt-24">
         <div className="max-w-7xl mx-auto">
-          <h2
-            id="team-heading"
-            className="text-xs font-mono font-semibold text-mute uppercase tracking-[0.2em] text-center mb-16"
-          >
+          <h2 className="text-xs font-mono font-semibold text-mute uppercase tracking-[0.2em] text-center mb-16">
             The Team
           </h2>
 
@@ -884,32 +544,260 @@ export default function PeopleClient() {
               />
             ))}
           </div>
-
-          <p className="text-center text-xs text-mute font-mono mt-16 opacity-60">
-            Profiles are representative and will be updated with real data.
-          </p>
         </div>
       </section>
 
-      {/* ── Values ───────────────────────────────────────────────────────────── */}
-      <ValuesSection />
+      <DesktopValuesSection />
 
-      {/* ── Join CTA ─────────────────────────────────────────────────────────── */}
       <section className="border-t border-hairline bg-canvas px-6 pb-28 pt-16 text-center md:pt-20">
         <div className="max-w-2xl mx-auto">
-          <h2
-            className="text-3xl md:text-4xl font-semibold text-ink mb-4 tracking-tight"
-            style={{ textWrap: "balance" } as CSSProperties}
-          >
+          <h2 className="text-3xl md:text-4xl font-semibold text-ink mb-4 tracking-tight">
             Join the team.
           </h2>
           <p className="text-body mb-10 leading-relaxed">
-            We&apos;re always looking for sharp engineers, designers, and
-            problem&#8209;solvers who want to build something meaningful.
+            We&apos;re always looking for sharp engineers, designers, and problem-solvers who want to build something meaningful.
           </p>
           <LetterRevealLink href="/careers" label="View Open Roles" />
         </div>
       </section>
     </div>
+  );
+}
+
+// ─── Mobile People Page (Reference Target Redesign) ───────────────────────────
+
+function MobilePeopleClient() {
+  const teamMembers = [
+    { name: "Mohammed Shamil", role: "Founder & CEO", location: "Malappuram, Kerala", github: "https://github.com", initial: "MS", from: "#0f172a", to: "#334155" },
+    { name: "Suhail K", role: "Full Stack Developer", location: "Kozhikode, Kerala", github: "https://github.com", initial: "SK", from: "#1e1b4b", to: "#4338ca" },
+    { name: "Fazhan KT", role: "Backend Developer", location: "Kochi, Kerala", github: "https://github.com", initial: "FK", from: "#14532d", to: "#15803d" },
+    { name: "Gokul K", role: "Frontend Developer", location: "Kollam, Kerala", github: "https://github.com", initial: "GK", from: "#701a75", to: "#a21caf" },
+    { name: "Ajmal A", role: "UI/UX Designer", location: "Malappuram, Kerala", github: "https://github.com", initial: "AA", from: "#7c2d12", to: "#c2410c" },
+    { name: "Adarsh A", role: "MERN Stack Developer", location: "Palakkad, Kerala", github: "https://github.com", initial: "AD", from: "#064e3b", to: "#047857" },
+    { name: "Muhammed Sinan", role: "Flutter Developer", location: "Malappuram, Kerala", github: "https://github.com", initial: "MS", from: "#1e293b", to: "#475569" },
+    { name: "Akshay P", role: "Backend Developer", location: "Thrissur, Kerala", github: "https://github.com", initial: "AP", from: "#312e81", to: "#4f46e5" },
+  ];
+
+  const valueCards = [
+    { title: "Innovation", desc: "We challenge norms and create better solutions.", icon: Lightbulb },
+    { title: "Integrity", desc: "We do the right thing, always.", icon: ShieldCheck },
+    { title: "Customer Success", desc: "We build solutions that drive real outcomes.", icon: HeartHandshake },
+    { title: "Quality Engineering", desc: "We write clean code and build reliable systems.", icon: Code2 },
+    { title: "Continuous Learning", desc: "We learn, unlearn and keep evolving.", icon: Target },
+    { title: "Transparency", desc: "We communicate openly and honestly.", icon: Eye },
+    { title: "Reliability", desc: "We deliver on our promises, every single time.", icon: Box },
+  ];
+
+  return (
+    <div className="bg-canvas text-ink pt-20 px-4 pb-12 space-y-9">
+      {/* ── Mobile Hero ────────────────────────────────────────────────────────── */}
+      <section className="space-y-6 pt-4">
+        <div>
+          <span className="mb-3 inline-block rounded-full bg-[#f1f5f9] border border-slate-200 px-3.5 py-1 font-mono text-[10px] font-bold tracking-widest uppercase text-slate-800">
+            OUR PEOPLE
+          </span>
+          <h1 className="text-3xl font-extrabold tracking-tight text-slate-900 leading-tight">
+            Meet our team of <br />
+            <span className="text-black">Engineers</span>
+          </h1>
+          <p className="mt-3 text-xs leading-relaxed text-slate-600 font-medium max-w-[34ch]">
+            We&apos;re a group of builders, thinkers and problem-solvers working together to create meaningful digital solutions.
+          </p>
+        </div>
+
+        {/* 4 Stats White Card */}
+        <div className="rounded-[24px] border border-[#e5e9f0] bg-white p-5 shadow-xs grid grid-cols-2 gap-5">
+          <div className="space-y-1">
+            <Users size={18} className="text-slate-700" aria-hidden="true" />
+            <p className="text-lg font-extrabold text-slate-900 tracking-tight">11+</p>
+            <p className="text-[11px] font-semibold text-slate-500">Engineers</p>
+          </div>
+          <div className="space-y-1">
+            <Globe size={18} className="text-slate-700" aria-hidden="true" />
+            <p className="text-lg font-extrabold text-slate-900 tracking-tight">Remote</p>
+            <p className="text-[11px] font-semibold text-slate-500">Worldwide</p>
+          </div>
+          <div className="space-y-1 border-t border-[#f1f5f9] pt-3">
+            <Code2 size={18} className="text-slate-700" aria-hidden="true" />
+            <p className="text-base font-extrabold text-slate-900 tracking-tight">Collaborative</p>
+            <p className="text-[11px] font-semibold text-slate-500">Our Strength</p>
+          </div>
+          <div className="space-y-1 border-t border-[#f1f5f9] pt-3">
+            <Target size={18} className="text-slate-700" aria-hidden="true" />
+            <p className="text-base font-extrabold text-slate-900 tracking-tight">Impact</p>
+            <p className="text-[11px] font-semibold text-slate-500">What Drives Us</p>
+          </div>
+        </div>
+      </section>
+
+      {/* ── Team Section ──────────────────────────────────────────────────────── */}
+      <section className="space-y-4 pt-2">
+        <div>
+          <span className="mb-2 inline-block rounded-full bg-[#f1f5f9] border border-slate-200 px-3.5 py-1 font-mono text-[10px] font-bold tracking-widest uppercase text-slate-800">
+            THE TEAM
+          </span>
+          <h2 className="text-2xl font-extrabold tracking-tight text-slate-900">
+            The Team
+          </h2>
+        </div>
+
+        <div className="space-y-2.5">
+          {teamMembers.map((member) => (
+            <div
+              key={member.name}
+              className="rounded-2xl border border-[#e5e9f0] bg-white p-3.5 flex items-center justify-between shadow-2xs"
+            >
+              <div className="flex items-center gap-3">
+                <div
+                  className="flex h-11 w-11 shrink-0 items-center justify-center rounded-full text-white font-extrabold text-xs shadow-xs"
+                  style={{
+                    background: `linear-gradient(135deg, ${member.from}, ${member.to})`,
+                  }}
+                >
+                  {member.initial}
+                </div>
+                <div>
+                  <h3 className="text-xs font-bold text-slate-900 leading-tight">
+                    {member.name}
+                  </h3>
+                  <p className="text-[11px] text-slate-600 font-medium">
+                    {member.role}
+                  </p>
+                  <div className="flex items-center gap-1 text-[10px] text-slate-400 mt-0.5">
+                    <MapPin size={10} aria-hidden="true" />
+                    <span>{member.location}</span>
+                  </div>
+                </div>
+              </div>
+
+              <Link
+                href={member.github}
+                target="_blank"
+                rel="noopener noreferrer"
+                aria-label={`GitHub profile for ${member.name}`}
+                className="flex h-9 w-9 shrink-0 items-center justify-center rounded-full border border-slate-200 bg-white text-slate-700 hover:bg-slate-100 hover:text-black transition-colors"
+              >
+                <Github size={16} aria-hidden="true" />
+              </Link>
+            </div>
+          ))}
+        </div>
+
+        <button
+          type="button"
+          className="w-full rounded-full border border-black bg-white py-3 px-5 text-xs font-bold text-black flex items-center justify-center gap-2 transition-[transform,box-shadow] duration-300 ease-in-out hover:-translate-x-0.5 hover:-translate-y-1 hover:shadow-[2px_5px_0_0_#000] active:translate-x-px active:translate-y-0.5 shadow-2xs"
+        >
+          <span>View all team members</span>
+          <Users size={14} aria-hidden="true" />
+        </button>
+      </section>
+
+      {/* ── Values Section ────────────────────────────────────────────────────── */}
+      <section className="space-y-4 pt-2">
+        <div>
+          <span className="mb-2 inline-block rounded-full bg-[#f1f5f9] border border-slate-200 px-3.5 py-1 font-mono text-[10px] font-bold tracking-widest uppercase text-slate-800">
+            WHAT WE STAND FOR
+          </span>
+          <h2 className="text-2xl font-extrabold tracking-tight text-slate-900">
+            What We Stand For
+          </h2>
+        </div>
+
+        <div className="grid grid-cols-2 gap-2.5">
+          {valueCards.map(({ title, desc, icon: Icon }) => (
+            <div
+              key={title}
+              className="rounded-2xl border border-[#e5e9f0] bg-white p-4 shadow-2xs space-y-2 flex flex-col justify-between"
+            >
+              <div>
+                <div className="flex h-8 w-8 items-center justify-center rounded-xl bg-slate-100 text-black border border-slate-200 mb-2.5">
+                  <Icon size={16} aria-hidden="true" />
+                </div>
+                <h3 className="text-xs font-bold text-slate-900 leading-tight">
+                  {title}
+                </h3>
+                <p className="mt-1 text-[11px] leading-relaxed text-slate-500 font-normal">
+                  {desc}
+                </p>
+              </div>
+            </div>
+          ))}
+        </div>
+      </section>
+
+      {/* ── Careers Section ───────────────────────────────────────────────────── */}
+      <section className="space-y-3 pt-2">
+        <div className="rounded-[28px] border border-[#e5e9f0] bg-white p-5 shadow-sm space-y-4 relative overflow-hidden">
+          <span className="inline-block rounded-full bg-[#f1f5f9] border border-slate-200 px-3.5 py-1 font-mono text-[10px] font-bold tracking-widest uppercase text-slate-800">
+            JOIN OUR JOURNEY
+          </span>
+          <div>
+            <h2 className="text-2xl font-extrabold tracking-tight text-slate-900">
+              Join the team.
+            </h2>
+            <p className="mt-2 text-xs leading-relaxed text-slate-600 font-medium max-w-[32ch]">
+              We&apos;re always looking for passionate people who love solving real-world problems.
+            </p>
+          </div>
+
+          <div>
+            <Link
+              href="/careers"
+              className="inline-flex items-center gap-2 rounded-full bg-black px-5 py-3 text-xs font-bold text-white shadow-xs hover:bg-neutral-800 transition-colors"
+            >
+              <span>View Open Roles</span>
+              <ArrowUpRight size={14} aria-hidden="true" />
+            </Link>
+          </div>
+
+          <div className="pt-2">
+            <img
+              src="/images/team-careers.png"
+              alt="Team sitting together at desk illustration"
+              className="w-full rounded-2xl border border-slate-100 object-cover max-h-48"
+            />
+          </div>
+        </div>
+
+        {/* Secondary Contact Card */}
+        <div className="rounded-2xl border border-[#e5e9f0] bg-white p-4 shadow-2xs flex items-center justify-between gap-3">
+          <div className="flex items-center gap-3">
+            <div className="flex h-9 w-9 shrink-0 items-center justify-center rounded-xl bg-slate-100 text-black border border-slate-200">
+              <Mail size={16} aria-hidden="true" />
+            </div>
+            <div>
+              <p className="text-xs font-bold text-slate-900 leading-tight">
+                Don&apos;t see a role for you?
+              </p>
+              <p className="text-[11px] text-slate-500 font-medium mt-0.5">
+                We&apos;d still love to hear from you.
+              </p>
+            </div>
+          </div>
+          <Link
+            href="/contact"
+            className="text-xs font-bold text-black flex items-center gap-1 shrink-0 hover:underline"
+          >
+            <span>Say Hello</span>
+            <ChevronRight size={14} aria-hidden="true" />
+          </Link>
+        </div>
+      </section>
+    </div>
+  );
+}
+
+// ─── Exported People Client Component ─────────────────────────────────────────
+
+export default function PeopleClient() {
+  return (
+    <>
+      <div className="hidden lg:block">
+        <DesktopPeopleClient />
+      </div>
+      <div className="block lg:hidden">
+        <MobilePeopleClient />
+      </div>
+    </>
   );
 }

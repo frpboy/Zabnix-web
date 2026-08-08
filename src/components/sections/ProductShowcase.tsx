@@ -7,6 +7,7 @@ import { AnimatedCounter } from "@/components/ui/AnimatedCounter";
 import {
   ArrowRight,
   Bell,
+  Calendar,
   CheckCircle2,
   ChevronDown,
   ChevronRight,
@@ -364,48 +365,298 @@ function MobileZerpAIDashboardPreview({ start }: { start: boolean }) {
       initial={{ opacity: 0, y: 16 }}
       animate={{ opacity: start ? 1 : 0, y: start ? 0 : 16 }}
       transition={{ duration: 0.6, ease: "easeOut" }}
-      className="w-full mt-6"
+      className="w-full mt-6 space-y-3.5"
     >
-      <div className="rounded-[24px] border border-[#ececec] bg-white p-4 shadow-[0_12px_32px_rgba(15,23,42,0.06)]">
-        {/* Mobile Header Bar */}
-        <div className="flex items-center justify-between border-b border-[#f0f0f0] pb-3 mb-4">
-          <div className="flex items-center gap-2.5">
-            <div className="flex h-8 w-8 items-center justify-center rounded-xl bg-[#1f7a52] text-white">
-              <Grid2x2 size={16} aria-hidden="true" />
+      {/* 1. Header Card (Zerpai ERP) */}
+      <div className="rounded-[22px] border border-[#ececec] bg-white p-3.5 shadow-xs flex items-center justify-between">
+        <div className="flex items-center gap-3">
+          <div className="flex h-10 w-10 items-center justify-center rounded-2xl bg-[#0f765e] text-white shadow-xs">
+            <Grid2x2 size={20} aria-hidden="true" />
+          </div>
+          <div>
+            <h3 className="text-base font-bold text-slate-900 leading-tight">Zerpai ERP</h3>
+            <p className="text-xs text-neutral-500 font-medium mt-0.5">Live Operations</p>
+          </div>
+        </div>
+        <div className="rounded-full bg-[#e6f7f0] px-3 py-1 text-xs font-bold text-[#0f765e] flex items-center gap-1.5 border border-[#bbf7d0]">
+          <span className="w-2 h-2 rounded-full bg-[#0f765e] animate-pulse" />
+          Active
+        </div>
+      </div>
+
+      {/* 2. Highlight Hero Card (Total Receivables Featured Card) */}
+      <div className="relative overflow-hidden rounded-[24px] bg-gradient-to-br from-[#184e4f] via-[#154445] to-[#0e2c2d] p-5 text-white shadow-md">
+        {/* Subtle background wave graphic overlay */}
+        <div className="pointer-events-none absolute -right-6 -bottom-6 opacity-15" aria-hidden="true">
+          <svg width="200" height="120" viewBox="0 0 200 120" fill="none">
+            <path d="M0 80 Q 50 20 100 60 T 200 40" stroke="white" strokeWidth="12" fill="none" />
+            <path d="M0 100 Q 50 40 100 80 T 200 60" stroke="white" strokeWidth="8" fill="none" />
+          </svg>
+        </div>
+
+        <div className="flex items-start justify-between">
+          <p className="text-xs font-medium tracking-wide text-[#9ebac0]">
+            Total Receivables
+          </p>
+          <div className="flex h-9 w-9 items-center justify-center rounded-full bg-white/10 text-white transition-transform hover:scale-105">
+            <ArrowRight size={16} aria-hidden="true" />
+          </div>
+        </div>
+
+        <p className="my-2.5 text-3xl font-extrabold tracking-tight text-white font-variant-numeric tabular-nums">
+          <AnimatedCounter value={17877} prefix="₹" decimals={2} start={start} />
+        </p>
+
+        <div className="inline-flex items-center gap-1 text-xs font-semibold text-[#34d399]">
+          <span>↑ 12.5%</span>
+          <span className="text-[#9ebac0] font-normal">vs last month</span>
+        </div>
+      </div>
+
+      {/* 3. 2x2 Grid of Small Stat Cards */}
+      <div className="grid grid-cols-2 gap-3">
+        {/* Card 1: Outstanding Payables (A/P) */}
+        <div className="rounded-[22px] border border-[#ececec] bg-white p-3.5 shadow-xs flex flex-col justify-between">
+          <div className="flex items-center justify-between">
+            <div className="flex h-8 w-8 items-center justify-center rounded-xl bg-blue-50 text-blue-600">
+              <ArrowRight size={16} className="rotate-45" aria-hidden="true" />
             </div>
-            <div>
-              <p className="text-sm font-semibold text-slate-800">Zerpai ERP</p>
-              <p className="text-[11px] text-neutral-500">Live Operations</p>
+            <div className="flex h-7 w-7 items-center justify-center rounded-full bg-blue-50 text-blue-500">
+              <ArrowRight size={13} aria-hidden="true" />
             </div>
           </div>
-          <span className="rounded-full bg-emerald-50 px-2.5 py-1 text-[10px] font-semibold text-emerald-600 border border-emerald-200">
-            Active
-          </span>
+          <div className="mt-3">
+            <p className="text-[11px] font-semibold text-slate-700 leading-snug">
+              Outstanding Payables<br />(A/P)
+            </p>
+            <p className="mt-1.5 text-xs sm:text-sm font-extrabold text-slate-900 tracking-tight font-variant-numeric tabular-nums">
+              <AnimatedCounter value={299759.98} prefix="₹" decimals={2} start={start} />
+            </p>
+          </div>
         </div>
 
-        {/* 2-col Metrics Grid */}
-        <div className="grid grid-cols-2 gap-2.5 mb-4">
-          {summaryCards.slice(0, 4).map((card, index) => (
-            <motion.div
-              key={card.title}
-              initial={{ opacity: 0, y: 12 }}
-              animate={{ opacity: start ? 1 : 0, y: start ? 0 : 12 }}
-              transition={{ duration: 0.35, delay: 0.2 + index * 0.06 }}
-            >
-              <SummaryCard {...card} start={start} />
-            </motion.div>
-          ))}
+        {/* Card 2: Purchase Receivables */}
+        <div className="rounded-[22px] border border-[#ececec] bg-white p-3.5 shadow-xs flex flex-col justify-between">
+          <div className="flex items-center justify-between">
+            <div className="flex h-8 w-8 items-center justify-center rounded-xl bg-rose-50 text-rose-500">
+              <ShoppingCart size={16} aria-hidden="true" />
+            </div>
+            <div className="flex h-7 w-7 items-center justify-center rounded-full bg-rose-50 text-rose-500">
+              <ArrowRight size={13} aria-hidden="true" />
+            </div>
+          </div>
+          <div className="mt-3">
+            <p className="text-[11px] font-semibold text-slate-700 leading-snug">
+              Purchase<br />Receivables
+            </p>
+            <p className="mt-1.5 text-xs sm:text-sm font-extrabold text-slate-900 tracking-tight font-variant-numeric tabular-nums">
+              <AnimatedCounter value={118081.00} prefix="₹" decimals={2} start={start} />
+            </p>
+          </div>
         </div>
 
-        {/* Sales Trend graph */}
-        <div className="mb-4">
-          <SalesTrend start={start} />
+        {/* Card 3: Cash on Hand */}
+        <div className="rounded-[22px] border border-[#ececec] bg-white p-3.5 shadow-xs flex flex-col justify-between">
+          <div className="flex items-center justify-between">
+            <div className="flex h-8 w-8 items-center justify-center rounded-xl bg-emerald-50 text-emerald-600">
+              <Wallet size={16} aria-hidden="true" />
+            </div>
+            <div className="flex h-7 w-7 items-center justify-center rounded-full bg-emerald-50 text-emerald-600">
+              <ArrowRight size={13} aria-hidden="true" />
+            </div>
+          </div>
+          <div className="mt-3">
+            <p className="text-[11px] font-semibold text-slate-700 leading-snug">
+              Cash on Hand
+            </p>
+            <p className="mt-1.5 text-xs sm:text-sm font-extrabold text-slate-900 tracking-tight font-variant-numeric tabular-nums">
+              <AnimatedCounter value={356916.80} prefix="₹" decimals={2} start={start} />
+            </p>
+          </div>
         </div>
 
-        {/* Order Stream */}
-        <div>
-          <OrderStream />
+        {/* Card 4: Total Receivables */}
+        <div className="rounded-[22px] border border-[#ececec] bg-white p-3.5 shadow-xs flex flex-col justify-between">
+          <div className="flex items-center justify-between">
+            <div className="flex h-8 w-8 items-center justify-center rounded-xl bg-blue-50 text-blue-600">
+              <FileBarChart2 size={16} aria-hidden="true" />
+            </div>
+            <div className="flex h-7 w-7 items-center justify-center rounded-full bg-blue-50 text-blue-500">
+              <ArrowRight size={13} aria-hidden="true" />
+            </div>
+          </div>
+          <div className="mt-3">
+            <p className="text-[11px] font-semibold text-slate-700 leading-snug">
+              Total Receivables
+            </p>
+            <p className="mt-1.5 text-xs sm:text-sm font-extrabold text-slate-900 tracking-tight font-variant-numeric tabular-nums">
+              <AnimatedCounter value={17877.00} prefix="₹" decimals={2} start={start} />
+            </p>
+          </div>
         </div>
+      </div>
+
+      {/* 4. Sales Trend (Last 30 Days) Card */}
+      <div className="rounded-[24px] border border-[#ececec] bg-white p-4 shadow-xs">
+        <div className="flex items-center justify-between mb-3">
+          <div>
+            <h4 className="text-xs sm:text-sm font-bold text-slate-900">
+              Sales Trend (Last 30 Days)
+            </h4>
+            <p className="text-[11px] text-neutral-500 mt-0.5">
+              Order value across the last month
+            </p>
+          </div>
+          <div className="rounded-full bg-emerald-50 px-2.5 py-1 text-[10px] font-bold text-emerald-600 flex items-center gap-1 border border-emerald-200">
+            <span className="w-1.5 h-1.5 rounded-full bg-emerald-500 animate-pulse" />
+            Live
+          </div>
+        </div>
+
+        {/* Smooth Curved Line Chart */}
+        <div className="relative mt-4">
+          <div className="grid grid-cols-[28px_1fr] items-stretch gap-1">
+            {/* Y-Axis */}
+            <div className="flex flex-col justify-between text-[10px] text-neutral-400 font-medium py-1 select-none">
+              <span>150K</span>
+              <span>100K</span>
+              <span>50K</span>
+              <span>0</span>
+            </div>
+
+            {/* SVG Curved Chart Container */}
+            <div className="relative h-28 w-full overflow-visible">
+              {/* Floating Badge on chart peak */}
+              <div className="absolute top-1 right-2 z-10 rounded-md bg-[#10b981] px-2 py-0.5 text-[10px] font-bold text-white shadow-xs flex items-center gap-1">
+                <span>₹96.8K</span>
+              </div>
+
+              <svg viewBox="0 0 300 100" className="h-full w-full overflow-visible" preserveAspectRatio="none">
+                <defs>
+                  <linearGradient id="mobileSalesGrad" x1="0" y1="0" x2="0" y2="1">
+                    <stop offset="0%" stopColor="#10b981" stopOpacity="0.25" />
+                    <stop offset="100%" stopColor="#10b981" stopOpacity="0.0" />
+                  </linearGradient>
+                </defs>
+                {/* Horizontal Grid lines */}
+                <line x1="0" y1="5" x2="300" y2="5" stroke="#f1f5f9" strokeWidth="1" strokeDasharray="3 3" />
+                <line x1="0" y1="35" x2="300" y2="35" stroke="#f1f5f9" strokeWidth="1" strokeDasharray="3 3" />
+                <line x1="0" y1="65" x2="300" y2="65" stroke="#f1f5f9" strokeWidth="1" strokeDasharray="3 3" />
+                <line x1="0" y1="95" x2="300" y2="95" stroke="#f8fafc" strokeWidth="1" />
+
+                {/* Filled Gradient path */}
+                <path
+                  d="M0 80 Q 25 60, 45 75 T 90 70 T 135 60 T 180 75 T 225 55 T 270 25 L 270 95 L 0 95 Z"
+                  fill="url(#mobileSalesGrad)"
+                />
+
+                {/* Smooth Curve Path */}
+                <motion.path
+                  d="M0 80 Q 25 60, 45 75 T 90 70 T 135 60 T 180 75 T 225 55 T 270 25"
+                  fill="none"
+                  stroke="#10b981"
+                  strokeWidth="2.5"
+                  strokeLinecap="round"
+                  initial={start ? { pathLength: 0 } : false}
+                  animate={{ pathLength: 1 }}
+                  transition={{ duration: 1.2, ease: "easeOut" }}
+                />
+
+                {/* Peak point circle */}
+                <circle cx="270" cy="25" r="4" fill="#10b981" stroke="#ffffff" strokeWidth="2" />
+              </svg>
+            </div>
+          </div>
+
+          {/* X-Axis dates */}
+          <div className="flex justify-between pl-8 pr-1 pt-2 text-[10px] text-neutral-400 font-medium">
+            <span>May 23</span>
+            <span>May 30</span>
+            <span>Jun 06</span>
+            <span>Jun 13</span>
+            <span>Jun 20</span>
+          </div>
+        </div>
+      </div>
+
+      {/* 5. Order Stream Card */}
+      <div className="rounded-[24px] border border-[#ececec] bg-white p-4 shadow-xs">
+        <div className="flex items-center justify-between mb-3.5">
+          <div>
+            <h4 className="text-xs sm:text-sm font-bold text-slate-900">
+              Order Stream
+            </h4>
+            <p className="text-[11px] text-neutral-500 mt-0.5">
+              Real-time transaction updates
+            </p>
+          </div>
+          <div className="rounded-full bg-emerald-50 px-2.5 py-1 text-[10px] font-bold text-emerald-600 flex items-center gap-1 border border-emerald-200">
+            <span className="w-1.5 h-1.5 rounded-full bg-emerald-500 animate-pulse" />
+            Live
+          </div>
+        </div>
+
+        <div className="space-y-2.5">
+          {/* Item 1 */}
+          <div className="flex items-center justify-between rounded-2xl border border-[#f0f0f0] bg-neutral-50/60 p-3">
+            <div className="flex items-center gap-3">
+              <div className="flex h-9 w-9 items-center justify-center rounded-xl bg-blue-100 text-blue-600">
+                <ShoppingCart size={16} aria-hidden="true" />
+              </div>
+              <div>
+                <p className="text-xs font-bold text-slate-900">SO-1984</p>
+                <p className="text-[11px] text-neutral-500 font-medium">Packed</p>
+              </div>
+            </div>
+            <div className="text-right">
+              <p className="text-xs font-bold text-slate-900 font-variant-numeric tabular-nums">₹96K</p>
+              <p className="text-[10px] text-neutral-400 font-medium">Today, 10:24 AM</p>
+            </div>
+          </div>
+
+          {/* Item 2 */}
+          <div className="flex items-center justify-between rounded-2xl border border-[#f0f0f0] bg-neutral-50/60 p-3">
+            <div className="flex items-center gap-3">
+              <div className="flex h-9 w-9 items-center justify-center rounded-xl bg-emerald-100 text-emerald-600">
+                <CheckCircle2 size={16} aria-hidden="true" />
+              </div>
+              <div>
+                <p className="text-xs font-bold text-slate-900">PO-1042</p>
+                <p className="text-[11px] text-neutral-500 font-medium">Approved</p>
+              </div>
+            </div>
+            <div className="text-right">
+              <p className="text-xs font-bold text-slate-900 font-variant-numeric tabular-nums">₹2.4L</p>
+              <p className="text-[10px] text-neutral-400 font-medium">Today, 09:15 AM</p>
+            </div>
+          </div>
+
+          {/* Item 3 */}
+          <div className="flex items-center justify-between rounded-2xl border border-[#f0f0f0] bg-neutral-50/60 p-3">
+            <div className="flex items-center gap-3">
+              <div className="flex h-9 w-9 items-center justify-center rounded-xl bg-purple-100 text-purple-600">
+                <Truck size={16} aria-hidden="true" />
+              </div>
+              <div>
+                <p className="text-xs font-bold text-slate-900">INV-2008</p>
+                <p className="text-[11px] text-neutral-500 font-medium">Completed</p>
+              </div>
+            </div>
+            <div className="text-right">
+              <p className="text-xs font-bold text-slate-900 font-variant-numeric tabular-nums">₹1.8L</p>
+              <p className="text-[10px] text-neutral-400 font-medium">Yesterday, 06:45 PM</p>
+            </div>
+          </div>
+        </div>
+
+        {/* View All Orders CTA */}
+        <Link
+          href="/products/zerpai#orders"
+          className="mt-3.5 flex w-full items-center justify-center gap-2 rounded-2xl border border-[#ececec] bg-neutral-50 py-3 text-xs font-bold text-slate-800 transition-colors hover:bg-neutral-100 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ink"
+        >
+          <span>View All Orders</span>
+          <ArrowRight size={14} aria-hidden="true" />
+        </Link>
       </div>
     </motion.div>
   );

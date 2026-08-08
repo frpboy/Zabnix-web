@@ -84,7 +84,7 @@ export default function ContactPage() {
                   {
                     icon: MapPin,
                     label: "Location",
-                    value: "Hyderabad, Telangana, India",
+                    value: "Kerala, India",
                     href: "#",
                   },
                   {
@@ -164,6 +164,7 @@ export default function ContactPage() {
                 id="consultation"
                 onSubmit={handleSubmit}
                 aria-label="Contact form"
+                suppressHydrationWarning
                 className="border border-hairline bg-canvas rounded-2xl p-8 space-y-6 shadow-level-3"
               >
                 <h2 className="text-xl font-semibold text-ink">
@@ -185,6 +186,7 @@ export default function ContactPage() {
                       autoComplete="name"
                       required
                       placeholder="Rahul Sharma…"
+                      suppressHydrationWarning
                       className="w-full bg-canvas border border-hairline rounded-[6px] px-4 py-3 text-sm text-ink placeholder:text-mute focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-link transition-colors duration-200"
                     />
                   </div>
@@ -201,6 +203,7 @@ export default function ContactPage() {
                       name="company"
                       autoComplete="organization"
                       placeholder="Acme Corp…"
+                      suppressHydrationWarning
                       className="w-full bg-canvas border border-hairline rounded-[6px] px-4 py-3 text-sm text-ink placeholder:text-mute focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-link transition-colors duration-200"
                     />
                   </div>
@@ -221,6 +224,7 @@ export default function ContactPage() {
                     spellCheck={false}
                     required
                     placeholder="you@company.com…"
+                    suppressHydrationWarning
                     className="w-full bg-canvas border border-hairline rounded-[6px] px-4 py-3 text-sm text-ink placeholder:text-mute focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-link transition-colors duration-200"
                   />
                 </div>
