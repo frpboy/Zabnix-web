@@ -973,3 +973,217 @@ Backend Files:
 - (none this session)
 
 Timestamp: 2026-08-08 11:09:15
+
+
+### 37) Updated Mobile People Page Redesign with Profile Detail Drawer
+
+1. **Mobile People Page Target Refinement**
+   - Refactored src/app/people/PeopleClient.tsx to match the updated 3-panel mobile reference image while keeping the Desktop view (hidden lg:block) 100% untouched.
+   - Built Mobile version (MobilePeopleClient):
+     - **Mobile Hero**: OUR PEOPLE pill badge, Meet our team of Engineers title, circular world map pin container with central 11+ Engineers black node badge, and 4-stat white card (11+ Engineers, Remote Worldwide, Collaborative, Impact).
+     - **Meet the Minds Behind the Work (Team Section)**: THE TEAM pill badge, list of team member cards with online indicator dots, roles, locations, GitHub action links, and an interactive tap listener opening the full profile drawer view.
+     - **Interactive Member Profile Drawer**: ? Back to team header with member count (1 / 11), large gradient portrait card with • Online status badge, bio, expertise tags (Leadership, Strategy, Product, System Architecture), social action buttons (GitHub, LinkedIn, Mail), and quick Next member card preview.
+     - **Our Core Values**: WHAT WE STAND FOR pill badge and stacked clean white cards (Innovation, Integrity, Customer Success, Quality Engineering, Continuous Learning, Transparency, Reliability).
+     - **Join the Team**: JOIN OUR JOURNEY pill badge inside a solid black container with white primary CTA (View Open Roles ?), and secondary contact strips (hello@zabnix.com, +91 123 456 7890).
+
+Frontend Files:
+- src/app/people/PeopleClient.tsx
+
+Backend Files:
+- (none this session)
+
+Timestamp: 2026-08-08 13:14:30
+
+
+### 38) Performance Optimization for /people & Shared Global Layout
+
+1. **LCP & Font Loading Optimization**
+   - Implemented self-hosted Next.js Google Font optimization (
+ext/font/google Inter font) in src/app/layout.tsx.
+   - Removed external Google Fonts blocking network requests (onts.googleapis.com / onts.gstatic.com).
+   - Converted ZabnixChatbot to a client-side dynamically imported module (GlobalChatbotWrapper.tsx) using ssr: false, removing chatbot JS execution from critical initial paint payload.
+   - Updated liquid-glass.js script strategy from fterInteractive to lazyOnload to prevent SVG filter canvas calculations from blocking LCP/TBT.
+   - Added explicit dimensions (width={600}, height={300}) and loading= lazy to /people images to eliminate layout shifts (CLS).
+
+Frontend Files:
+- src/app/layout.tsx
+- src/components/ui/GlobalChatbotWrapper.tsx
+- src/app/people/PeopleClient.tsx
+
+Backend Files:
+- (none this session)
+
+Timestamp: 2026-08-08 13:22:50
+
+
+### 39) Redesigned Careers / Open Roles Page Presentation
+
+1. **Careers Page Target Redesign**
+   - Refactored src/app/careers/page.tsx and created src/app/careers/CareersClient.tsx to match the reference image redesign while preserving all existing job data, routes (/careers/[slug]), application behavior, global navbar, footer, and chatbot.
+   - Built modern, minimal editorial layout:
+     - Careers Hero: CAREERS AT ZABNIX eyebrow, Build the future with us. bold title, subtitle, 3 key feature badges (Remote-first, Grow together, Impact driven), and desktop decorative watermark frame.
+     - Why Join Us (Perks Grid): WHY JOIN US pill badge and 3-column grid of clean white cards with monochrome icons (Remote First, Equity Options, Health Insurance, Learning Budget, Home Office Setup, Flexible Hours).
+     - Open Roles Section and Dynamic Filters: Open Roles header with live count badge (6), department dropdown (All Departments, Engineering, Mobile, AI, Design, Infrastructure, Sales), location dropdown, and Remote toggle pill (Remote).
+     - Horizontal Job Card Rows: Clean white full-width rows with department icons (Code2, Smartphone, Sparkles, Palette, Server, Briefcase), title, metadata, and Apply action link with hover arrow translation.
+     - Empty State: Subtle empty state handling when zero jobs match selected filters.
+     - Dont See Your Role (CTA Card): Compact horizontal card with Mail icon, description, and Email careers@zabnix.com primary black pill button.
+
+Frontend Files:
+- src/app/careers/page.tsx
+- src/app/careers/CareersClient.tsx
+
+Backend Files:
+- (none this session)
+
+Timestamp: 2026-08-08 14:36:35
+
+
+### 40) Added Interactive 3D Z-Ring Visual to Careers Hero
+
+1. **Careers Hero Right Panel Visual Enhancement**
+   - Created src/components/ui/Careers3DRingsVisual.tsx replacing the static Z box with an interactive 3D concentric ring system inspired by Uiverse 3D animation techniques.
+   - Built with 3 layered concentric rings (outer: 18s continuous rotation, middle: 13s counter rotation, inner: 9s continuous rotation) in a 3D perspective scene surrounding a central Zabnix Z anchor.
+   - Added interactive mouse tilt & depth parallax (onMouseMove computes 3D X/Y tilt and translateZ depth separation).
+   - Pure monochrome Zabnix palette (slate-900, slate-700, slate-400, slate-300, white).
+   - Full accessibility & reduced-motion support (prefers-reduced-motion disables continuous animation and tilt).
+
+Frontend Files:
+- src/components/ui/Careers3DRingsVisual.tsx
+- src/app/careers/CareersClient.tsx
+
+Backend Files:
+- (none this session)
+
+Timestamp: 2026-08-08 14:50:30
+
+
+### 41) Applied 3D Wave Keyframe Motion to Careers Z-Rings Visual
+
+1. **3D Motion Animation Enhancement**
+   - Updated src/components/ui/Careers3DRingsVisual.tsx to implement the exact 3D wave keyframe motion from the Uiverse reference CSS (otateX, otateY, otateZ, 	ranslateZ oscillating dynamically across all 3 concentric rings and central Z anchor).
+   - Added staggered animation delays and cubic-bezier timing (cubic-bezier(0.49, 0.06, 0.43, 0.85)).
+   - Maintained strict Zabnix monochrome palette and responsive mouse-tilt parallax.
+
+Frontend Files:
+- src/components/ui/Careers3DRingsVisual.tsx
+
+Backend Files:
+- (none this session)
+
+Timestamp: 2026-08-08 14:52:30
+
+
+### 42) Animated Central Core Node Letter Cycling Z-A-B-N-I-X
+
+1. **Careers 3D Visual Letter Sequence**
+   - Updated src/components/ui/Careers3DRingsVisual.tsx so the central circular core node continuously cycles through the letters of **ZABNIX** (Z -> A -> B -> N -> I -> X) with smooth AnimatePresence scale and opacity transitions.
+   - Synchronized with the 3D concentric ring keyframe movement (otateX, otateY, otateZ, 	ranslateZ) and responsive cursor parallax.
+
+Frontend Files:
+- src/components/ui/Careers3DRingsVisual.tsx
+
+Backend Files:
+- (none this session)
+
+Timestamp: 2026-08-08 14:55:30
+
+
+### 43) Removed Outer Card Container Box From Careers 3D Visual
+
+1. **Careers 3D Visual Frameless Integration**
+   - Updated src/components/ui/Careers3DRingsVisual.tsx to remove the outer rounded card container box (order border-slate-200/80 bg-gradient-to-b from-white to-slate-50/70 shadow-xs rounded-[32px] grid-bg).
+   - The 3D concentric ring system and central ZABNIX letter cycling core node now float framelessly directly over the grid background of the Careers hero.
+
+Frontend Files:
+- src/components/ui/Careers3DRingsVisual.tsx
+
+Backend Files:
+- (none this session)
+
+Timestamp: 2026-08-08 15:01:00
+
+
+### 44) Applied Uiverse Offset Pseudo Shadow Hover Effect to Careers Hero Cards
+
+1. **Careers Hero Highlight Cards Hover Enhancement**
+   - Added .btn-shape-card class and @keyframes storm to src/app/globals.css implementing the exact Uiverse hover offset style:
+     - Hover translate offset (hover:-translate-x-2 hover:-translate-y-2).
+     - Dual pseudo-shadow layers (::before expanding 	ranslate(8px, 8px) at 18% opacity, ::after expanding 	ranslate(4px, 4px) at 35% opacity).
+     - Text container subtle horizontal storm wobble animation (@keyframes storm).
+   - Applied to the 3 hero highlight cards (Remote-first, Grow together, Impact driven) in src/app/careers/CareersClient.tsx.
+
+Frontend Files:
+- src/app/globals.css
+- src/app/careers/CareersClient.tsx
+
+Backend Files:
+- (none this session)
+
+Timestamp: 2026-08-08 15:02:30
+
+
+### 45) Preserved White Card Background Color on Hover in globals.css
+
+1. **Card Stacking Context & Color Preservation**
+   - Updated .btn-shape-card in src/app/globals.css with ackground-color: #ffffff !important and isolation: isolate.
+   - Guaranteed that hovering over the 3 hero highlight cards keeps the card body crisp 100% white while rendering the pseudo-element offset drop shadows strictly behind the white card layer.
+
+Frontend Files:
+- src/app/globals.css
+
+Backend Files:
+- (none this session)
+
+Timestamp: 2026-08-08 15:04:10
+
+
+### 46) Removed Right Side Visual Animation From Careers Hero
+
+1. **Careers Hero Clean Layout**
+   - Updated src/app/careers/CareersClient.tsx removing the right-side 3D ring visual container completely.
+   - Cleaned up the hero layout so the main text and 3 Uiverse highlight cards are presented cleanly in a focused 3-column wide container.
+
+Frontend Files:
+- src/app/careers/CareersClient.tsx
+
+Backend Files:
+- (none this session)
+
+Timestamp: 2026-08-08 17:25:30
+
+### 47) Home Mobile Tech Stack, Case Studies, Spacing Refinement, and Offline-Safe Build Recovery
+
+1. **Mobile Tech Stack Recomposition**
+   - Reworked Home Tech Stack into a mobile-only focused active-technology showcase while preserving the existing desktop marquee path.
+   - Split the original tech data into a canonical base list plus the duplicated desktop marquee list so the mobile implementation could cycle through the real technology set without changing names, categories, or desktop behavior.
+   - Added lightweight auto-advance, tap-to-advance on the active card, viewport-aware pause behavior, and reduced-motion handling inside a dedicated client child component rather than converting the whole section to a client component.
+   - Why this architecture: keeping `src/components/sections/TechStack.tsx` server-safe avoids App Router instability in the Home render tree, while isolating interactivity inside `src/components/sections/MobileTechStackShowcase.tsx` minimizes client hydration surface.
+
+2. **Mobile Case Studies Showcase**
+   - Replaced the stacked mobile case-study cards with a single active black editorial card that reuses the existing `caseStudies` array exactly as the source of truth.
+   - Added automatic cycling, progress pills, previous/next controls, and swipe navigation on the active card while preserving the original `Read case study` link destinations.
+   - Implemented interaction-safe swipe detection that changes studies on horizontal intent, suppresses accidental link navigation on swipe, and still allows normal tap-through when the gesture is a click.
+   - Why this architecture: the dedicated `src/components/sections/MobileCaseStudiesShowcase.tsx` client component lets the desktop grid remain untouched inside `src/components/sections/CaseStudies.tsx`, preserving desktop identity and reducing regression risk.
+
+3. **Mobile Section Rhythm Tightening**
+   - Reduced excessive mobile whitespace between Case Studies and Contact CTA by tightening Case Studies bottom padding and Contact CTA top padding only on small screens.
+   - Preserved existing desktop spacing through `md:` breakpoints so the larger-screen composition remains unchanged.
+
+4. **Offline-Safe Manifest and Font Recovery**
+   - Removed runtime dependency on externally fetched Inter fonts from both `src/app/layout.tsx` and `src/app/globals.css`.
+   - This was required after clearing stale `.next` artifacts to recover from missing manifest/vendor-chunk failures in local dev and build workflows.
+   - Why this change was necessary: Next.js could not fully regenerate `.next` in the restricted environment while `next/font/google` and a direct Google Fonts CSS import were both present, which blocked regeneration of build/dev artifacts and produced follow-on ENOENT failures for manifest files.
+
+Frontend Files:
+- src/components/sections/TechStack.tsx
+- src/components/sections/MobileTechStackShowcase.tsx
+- src/components/sections/CaseStudies.tsx
+- src/components/sections/MobileCaseStudiesShowcase.tsx
+- src/components/sections/ContactCTA.tsx
+- src/app/layout.tsx
+- src/app/globals.css
+
+Backend Files:
+- (none this session)
+
+Timestamp: 2026-08-10 17:11:13

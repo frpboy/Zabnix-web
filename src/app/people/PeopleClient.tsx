@@ -3,6 +3,7 @@
 import { useState, useEffect, useRef, type CSSProperties } from "react";
 import Link from "next/link";
 import {
+  ArrowLeft,
   ArrowUpRight,
   Box,
   ChevronRight,
@@ -15,6 +16,7 @@ import {
   Linkedin,
   Mail,
   MapPin,
+  Phone,
   ShieldCheck,
   Target,
   Users,
@@ -567,15 +569,113 @@ function DesktopPeopleClient() {
 // ─── Mobile People Page (Reference Target Redesign) ───────────────────────────
 
 function MobilePeopleClient() {
+  const [selectedMemberIndex, setSelectedMemberIndex] = useState<number | null>(null);
+
   const teamMembers = [
-    { name: "Mohammed Shamil", role: "Founder & CEO", location: "Malappuram, Kerala", github: "https://github.com", initial: "MS", from: "#0f172a", to: "#334155" },
-    { name: "Suhail K", role: "Full Stack Developer", location: "Kozhikode, Kerala", github: "https://github.com", initial: "SK", from: "#1e1b4b", to: "#4338ca" },
-    { name: "Fazhan KT", role: "Backend Developer", location: "Kochi, Kerala", github: "https://github.com", initial: "FK", from: "#14532d", to: "#15803d" },
-    { name: "Gokul K", role: "Frontend Developer", location: "Kollam, Kerala", github: "https://github.com", initial: "GK", from: "#701a75", to: "#a21caf" },
-    { name: "Ajmal A", role: "UI/UX Designer", location: "Malappuram, Kerala", github: "https://github.com", initial: "AA", from: "#7c2d12", to: "#c2410c" },
-    { name: "Adarsh A", role: "MERN Stack Developer", location: "Palakkad, Kerala", github: "https://github.com", initial: "AD", from: "#064e3b", to: "#047857" },
-    { name: "Muhammed Sinan", role: "Flutter Developer", location: "Malappuram, Kerala", github: "https://github.com", initial: "MS", from: "#1e293b", to: "#475569" },
-    { name: "Akshay P", role: "Backend Developer", location: "Thrissur, Kerala", github: "https://github.com", initial: "AP", from: "#312e81", to: "#4f46e5" },
+    {
+      name: "Mohammed Shamil",
+      role: "Founder & CEO",
+      location: "Malappuram, Kerala",
+      github: "https://github.com/shamilmsk",
+      linkedin: "https://linkedin.com",
+      email: "shamil@zabnix.com",
+      initial: "MS",
+      from: "#0f172a",
+      to: "#334155",
+      about: "Leading Zabnix with a vision to build impactful digital solutions and a culture of innovation, ownership and growth.",
+      expertise: ["Leadership", "Strategy", "Product", "System Architecture"],
+    },
+    {
+      name: "Suhail K",
+      role: "Full Stack Developer",
+      location: "Kozhikode, Kerala",
+      github: "https://github.com/suhailk",
+      linkedin: "https://linkedin.com",
+      email: "suhail@zabnix.com",
+      initial: "SK",
+      from: "#1e1b4b",
+      to: "#4338ca",
+      about: "Passionate full-stack developer engineering scalable web applications and intuitive interfaces.",
+      expertise: ["React", "Next.js", "Node.js", "PostgreSQL"],
+    },
+    {
+      name: "Fazhan KT",
+      role: "Backend Developer",
+      location: "Kochi, Kerala",
+      github: "https://github.com/fazhankt",
+      linkedin: "https://linkedin.com",
+      email: "fazhan@zabnix.com",
+      initial: "FK",
+      from: "#14532d",
+      to: "#15803d",
+      about: "Specializing in high-throughput APIs, cloud infrastructure, and enterprise data models.",
+      expertise: ["Python", "FastAPI", "Docker", "AWS"],
+    },
+    {
+      name: "Gokul K",
+      role: "Frontend Developer",
+      location: "Kollam, Kerala",
+      github: "https://github.com/gokulk",
+      linkedin: "https://linkedin.com",
+      email: "gokul@zabnix.com",
+      initial: "GK",
+      from: "#701a75",
+      to: "#a21caf",
+      about: "Crafting pixel-perfect web interfaces with high performance and micro-interactions.",
+      expertise: ["TypeScript", "Tailwind CSS", "Framer Motion", "UI Systems"],
+    },
+    {
+      name: "Ajmal A",
+      role: "UI/UX Designer",
+      location: "Malappuram, Kerala",
+      github: "https://github.com/ajmala",
+      linkedin: "https://linkedin.com",
+      email: "ajmal@zabnix.com",
+      initial: "AA",
+      from: "#7c2d12",
+      to: "#c2410c",
+      about: "Designing user-centered digital products with clean typography, accessibility, and modern aesthetics.",
+      expertise: ["Figma", "User Research", "Prototyping", "Design Systems"],
+    },
+    {
+      name: "Adarsh A",
+      role: "MERN Stack Developer",
+      location: "Palakkad, Kerala",
+      github: "https://github.com/adarsha",
+      linkedin: "https://linkedin.com",
+      email: "adarsh@zabnix.com",
+      initial: "AD",
+      from: "#064e3b",
+      to: "#047857",
+      about: "Building robust web platforms and full-stack solutions tailored for growing enterprises.",
+      expertise: ["MongoDB", "Express", "React", "Node.js"],
+    },
+    {
+      name: "Muhammed Sinan",
+      role: "Flutter Developer",
+      location: "Malappuram, Kerala",
+      github: "https://github.com/sinanmhd",
+      linkedin: "https://linkedin.com",
+      email: "sinan@zabnix.com",
+      initial: "MS",
+      from: "#1e293b",
+      to: "#475569",
+      about: "Engineering cross-platform iOS and Android mobile apps with smooth performance and offline sync.",
+      expertise: ["Flutter", "Dart", "Firebase", "State Management"],
+    },
+    {
+      name: "Akshay P",
+      role: "Backend Developer",
+      location: "Thrissur, Kerala",
+      github: "https://github.com/akshayp",
+      linkedin: "https://linkedin.com",
+      email: "akshay@zabnix.com",
+      initial: "AP",
+      from: "#312e81",
+      to: "#4f46e5",
+      about: "Focusing on secure-by-default architecture, microservices, and database performance optimization.",
+      expertise: ["PostgreSQL", "Go", "REST APIs", "CI/CD"],
+    },
   ];
 
   const valueCards = [
@@ -588,8 +688,155 @@ function MobilePeopleClient() {
     { title: "Reliability", desc: "We deliver on our promises, every single time.", icon: Box },
   ];
 
+  const currentSelected = selectedMemberIndex !== null ? teamMembers[selectedMemberIndex] : null;
+  const nextMemberIndex = selectedMemberIndex !== null ? (selectedMemberIndex + 1) % teamMembers.length : null;
+  const nextSelected = nextMemberIndex !== null ? teamMembers[nextMemberIndex] : null;
+
   return (
     <div className="bg-canvas text-ink pt-20 px-4 pb-12 space-y-9">
+      {/* ── Team Member Detail Overlay / Sheet ──────────────────────────────── */}
+      <AnimatePresence>
+        {currentSelected && selectedMemberIndex !== null && (
+          <motion.div
+            initial={{ opacity: 0, y: 40 }}
+            animate={{ opacity: 1, y: 0 }}
+            exit={{ opacity: 0, y: 40 }}
+            transition={{ duration: 0.25, ease: "easeOut" }}
+            className="fixed inset-0 z-50 bg-white overflow-y-auto pt-16 px-4 pb-12 space-y-6 text-left"
+          >
+            {/* Top Bar Navigation */}
+            <div className="flex items-center justify-between border-b border-slate-100 pb-3">
+              <button
+                type="button"
+                onClick={() => setSelectedMemberIndex(null)}
+                className="flex items-center gap-2 text-xs font-bold text-slate-800 hover:text-black"
+              >
+                <ArrowLeft size={16} aria-hidden="true" />
+                <span>Back to team</span>
+              </button>
+              <span className="font-mono text-xs font-semibold text-slate-400">
+                {selectedMemberIndex + 1} / {teamMembers.length}
+              </span>
+            </div>
+
+            {/* Profile Portrait Card */}
+            <div className="rounded-[28px] border border-[#e5e9f0] bg-white p-5 shadow-sm space-y-5 text-center relative overflow-hidden">
+              <div className="relative mx-auto flex h-36 w-36 items-center justify-center rounded-3xl text-white font-extrabold text-3xl shadow-md overflow-hidden"
+                style={{
+                  background: `linear-gradient(135deg, ${currentSelected.from}, ${currentSelected.to})`,
+                }}
+              >
+                <span>{currentSelected.initial}</span>
+                <span className="absolute top-2 left-2 flex items-center gap-1 rounded-full bg-black/40 px-2 py-0.5 text-[9px] font-semibold text-emerald-400 backdrop-blur-sm">
+                  <span className="h-1.5 w-1.5 rounded-full bg-emerald-400 animate-pulse" />
+                  Online
+                </span>
+              </div>
+
+              <div>
+                <h2 className="text-xl font-extrabold text-slate-900 leading-tight">
+                  {currentSelected.name}
+                </h2>
+                <p className="text-xs font-semibold text-slate-600 mt-1">
+                  {currentSelected.role}
+                </p>
+                <div className="flex items-center justify-center gap-1.5 text-xs text-slate-400 mt-1.5">
+                  <MapPin size={12} aria-hidden="true" />
+                  <span>{currentSelected.location}</span>
+                </div>
+              </div>
+
+              {/* Social Link Buttons */}
+              <div className="flex items-center justify-center gap-3 pt-1">
+                <Link
+                  href={currentSelected.github}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="flex h-10 w-10 items-center justify-center rounded-full border border-slate-200 bg-slate-50 text-slate-800 hover:bg-black hover:text-white transition-colors"
+                >
+                  <Github size={18} aria-hidden="true" />
+                </Link>
+                <Link
+                  href={currentSelected.linkedin}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="flex h-10 w-10 items-center justify-center rounded-full border border-slate-200 bg-slate-50 text-slate-800 hover:bg-black hover:text-white transition-colors"
+                >
+                  <Linkedin size={18} aria-hidden="true" />
+                </Link>
+                <Link
+                  href={`mailto:${currentSelected.email}`}
+                  className="flex h-10 w-10 items-center justify-center rounded-full border border-slate-200 bg-slate-50 text-slate-800 hover:bg-black hover:text-white transition-colors"
+                >
+                  <Mail size={18} aria-hidden="true" />
+                </Link>
+              </div>
+            </div>
+
+            {/* About Section */}
+            <div className="space-y-2">
+              <h3 className="text-xs font-bold text-slate-900 uppercase tracking-wider font-mono">
+                About
+              </h3>
+              <p className="text-xs leading-relaxed text-slate-600 font-medium">
+                {currentSelected.about}
+              </p>
+            </div>
+
+            {/* Expertise Tags */}
+            <div className="space-y-2">
+              <h3 className="text-xs font-bold text-slate-900 uppercase tracking-wider font-mono">
+                Expertise
+              </h3>
+              <div className="flex flex-wrap gap-2">
+                {currentSelected.expertise.map((tag) => (
+                  <span
+                    key={tag}
+                    className="rounded-full bg-slate-100 border border-slate-200 px-3 py-1 text-[11px] font-semibold text-slate-700"
+                  >
+                    {tag}
+                  </span>
+                ))}
+              </div>
+            </div>
+
+            {/* Next Member Action Card */}
+            {nextSelected && (
+              <div className="space-y-2 pt-2">
+                <p className="text-[10px] font-mono uppercase tracking-wider text-slate-400 font-semibold">
+                  Next member
+                </p>
+                <button
+                  type="button"
+                  onClick={() => setSelectedMemberIndex(nextMemberIndex)}
+                  className="w-full rounded-2xl border border-[#e5e9f0] bg-white p-3.5 flex items-center justify-between gap-3 shadow-2xs hover:bg-slate-50 transition-colors text-left"
+                >
+                  <div className="flex items-center gap-3">
+                    <div
+                      className="flex h-10 w-10 shrink-0 items-center justify-center rounded-full text-white font-extrabold text-xs shadow-xs"
+                      style={{
+                        background: `linear-gradient(135deg, ${nextSelected.from}, ${nextSelected.to})`,
+                      }}
+                    >
+                      {nextSelected.initial}
+                    </div>
+                    <div>
+                      <h4 className="text-xs font-bold text-slate-900 leading-tight">
+                        {nextSelected.name}
+                      </h4>
+                      <p className="text-[11px] text-slate-500 font-medium">
+                        {nextSelected.role}
+                      </p>
+                    </div>
+                  </div>
+                  <ChevronRight size={16} className="text-slate-400" aria-hidden="true" />
+                </button>
+              </div>
+            )}
+          </motion.div>
+        )}
+      </AnimatePresence>
+
       {/* ── Mobile Hero ────────────────────────────────────────────────────────── */}
       <section className="space-y-6 pt-4">
         <div>
@@ -603,6 +850,31 @@ function MobilePeopleClient() {
           <p className="mt-3 text-xs leading-relaxed text-slate-600 font-medium max-w-[34ch]">
             We&apos;re a group of builders, thinkers and problem-solvers working together to create meaningful digital solutions.
           </p>
+        </div>
+
+        {/* Circular World Map Graphic Container */}
+        <div className="rounded-[28px] border border-[#e5e9f0] bg-white p-6 shadow-xs relative overflow-hidden flex items-center justify-center min-h-[220px]">
+          <div className="relative flex items-center justify-center w-full max-w-[260px] h-[180px]">
+            {/* Center Node Badge */}
+            <div className="relative z-10 flex h-16 w-16 flex-col items-center justify-center rounded-full bg-black text-white shadow-xl">
+              <span className="text-sm font-extrabold leading-none">11+</span>
+              <span className="text-[9px] font-semibold text-slate-300">Engineers</span>
+            </div>
+
+            {/* Orbiting Avatar Pins */}
+            <div className="absolute top-2 right-4 flex h-9 w-9 items-center justify-center rounded-full bg-slate-900 text-white text-[10px] font-bold shadow-md border-2 border-white">
+              MS
+            </div>
+            <div className="absolute top-10 left-2 flex h-9 w-9 items-center justify-center rounded-full bg-indigo-900 text-white text-[10px] font-bold shadow-md border-2 border-white">
+              SK
+            </div>
+            <div className="absolute bottom-4 left-6 flex h-9 w-9 items-center justify-center rounded-full bg-emerald-900 text-white text-[10px] font-bold shadow-md border-2 border-white">
+              FK
+            </div>
+            <div className="absolute bottom-2 right-8 flex h-9 w-9 items-center justify-center rounded-full bg-purple-900 text-white text-[10px] font-bold shadow-md border-2 border-white">
+              GK
+            </div>
+          </div>
         </div>
 
         {/* 4 Stats White Card */}
@@ -637,24 +909,28 @@ function MobilePeopleClient() {
             THE TEAM
           </span>
           <h2 className="text-2xl font-extrabold tracking-tight text-slate-900">
-            The Team
+            Meet the minds behind the work
           </h2>
         </div>
 
         <div className="space-y-2.5">
-          {teamMembers.map((member) => (
+          {teamMembers.map((member, idx) => (
             <div
               key={member.name}
-              className="rounded-2xl border border-[#e5e9f0] bg-white p-3.5 flex items-center justify-between shadow-2xs"
+              onClick={() => setSelectedMemberIndex(idx)}
+              className="rounded-2xl border border-[#e5e9f0] bg-white p-3.5 flex items-center justify-between shadow-2xs cursor-pointer hover:border-slate-300 transition-colors"
             >
               <div className="flex items-center gap-3">
-                <div
-                  className="flex h-11 w-11 shrink-0 items-center justify-center rounded-full text-white font-extrabold text-xs shadow-xs"
-                  style={{
-                    background: `linear-gradient(135deg, ${member.from}, ${member.to})`,
-                  }}
-                >
-                  {member.initial}
+                <div className="relative">
+                  <div
+                    className="flex h-11 w-11 shrink-0 items-center justify-center rounded-full text-white font-extrabold text-xs shadow-xs"
+                    style={{
+                      background: `linear-gradient(135deg, ${member.from}, ${member.to})`,
+                    }}
+                  >
+                    {member.initial}
+                  </div>
+                  <span className="absolute -top-0.5 -left-0.5 h-3 w-3 rounded-full border-2 border-white bg-emerald-500" />
                 </div>
                 <div>
                   <h3 className="text-xs font-bold text-slate-900 leading-tight">
@@ -674,6 +950,7 @@ function MobilePeopleClient() {
                 href={member.github}
                 target="_blank"
                 rel="noopener noreferrer"
+                onClick={(e) => e.stopPropagation()}
                 aria-label={`GitHub profile for ${member.name}`}
                 className="flex h-9 w-9 shrink-0 items-center justify-center rounded-full border border-slate-200 bg-white text-slate-700 hover:bg-slate-100 hover:text-black transition-colors"
               >
@@ -685,10 +962,11 @@ function MobilePeopleClient() {
 
         <button
           type="button"
-          className="w-full rounded-full border border-black bg-white py-3 px-5 text-xs font-bold text-black flex items-center justify-center gap-2 transition-[transform,box-shadow] duration-300 ease-in-out hover:-translate-x-0.5 hover:-translate-y-1 hover:shadow-[2px_5px_0_0_#000] active:translate-x-px active:translate-y-0.5 shadow-2xs"
+          onClick={() => setSelectedMemberIndex(0)}
+          className="w-full rounded-full border border-black bg-black py-3.5 px-5 text-xs font-bold text-white flex items-center justify-center gap-2 transition-[transform,box-shadow] duration-300 ease-in-out hover:-translate-x-0.5 hover:-translate-y-1 hover:shadow-[2px_5px_0_0_#000] active:translate-x-px active:translate-y-0.5 shadow-2xs"
         >
           <span>View all team members</span>
-          <Users size={14} aria-hidden="true" />
+          <ArrowUpRight size={14} aria-hidden="true" />
         </button>
       </section>
 
@@ -699,24 +977,24 @@ function MobilePeopleClient() {
             WHAT WE STAND FOR
           </span>
           <h2 className="text-2xl font-extrabold tracking-tight text-slate-900">
-            What We Stand For
+            Our core values
           </h2>
         </div>
 
-        <div className="grid grid-cols-2 gap-2.5">
+        <div className="space-y-2.5">
           {valueCards.map(({ title, desc, icon: Icon }) => (
             <div
               key={title}
-              className="rounded-2xl border border-[#e5e9f0] bg-white p-4 shadow-2xs space-y-2 flex flex-col justify-between"
+              className="rounded-2xl border border-[#e5e9f0] bg-white p-4 shadow-2xs flex items-center gap-3.5"
             >
+              <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-xl bg-slate-100 text-black border border-slate-200">
+                <Icon size={18} aria-hidden="true" />
+              </div>
               <div>
-                <div className="flex h-8 w-8 items-center justify-center rounded-xl bg-slate-100 text-black border border-slate-200 mb-2.5">
-                  <Icon size={16} aria-hidden="true" />
-                </div>
                 <h3 className="text-xs font-bold text-slate-900 leading-tight">
                   {title}
                 </h3>
-                <p className="mt-1 text-[11px] leading-relaxed text-slate-500 font-normal">
+                <p className="mt-0.5 text-[11px] leading-relaxed text-slate-500 font-normal">
                   {desc}
                 </p>
               </div>
@@ -725,61 +1003,58 @@ function MobilePeopleClient() {
         </div>
       </section>
 
-      {/* ── Careers Section ───────────────────────────────────────────────────── */}
-      <section className="space-y-3 pt-2">
-        <div className="rounded-[28px] border border-[#e5e9f0] bg-white p-5 shadow-sm space-y-4 relative overflow-hidden">
-          <span className="inline-block rounded-full bg-[#f1f5f9] border border-slate-200 px-3.5 py-1 font-mono text-[10px] font-bold tracking-widest uppercase text-slate-800">
+      {/* ── Join the Team (Solid Black Container) ─────────────────────────────── */}
+      <section className="pt-2">
+        <div className="rounded-[28px] bg-black text-white p-6 space-y-4 shadow-md relative overflow-hidden">
+          <span className="inline-block rounded-full bg-white/10 border border-white/20 px-3.5 py-1 font-mono text-[10px] font-bold tracking-widest uppercase text-white">
             JOIN OUR JOURNEY
           </span>
           <div>
-            <h2 className="text-2xl font-extrabold tracking-tight text-slate-900">
+            <h2 className="text-2xl font-extrabold tracking-tight text-white">
               Join the team.
             </h2>
-            <p className="mt-2 text-xs leading-relaxed text-slate-600 font-medium max-w-[32ch]">
+            <p className="mt-2 text-xs leading-relaxed text-slate-300 font-normal max-w-[32ch]">
               We&apos;re always looking for passionate people who love solving real-world problems.
             </p>
           </div>
 
-          <div>
+          <div className="pt-1">
             <Link
               href="/careers"
-              className="inline-flex items-center gap-2 rounded-full bg-black px-5 py-3 text-xs font-bold text-white shadow-xs hover:bg-neutral-800 transition-colors"
+              className="inline-flex items-center gap-2 rounded-full bg-white px-5 py-3 text-xs font-bold text-black shadow-xs hover:bg-slate-100 transition-colors"
             >
               <span>View Open Roles</span>
               <ArrowUpRight size={14} aria-hidden="true" />
             </Link>
           </div>
-
-          <div className="pt-2">
-            <img
-              src="/images/team-careers.png"
-              alt="Team sitting together at desk illustration"
-              className="w-full rounded-2xl border border-slate-100 object-cover max-h-48"
-            />
-          </div>
         </div>
 
-        {/* Secondary Contact Card */}
-        <div className="rounded-2xl border border-[#e5e9f0] bg-white p-4 shadow-2xs flex items-center justify-between gap-3">
-          <div className="flex items-center gap-3">
-            <div className="flex h-9 w-9 shrink-0 items-center justify-center rounded-xl bg-slate-100 text-black border border-slate-200">
-              <Mail size={16} aria-hidden="true" />
-            </div>
-            <div>
-              <p className="text-xs font-bold text-slate-900 leading-tight">
-                Don&apos;t see a role for you?
-              </p>
-              <p className="text-[11px] text-slate-500 font-medium mt-0.5">
-                We&apos;d still love to hear from you.
-              </p>
-            </div>
-          </div>
+        {/* Secondary Contact Strips */}
+        <div className="mt-3 space-y-2">
           <Link
-            href="/contact"
-            className="text-xs font-bold text-black flex items-center gap-1 shrink-0 hover:underline"
+            href="mailto:hello@zabnix.com"
+            className="rounded-2xl border border-[#e5e9f0] bg-white p-3.5 shadow-2xs flex items-center justify-between gap-3 text-xs font-bold text-slate-900 hover:bg-slate-50 transition-colors"
           >
-            <span>Say Hello</span>
-            <ChevronRight size={14} aria-hidden="true" />
+            <div className="flex items-center gap-3">
+              <div className="flex h-8 w-8 items-center justify-center rounded-xl bg-slate-100 text-black border border-slate-200">
+                <Mail size={15} />
+              </div>
+              <span>hello@zabnix.com</span>
+            </div>
+            <ChevronRight size={16} className="text-slate-400" />
+          </Link>
+
+          <Link
+            href="tel:+911234567890"
+            className="rounded-2xl border border-[#e5e9f0] bg-white p-3.5 shadow-2xs flex items-center justify-between gap-3 text-xs font-bold text-slate-900 hover:bg-slate-50 transition-colors"
+          >
+            <div className="flex items-center gap-3">
+              <div className="flex h-8 w-8 items-center justify-center rounded-xl bg-slate-100 text-black border border-slate-200">
+                <Phone size={15} />
+              </div>
+              <span>+91 123 456 7890</span>
+            </div>
+            <ChevronRight size={16} className="text-slate-400" />
           </Link>
         </div>
       </section>

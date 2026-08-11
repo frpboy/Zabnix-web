@@ -40,7 +40,7 @@ export function RevealSection({ children }: RevealSectionProps) {
     <motion.div
       initial={reduceMotion ? false : "hidden"}
       whileInView="visible"
-      viewport={{ once: true, amount: 0.25 }}
+      viewport={{ once: true, amount: 0.08, margin: "0px 0px -10% 0px" }}
       variants={revealContainer}
     >
       {children}

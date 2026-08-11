@@ -4,6 +4,7 @@ import Link from "next/link";
 import { motion, useInView, useReducedMotion } from "framer-motion";
 import { useRef } from "react";
 import { AnimatedCounter } from "@/components/ui/AnimatedCounter";
+import { MobileZerpAIShowcase } from "@/components/sections/MobileZerpAIShowcase";
 import {
   ArrowRight,
   Bell,
@@ -62,6 +63,19 @@ function FeatureList({ start }: { start: boolean }) {
           />
           <span>{feature}</span>
         </motion.li>
+      ))}
+    </ul>
+  );
+}
+
+function MobileFeatureList() {
+  return (
+    <ul className="space-y-3">
+      {features.map((feature) => (
+        <li key={feature} className="flex items-center gap-3 text-sm text-ink">
+          <CheckCircle2 size={16} className="shrink-0 text-ink" aria-hidden="true" />
+          <span>{feature}</span>
+        </li>
       ))}
     </ul>
   );
@@ -726,50 +740,11 @@ function DesktopProductShowcase({ start }: { start: boolean }) {
 
 function MobileProductShowcase({ start }: { start: boolean }) {
   return (
-    <article className="rounded-[28px] border border-[#ececec] bg-white p-5 shadow-[0_12px_32px_rgba(15,23,42,0.05)]">
-      <div>
-        <p className="mb-2 text-xs font-mono uppercase tracking-[0.2em] text-mute">
-          Operations Intelligence
-        </p>
-
-        <h2 className="text-3xl font-semibold tracking-[-0.04em] text-ink">
-          ZerpAI ERP
-        </h2>
-
-        <p className="mt-2 text-base font-medium text-body">
-          The intelligent ERP for modern operations.
-        </p>
-
-        <p className="mt-3 text-sm leading-relaxed text-body">
-          A unified operations workspace for finance, procurement,
-          inventory and fulfillment, designed to give teams real-time
-          visibility without operational clutter.
-        </p>
-
-        <div className="mt-5">
-          <FeatureList start={start} />
-        </div>
-
-        <div className="mt-6 flex flex-col gap-3">
-          <Link
-            href="/products"
-            className="neu-button neu-button-dark w-full min-h-[48px] inline-flex items-center justify-center gap-2 text-sm font-semibold"
-          >
-            View Product
-            <ArrowRight size={16} aria-hidden="true" />
-          </Link>
-          <Link
-            href="/products/zerpai#demo"
-            className="neu-button neu-button-light w-full min-h-[48px] inline-flex items-center justify-center gap-2 text-sm font-semibold"
-          >
-            Request Demo
-            <ArrowRight size={16} aria-hidden="true" />
-          </Link>
-        </div>
-
-        <MobileZerpAIDashboardPreview start={start} />
-      </div>
-    </article>
+    <MobileZerpAIShowcase
+      start={start}
+      features={features}
+      summaryCards={summaryCards}
+    />
   );
 }
 
@@ -796,4 +771,3 @@ export function ProductShowcase() {
     </section>
   );
 }
-

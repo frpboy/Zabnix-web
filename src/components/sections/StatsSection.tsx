@@ -8,13 +8,32 @@ type StatItem = {
   value: number;
   suffix: string;
   label: string;
+  mobileLabel: string;
   Icon: typeof BriefcaseBusiness;
 };
 
 const stats: StatItem[] = [
-  { value: 50, suffix: "+", label: "Successful Projects", Icon: BriefcaseBusiness },
-  { value: 20, suffix: "+", label: "Business Partners", Icon: Building2 },
-  { value: 5, suffix: "+", label: "Years of Innovation", Icon: Sparkles },
+  {
+    value: 50,
+    suffix: "+",
+    label: "Successful Projects",
+    mobileLabel: "Projects",
+    Icon: BriefcaseBusiness,
+  },
+  {
+    value: 20,
+    suffix: "+",
+    label: "Business Partners",
+    mobileLabel: "Partners",
+    Icon: Building2,
+  },
+  {
+    value: 5,
+    suffix: "+",
+    label: "Years of Innovation",
+    mobileLabel: "Years",
+    Icon: Sparkles,
+  },
 ];
 
 function usePrefersReducedMotion() {
@@ -173,8 +192,30 @@ export function StatsSection() {
       className="bg-canvas-soft border-t border-b border-hairline"
       aria-label="Company statistics"
     >
-      <div className="max-w-7xl mx-auto px-6 py-10 md:py-14">
-        <div className="grid grid-cols-1 sm:grid-cols-3 gap-6 sm:gap-8 max-w-lg mx-auto">
+      <div className="mx-auto max-w-7xl px-6 py-10 md:py-14">
+        <div className="mx-auto grid max-w-lg grid-cols-3 divide-x divide-neutral-200 md:hidden">
+          {stats.map((stat) => (
+            <div
+              key={stat.label}
+              className="min-w-0 px-2 text-center first:pl-0 last:pr-0"
+              aria-label={stat.label}
+            >
+              <div className="text-[1.7rem] font-semibold tracking-[-0.04em] text-ink font-variant-numeric tabular-nums min-[390px]:text-[1.85rem]">
+                <AnimatedNumber
+                  target={stat.value}
+                  suffix={stat.suffix}
+                  isVisible={!hasMounted || isVisible}
+                  prefersReducedMotion={prefersReducedMotion}
+                />
+              </div>
+              <div className="mt-1 text-[0.68rem] font-medium uppercase tracking-[0.16em] text-neutral-500 min-[390px]:text-[0.72rem]">
+                {stat.mobileLabel}
+              </div>
+            </div>
+          ))}
+        </div>
+
+        <div className="hidden grid-cols-1 gap-6 sm:grid-cols-3 sm:gap-8 md:grid max-w-lg mx-auto">
           {stats.map((stat, index) => (
             <StatCard
               key={stat.label}

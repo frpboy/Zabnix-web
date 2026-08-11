@@ -1,5 +1,3 @@
-@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap');
-
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
@@ -1151,5 +1149,68 @@ a, button {
 
   .consultation-reveal__letters {
     display: none;
+  }
+}
+
+/* Uiverse card hover effect */
+.btn-shape-card {
+  transition: transform 0.3s cubic-bezier(0.16, 1, 0.3, 1), background-color 0.3s ease;
+  position: relative;
+  background-color: #ffffff !important;
+  z-index: 1;
+  isolation: isolate;
+  cursor: pointer;
+}
+
+.btn-shape-card::after,
+.btn-shape-card::before {
+  content: '';
+  position: absolute;
+  background-color: #0f172a;
+  width: 100%;
+  opacity: 0;
+  height: 100%;
+  left: 0;
+  top: 0;
+  border-radius: 1rem;
+  z-index: -1;
+  transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+  pointer-events: none;
+}
+
+.btn-shape-card:hover {
+  transform: translate(-6px, -6px);
+  background-color: #ffffff !important;
+}
+
+.btn-shape-card:hover::after {
+  transform: translate(3px, 3px);
+  opacity: 0.12;
+}
+
+.btn-shape-card:hover::before {
+  transform: translate(6px, 6px);
+  opacity: 0.06;
+}
+
+.btn-shape-card:hover .btn-shape-text {
+  animation: storm 0.4s linear both;
+}
+
+@keyframes storm {
+  0% {
+    transform: translate3d(0, 0, 0) translateZ(0);
+  }
+  25% {
+    transform: translate3d(4px, 0, 0) translateZ(0);
+  }
+  50% {
+    transform: translate3d(-3px, 0, 0) translateZ(0);
+  }
+  75% {
+    transform: translate3d(2px, 0, 0) translateZ(0);
+  }
+  100% {
+    transform: translate3d(0, 0, 0) translateZ(0);
   }
 }

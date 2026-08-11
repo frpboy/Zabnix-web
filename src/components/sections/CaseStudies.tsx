@@ -1,5 +1,6 @@
 import Link from "next/link";
 import { ArrowRight } from "lucide-react";
+import { MobileCaseStudiesShowcase } from "@/components/sections/MobileCaseStudiesShowcase";
 
 const caseStudies = [
   {
@@ -46,18 +47,18 @@ const caseStudies = [
 export function CaseStudies() {
   return (
     <section
-      className="border-t border-hairline bg-canvas px-6 py-32"
+      className="border-t border-hairline bg-canvas px-6 pb-9 pt-14 md:py-32"
       aria-labelledby="casestudies-heading"
     >
       <div className="mx-auto max-w-7xl">
-        <div className="mb-16 flex flex-col justify-between gap-6 md:flex-row md:items-end">
+        <div className="mb-10 flex flex-col justify-between gap-6 md:mb-16 md:flex-row md:items-end">
           <div>
             <p className="mb-4 text-xs font-mono uppercase tracking-[0.2em] text-mute">
               Results That Speak
             </p>
             <h2
               id="casestudies-heading"
-              className="text-4xl font-semibold tracking-[-0.03em] text-ink md:text-5xl"
+              className="text-[2.85rem] font-semibold tracking-[-0.05em] text-ink min-[390px]:text-[3.1rem] md:text-5xl"
               style={{ textWrap: "balance" }}
             >
               Real outcomes for real businesses.
@@ -65,7 +66,7 @@ export function CaseStudies() {
           </div>
           <Link
             href="/case-studies"
-            className="group relative inline-flex h-11 w-[15.5rem] shrink-0 items-center justify-start overflow-hidden rounded-full bg-transparent focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-link"
+            className="group relative hidden h-11 w-[15.5rem] shrink-0 items-center justify-start overflow-hidden rounded-full bg-transparent focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-link md:inline-flex"
           >
             <span className="absolute left-2 top-1/2 block h-9 w-9 -translate-y-1/2 rounded-full bg-[#1f1f1f] transition-[width] duration-500 ease-[cubic-bezier(0.65,0,0.076,1)] group-hover:w-[calc(100%-0.5rem)]" />
             <span className="absolute left-[1.15rem] top-1/2 z-10 block h-[2px] w-[14px] -translate-y-1/2 bg-transparent transition-[transform,background-color] duration-500 ease-[cubic-bezier(0.65,0,0.076,1)] group-hover:translate-x-4 group-hover:bg-white before:absolute before:right-px before:top-[-4px] before:h-[9px] before:w-[9px] before:rotate-45 before:border-r-2 before:border-t-2 before:border-white before:content-['']" />
@@ -75,7 +76,9 @@ export function CaseStudies() {
           </Link>
         </div>
 
-        <div className="grid grid-cols-1 gap-6 md:grid-cols-3">
+        <MobileCaseStudiesShowcase caseStudies={caseStudies} />
+
+        <div className="hidden grid-cols-1 gap-6 md:grid md:grid-cols-3">
           {caseStudies.map((cs) => (
             <Link
               key={cs.title}

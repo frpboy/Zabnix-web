@@ -2,7 +2,7 @@ import type { Metadata } from "next";
 import "./globals.css";
 import { Navbar } from "@/components/layout/Navbar";
 import { Footer } from "@/components/layout/Footer";
-import { ZabnixChatbot } from "@/components/ui/ZabnixChatbot";
+import { GlobalChatbotWrapper } from "@/components/ui/GlobalChatbotWrapper";
 import Script from "next/script";
 
 export const metadata: Metadata = {
@@ -62,12 +62,6 @@ export default function RootLayout({
     <html lang="en" className="light" style={{ colorScheme: "light" }}>
       <head>
         <meta name="theme-color" content="#fafafa" />
-        <link rel="preconnect" href="https://fonts.googleapis.com" />
-        <link
-          rel="preconnect"
-          href="https://fonts.gstatic.com"
-          crossOrigin="anonymous"
-        />
       </head>
       <body>
         {isProduction ? (
@@ -82,10 +76,10 @@ export default function RootLayout({
           </Script>
         ) : null}
 
-        {/* Liquid Glass Library */}
+        {/* Liquid Glass Library - Lazy Loaded */}
         <Script
           src="/liquid-glass.js"
-          strategy="afterInteractive"
+          strategy="lazyOnload"
         />
 
         <a
@@ -98,7 +92,7 @@ export default function RootLayout({
         <Navbar />
         <main id="main-content">{children}</main>
         <Footer />
-        <ZabnixChatbot />
+        <GlobalChatbotWrapper />
       </body>
     </html>
   );

@@ -1,4 +1,6 @@
-const techStack = [
+import { MobileTechStackShowcase } from "@/components/sections/MobileTechStackShowcase";
+
+const baseTechStack = [
   { name: "Next.js", category: "Frontend" },
   { name: "React", category: "Frontend" },
   { name: "Flutter", category: "Mobile" },
@@ -13,22 +15,9 @@ const techStack = [
   { name: "GraphQL", category: "API" },
   { name: "Tailwind CSS", category: "Styling" },
   { name: "Vercel", category: "Deployment" },
-  // duplicate for seamless loop
-  { name: "Next.js", category: "Frontend" },
-  { name: "React", category: "Frontend" },
-  { name: "Flutter", category: "Mobile" },
-  { name: "TypeScript", category: "Language" },
-  { name: "Node.js", category: "Backend" },
-  { name: "Python", category: "AI/ML" },
-  { name: "PostgreSQL", category: "Database" },
-  { name: "Firebase", category: "Platform" },
-  { name: "AWS", category: "Cloud" },
-  { name: "Docker", category: "DevOps" },
-  { name: "Prisma", category: "ORM" },
-  { name: "GraphQL", category: "API" },
-  { name: "Tailwind CSS", category: "Styling" },
-  { name: "Vercel", category: "Deployment" },
-];
+] as const;
+
+const desktopTechStack = [...baseTechStack, ...baseTechStack];
 
 const categoryColors: Record<string, string> = {
   Frontend: "text-violet-600 bg-violet-50/50",
@@ -49,44 +38,45 @@ const categoryColors: Record<string, string> = {
 export function TechStack() {
   return (
     <section
-      className="py-24 border-t border-hairline overflow-hidden bg-canvas-soft"
+      className="overflow-hidden border-t border-hairline bg-canvas-soft py-14 md:py-24"
       aria-labelledby="techstack-heading"
     >
-      <div className="max-w-7xl mx-auto px-6 mb-12">
+      <div className="mx-auto mb-8 max-w-7xl px-6 md:mb-12">
         <p className="text-center text-xs font-mono uppercase tracking-[0.2em] text-mute">
           Tech Stack
         </p>
         <h2
           id="techstack-heading"
-          className="text-center text-2xl md:text-3xl font-semibold text-ink mt-3 tracking-tight"
+          className="mt-3 text-center text-2xl font-semibold tracking-tight text-ink md:text-3xl"
           style={{ textWrap: "balance" }}
         >
           Powered by industry-leading technology.
         </h2>
       </div>
 
-      <div className="relative">
-        {/* Fade edges */}
+      <MobileTechStackShowcase techItems={baseTechStack} />
+
+      <div className="relative hidden md:block">
         <div
-          className="absolute left-0 top-0 bottom-0 w-32 z-10 pointer-events-none"
+          className="pointer-events-none absolute bottom-0 left-0 top-0 z-10 w-32"
           style={{ background: "linear-gradient(90deg, #fafafa 0%, rgba(250, 250, 250, 0) 100%)" }}
           aria-hidden="true"
         />
         <div
-          className="absolute right-0 top-0 bottom-0 w-32 z-10 pointer-events-none"
+          className="pointer-events-none absolute bottom-0 right-0 top-0 z-10 w-32"
           style={{ background: "linear-gradient(270deg, #fafafa 0%, rgba(250, 250, 250, 0) 100%)" }}
           aria-hidden="true"
         />
 
         <div className="overflow-hidden" aria-hidden="true">
           <div className="marquee-track" style={{ animationDuration: "35s" }}>
-            {techStack.map((tech, i) => (
+            {desktopTechStack.map((tech, i) => (
               <div
-                key={i}
-                className="mx-3 flex items-center gap-2 border border-hairline bg-canvas rounded-xl px-4 py-2.5 whitespace-nowrap shadow-level-1"
+                key={`${tech.name}-${i}`}
+                className="mx-3 flex items-center gap-2 whitespace-nowrap rounded-xl border border-hairline bg-canvas px-4 py-2.5 shadow-level-1"
               >
                 <span
-                  className={`text-[10px] font-semibold font-mono uppercase px-2 py-0.5 rounded ${categoryColors[tech.category] ?? "text-body bg-canvas-soft-2"}`}
+                  className={`rounded px-2 py-0.5 text-[10px] font-mono font-semibold uppercase ${categoryColors[tech.category] ?? "text-body bg-canvas-soft-2"}`}
                 >
                   {tech.category}
                 </span>

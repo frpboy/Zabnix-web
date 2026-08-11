@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { ProductExperienceCard } from "@/components/showcase/ProductExperienceCard";
 import { ZerpAIProductCard } from "@/components/showcase/zerpai/ZerpAIProductCard";
 import { LetterRevealLink } from "@/components/sections/LetterRevealLink";
+import { MobileProductsHero } from "@/components/sections/MobileProductsHero";
 import { getProducts } from "@/sanity/lib/loaders";
 
 export const metadata: Metadata = {
@@ -15,8 +16,10 @@ export default async function ProductsPage() {
 
   return (
     <div className="pt-24 min-h-screen bg-canvas-soft">
+      <MobileProductsHero products={products} />
+
       {/* Hero */}
-      <section className="py-12 md:py-24 px-6 grid-bg relative overflow-hidden border-b border-hairline bg-canvas">
+      <section className="relative hidden overflow-hidden border-b border-hairline bg-canvas px-6 py-12 md:block md:py-24">
         <div
           className="orb orb-blue pulse-glow"
           style={{
@@ -47,7 +50,7 @@ export default async function ProductsPage() {
       </section>
 
       {/* Products */}
-      <section className="py-8 md:py-24 px-6 bg-canvas-soft" aria-labelledby="products-list-heading">
+      <section className="bg-canvas-soft px-6 py-8 md:py-24" aria-labelledby="products-list-heading">
         <h2 id="products-list-heading" className="sr-only">
           Product Catalog
         </h2>

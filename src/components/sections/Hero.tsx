@@ -79,14 +79,14 @@ function DesktopHero() {
 
 function MobileHero() {
   return (
-    <section className="relative flex min-h-[70vh] items-center justify-center overflow-hidden bg-canvas-soft grid-bg py-16 px-4">
+    <section className="relative flex justify-start overflow-hidden bg-canvas-soft grid-bg px-4 pb-8 pt-20 min-[360px]:px-5 min-[390px]:pb-10 min-[390px]:pt-24">
       {/* Optimized Glow Backdrop for Mobile */}
       <div className="absolute inset-0 pointer-events-none" aria-hidden="true">
         <div
-          className="absolute w-[320px] h-[320px] rounded-full filter blur-[70px] opacity-35"
+          className="absolute h-[320px] w-[320px] rounded-full opacity-35 blur-[70px]"
           style={{
             background: "radial-gradient(circle, rgba(0, 124, 240, 0.2) 0%, rgba(121, 40, 202, 0.05) 70%)",
-            top: "25%",
+            top: "22%",
             left: "50%",
             transform: "translate(-50%, -50%)",
           }}
@@ -94,14 +94,15 @@ function MobileHero() {
       </div>
 
       {/* Content */}
-      <div className="relative z-10 w-full max-w-md mx-auto pt-10 text-center">
+      <div className="relative z-10 mx-auto flex w-full max-w-sm flex-col text-center min-[390px]:max-w-md">
         <InteractiveHeroTitle
           title="Build faster."
           highlightText="Automate smarter."
+          className="mb-5 text-[2.35rem] leading-[0.94] tracking-[-0.055em] min-[360px]:text-[2.55rem] min-[390px]:text-[2.75rem]"
         />
 
         <p
-          className="fade-in-up fade-in-up-delay-2 text-base text-body mx-auto my-6 leading-relaxed"
+          className="fade-in-up fade-in-up-delay-2 mx-auto max-w-[34ch] text-[0.965rem] leading-7 text-body min-[390px]:text-base"
           style={{ textWrap: "pretty" }}
         >
           From startups to enterprises, we create custom digital solutions that
@@ -109,17 +110,17 @@ function MobileHero() {
           business growth.
         </p>
 
-        <div className="fade-in-up fade-in-up-delay-3 flex flex-col gap-3.5 w-full pt-2">
+        <div className="fade-in-up fade-in-up-delay-3 mt-7 grid w-full grid-cols-1 gap-3 min-[390px]:mt-8 min-[390px]:grid-cols-2">
           <Link
             href="/contact#consultation"
-            className="neu-button neu-button-dark w-full min-h-[48px] inline-flex items-center justify-center gap-2 text-base font-semibold"
+            className="neu-button neu-button-dark inline-flex min-h-[50px] w-full items-center justify-center gap-2 px-5 text-[0.95rem] font-semibold min-[390px]:min-h-[52px]"
           >
             Book Consultation
             <ArrowRight size={18} aria-hidden="true" />
           </Link>
           <Link
             href="/products"
-            className="neu-button neu-button-light w-full min-h-[48px] inline-flex items-center justify-center gap-2 text-base font-semibold"
+            className="neu-button neu-button-light inline-flex min-h-[50px] w-full items-center justify-center gap-2 px-5 text-[0.95rem] font-semibold min-[390px]:min-h-[52px]"
           >
             View Products
           </Link>
@@ -127,7 +128,7 @@ function MobileHero() {
       </div>
 
       <div
-        className="absolute bottom-0 left-0 right-0 h-20 bg-gradient-to-t from-canvas-soft to-transparent pointer-events-none"
+        className="pointer-events-none absolute bottom-0 left-0 right-0 h-16 bg-gradient-to-t from-canvas-soft to-transparent min-[390px]:h-20"
         aria-hidden="true"
       />
     </section>

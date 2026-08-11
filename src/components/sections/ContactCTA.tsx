@@ -4,7 +4,7 @@ import { ArrowRight, Calendar, Mail, Phone, MapPin } from "lucide-react";
 export function ContactCTA() {
   return (
     <section
-      className="py-32 px-6 border-t border-hairline relative overflow-hidden bg-canvas-soft"
+      className="border-t border-hairline relative overflow-hidden bg-canvas-soft px-6 pb-8 pt-12 md:py-32"
       aria-labelledby="cta-heading"
     >
       {/* Background orbs */}

@@ -8,45 +8,64 @@ import {
   Shield,
   ArrowRight,
 } from "lucide-react";
+import { MobileServicesShowcase } from "@/components/sections/MobileServicesShowcase";
 
-const services = [
+const serviceIcons = {
+  software: Code2,
+  mobile: Smartphone,
+  erp: BarChart3,
+  ai: Brain,
+  consulting: Globe,
+  security: Shield,
+} as const;
+
+export type HomeServiceIconKey = keyof typeof serviceIcons;
+
+export type HomeServiceItem = {
+  icon: HomeServiceIconKey;
+  title: string;
+  description: string;
+  href: string;
+};
+
+export const services: HomeServiceItem[] = [
   {
-    icon: Code2,
+    icon: "software",
     title: "Software Development",
     description:
       "Full-stack web and enterprise applications built with modern frameworks, clean architecture, and scalable infrastructure.",
     href: "/services#software",
   },
   {
-    icon: Smartphone,
+    icon: "mobile",
     title: "Mobile Applications",
     description:
       "Cross-platform iOS and Android apps built with Flutter — single codebase, native performance, beautiful UI.",
     href: "/services#mobile",
   },
   {
-    icon: BarChart3,
+    icon: "erp",
     title: "ERP Solutions",
     description:
       "End-to-end enterprise resource planning systems tailored for healthcare, retail, manufacturing, and beyond.",
     href: "/services#erp",
   },
   {
-    icon: Brain,
+    icon: "ai",
     title: "AI & Automation",
     description:
       "Intelligent workflows, LLM integrations, and process automation that reduce overhead and unlock new efficiencies.",
     href: "/services#ai",
   },
   {
-    icon: Globe,
+    icon: "consulting",
     title: "Business Consulting",
     description:
       "Technology strategy and architecture consulting to help leadership teams make faster, better-informed decisions.",
     href: "/services#consulting",
   },
   {
-    icon: Shield,
+    icon: "security",
     title: "Security & Compliance",
     description:
       "HIPAA, GDPR, and SOC 2 compliance engineering. Secure-by-default architecture for regulated industries.",
@@ -56,10 +75,12 @@ const services = [
 
 export function ServicesGrid() {
   return (
-    <section className="pt-20 pb-32 px-6 bg-canvas-soft" aria-labelledby="services-heading">
+    <section className="bg-canvas-soft px-6 pb-6 pt-10 md:pt-20 md:pb-32" aria-labelledby="services-heading">
       <div className="max-w-7xl mx-auto">
+        <div className="mb-6 h-px w-full bg-neutral-200 md:hidden" aria-hidden="true" />
+
         {/* Header */}
-        <div className="max-w-2xl mb-16">
+        <div className="hidden max-w-2xl mb-16 md:block">
           <p className="text-xs font-mono uppercase tracking-[0.2em] text-mute mb-4">
             What We Build
           </p>
@@ -76,10 +97,14 @@ export function ServicesGrid() {
           </p>
         </div>
 
+        <div className="md:hidden">
+          <MobileServicesShowcase services={services} />
+        </div>
+
         {/* Grid */}
-        <div className="grid grid-cols-1 gap-x-6 gap-y-12 sm:grid-cols-2 lg:grid-cols-3">
+        <div className="hidden grid-cols-1 gap-x-6 gap-y-12 sm:grid-cols-2 md:grid lg:grid-cols-3">
           {services.map((service) => {
-            const Icon = service.icon;
+            const Icon = serviceIcons[service.icon];
             return (
               <Link
                 key={service.title}
