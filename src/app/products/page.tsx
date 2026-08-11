@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { ProductExperienceCard } from "@/components/showcase/ProductExperienceCard";
 import { ZerpAIProductCard } from "@/components/showcase/zerpai/ZerpAIProductCard";
 import { LetterRevealLink } from "@/components/sections/LetterRevealLink";
+import { MobileProductsFinalCta } from "@/components/sections/MobileProductsFinalCta";
 import { MobileProductsHero } from "@/components/sections/MobileProductsHero";
 import { getProducts } from "@/sanity/lib/loaders";
 
@@ -56,15 +57,21 @@ export default async function ProductsPage() {
         </h2>
         <div className="max-w-7xl mx-auto space-y-8 md:space-y-20">
           {products.map((product) => product.slug === "zerpai" ? (
-            <ZerpAIProductCard key={product.slug} />
+            <div key={product.slug} id={`product-${product.slug}`}>
+              <ZerpAIProductCard product={product} />
+            </div>
           ) : (
-            <ProductExperienceCard key={product.slug} product={product} />
+            <div key={product.slug} id={`product-${product.slug}`}>
+              <ProductExperienceCard product={product} />
+            </div>
           ))}
         </div>
       </section>
 
       {/* CTA */}
-      <section className="py-24 px-6 border-t border-hairline text-center bg-canvas">
+      <MobileProductsFinalCta />
+
+      <section className="hidden py-24 px-6 border-t border-hairline text-center bg-canvas md:block">
         <div className="max-w-2xl mx-auto">
           <h2 className="text-3xl font-semibold text-ink tracking-tight mb-4">
             Need something custom?

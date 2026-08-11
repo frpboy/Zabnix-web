@@ -6,18 +6,31 @@ import {
   Activity,
   CalendarDays,
   Check,
+  ClipboardList,
   HeartPulse,
+  Landmark,
+  Package,
   PackageCheck,
   ReceiptText,
   ScanBarcode,
   ShoppingBag,
+  ShoppingCart,
+  Sparkles,
   Store,
   Stethoscope,
   Tags,
   X,
 } from "lucide-react";
-import { useState } from "react";
+import { useMemo, useState, type ReactNode } from "react";
 import type { Product } from "@/lib/data";
+import {
+  MobileProductPresentation,
+  type MobileProductCapability,
+} from "@/components/showcase/MobileProductPresentation";
+import {
+  ProductInteractiveDemo,
+  type ProductDemoTab,
+} from "@/components/showcase/ProductInteractiveDemo";
 
 const previewConfig = {
   healthcare: {
@@ -42,6 +55,179 @@ const featureIcons = {
   healthcare: [HeartPulse, CalendarDays, ReceiptText, Stethoscope],
   retail: [Store, ScanBarcode, Tags, PackageCheck],
 } as const;
+
+function CompactMetricCard({
+  label,
+  value,
+}: {
+  label: string;
+  value: string;
+}) {
+  return (
+    <div className="rounded-[18px] border border-[#dfe5ed] bg-white p-3 shadow-[0_3px_12px_rgba(31,41,51,0.035)]">
+      <p className="max-w-[11ch] text-[0.72rem] font-medium leading-4 text-[#667085]">
+        {label}
+      </p>
+      <p className="mt-4 text-[1.05rem] font-semibold tracking-[-0.03em] text-[#1f2933]">
+        {value}
+      </p>
+    </div>
+  );
+}
+
+function CompactList({
+  title,
+  subtitle,
+  rows,
+}: {
+  title: string;
+  subtitle: string;
+  rows: readonly string[];
+}) {
+  return (
+    <section className="rounded-[18px] border border-[#dfe5ed] bg-white p-4 shadow-[0_3px_12px_rgba(31,41,51,0.035)]">
+      <div>
+        <h4 className="text-[0.95rem] font-semibold tracking-[-0.03em] text-[#1f2933]">
+          {title}
+        </h4>
+        <p className="mt-1 text-[0.72rem] text-[#667085]">{subtitle}</p>
+      </div>
+      <div className="mt-4 space-y-2.5">
+        {rows.map((row) => (
+          <div key={row} className="rounded-[14px] bg-[#f8fafc] px-3 py-3 text-[0.76rem] text-[#475467]">
+            {row}
+          </div>
+        ))}
+      </div>
+    </section>
+  );
+}
+
+function ForecastBars() {
+  const heights = [34, 48, 41, 62, 53, 71, 67];
+
+  return (
+    <div className="rounded-[18px] border border-[#dfe5ed] bg-white p-4 shadow-[0_3px_12px_rgba(31,41,51,0.035)]">
+      <div className="flex items-center justify-between gap-3">
+        <p className="text-[0.8rem] font-semibold text-[#1f2933]">Forecast Trend</p>
+        <Sparkles size={16} className="text-[#667085]" aria-hidden="true" />
+      </div>
+      <div className="mt-4 flex h-28 items-end gap-2 rounded-[16px] bg-[#f8fafc] px-3 py-3">
+        {heights.map((height, index) => (
+          <div
+            key={index}
+            className="flex-1 rounded-t bg-[#1f2933]/85"
+            style={{ height: `${height}%` }}
+          />
+        ))}
+      </div>
+    </div>
+  );
+}
+
+function buildInteractiveTabs(product: Product, slug: "healthcare" | "retail"): ProductDemoTab[] {
+  const config = previewConfig[slug];
+  const icons = slug === "healthcare"
+    ? {
+        overview: HeartPulse,
+        operations: CalendarDays,
+        finance: ReceiptText,
+        procurement: ClipboardList,
+        forecast: Stethoscope,
+      }
+    : {
+        overview: Store,
+        operations: Package,
+        finance: Landmark,
+        procurement: ShoppingCart,
+        forecast: Sparkles,
+      };
+
+  const overviewContent: ReactNode = (
+    <div className="space-y-3.5">
+      <div>
+        <h4 className="text-[1.15rem] font-semibold tracking-[-0.03em] text-[#1f2933]">
+          {config.title}
+        </h4>
+        <p className="mt-1 text-[0.76rem] text-[#667085]">{config.subtitle}</p>
+      </div>
+      <div className="grid grid-cols-2 gap-3">
+        {config.metrics.slice(0, 4).map(([label, value]) => (
+          <CompactMetricCard key={label} label={label} value={value} />
+        ))}
+      </div>
+      <CompactList title={config.activityTitle} subtitle="Current activity snapshot" rows={config.rows.slice(0, 3)} />
+    </div>
+  );
+
+  const operationsContent: ReactNode = (
+    <div className="space-y-3.5">
+      <div>
+        <h4 className="text-[1.15rem] font-semibold tracking-[-0.03em] text-[#1f2933]">
+          {product.features[0]?.title ?? "Operations"}
+        </h4>
+        <p className="mt-1 text-[0.76rem] text-[#667085]">
+          {product.features[0]?.desc ?? product.description}
+        </p>
+      </div>
+      <CompactList title="Workflow Snapshot" subtitle="Key product areas" rows={product.features.slice(0, 3).map((feature) => feature.title)} />
+    </div>
+  );
+
+  const financeContent: ReactNode = (
+    <div className="space-y-3.5">
+      <div>
+        <h4 className="text-[1.15rem] font-semibold tracking-[-0.03em] text-[#1f2933]">
+          {product.features[2]?.title ?? "Finance"}
+        </h4>
+        <p className="mt-1 text-[0.76rem] text-[#667085]">
+          {product.features[2]?.desc ?? product.description}
+        </p>
+      </div>
+      <div className="grid grid-cols-2 gap-3">
+        {config.metrics.slice(0, 2).map(([label, value]) => (
+          <CompactMetricCard key={label} label={label} value={value} />
+        ))}
+      </div>
+    </div>
+  );
+
+  const procurementContent: ReactNode = (
+    <div className="space-y-3.5">
+      <div>
+        <h4 className="text-[1.15rem] font-semibold tracking-[-0.03em] text-[#1f2933]">
+          {product.features[3]?.title ?? product.features[1]?.title ?? "Procurement"}
+        </h4>
+        <p className="mt-1 text-[0.76rem] text-[#667085]">
+          {product.features[3]?.desc ?? product.features[1]?.desc ?? product.description}
+        </p>
+      </div>
+      <CompactList title="Active Flow" subtitle="Recent product activity" rows={config.rows.slice(0, 2)} />
+    </div>
+  );
+
+  const forecastContent: ReactNode = (
+    <div className="space-y-3.5">
+      <div>
+        <h4 className="text-[1.15rem] font-semibold tracking-[-0.03em] text-[#1f2933]">
+          {product.features[product.features.length - 1]?.title ?? "Forecast"}
+        </h4>
+        <p className="mt-1 text-[0.76rem] text-[#667085]">
+          {product.features[product.features.length - 1]?.desc ?? product.description}
+        </p>
+      </div>
+      <ForecastBars />
+    </div>
+  );
+
+  return [
+    { key: "overview", label: "Overview", icon: icons.overview, content: overviewContent },
+    { key: "operations", label: slug === "healthcare" ? "Care Flow" : "Inventory", icon: icons.operations, content: operationsContent },
+    { key: "finance", label: "Finance", icon: icons.finance, content: financeContent },
+    { key: "procurement", label: slug === "healthcare" ? "Billing" : "Procurement", icon: icons.procurement, content: procurementContent },
+    { key: "forecast", label: slug === "healthcare" ? "Clinical" : "AI Forecast", icon: icons.forecast, content: forecastContent },
+  ];
+}
 
 function ProductPreview({ slug }: { slug: "healthcare" | "retail" }) {
   const config = previewConfig[slug];
@@ -139,56 +325,43 @@ function DesktopProductExperienceCard({
 
 function MobileProductExperienceCard({
   product,
-  activeIndustry,
-  setActiveIndustry,
   setIsDialogOpen,
 }: {
   product: Product;
-  activeIndustry: string | null;
-  setActiveIndustry: React.Dispatch<React.SetStateAction<string | null>>;
   setIsDialogOpen: (open: boolean) => void;
 }) {
   const slug = product.slug === "healthcare" ? "healthcare" : "retail";
   const icons = featureIcons[slug];
+  const mobileCapabilities = useMemo<MobileProductCapability[]>(
+    () =>
+      product.features.slice(0, 4).map((feature, index) => ({
+        title: feature.title,
+        description: feature.desc,
+        icon: icons[index] ?? icons[0],
+      })),
+    [icons, product.features]
+  );
+  const interactiveTabs = useMemo(
+    () => buildInteractiveTabs(product, slug),
+    [product, slug]
+  );
 
   return (
-    <article className="relative overflow-hidden rounded-[24px] border border-hairline bg-canvas p-5 shadow-level-2">
-      <div className="flex flex-col gap-6">
-        <div>
-          <p className="mb-2 text-xs font-mono uppercase tracking-[0.2em] text-mute">{product.tag}</p>
-          <h2 className="text-3xl font-semibold tracking-tight text-ink">{product.name}</h2>
-          <p className="mt-2 text-base font-medium text-body">{product.tagline}</p>
-          <p className="mt-3 text-sm leading-relaxed text-body">{product.description}</p>
-
-          <div className="mt-4 flex flex-nowrap gap-2 overflow-x-auto pb-2 [scrollbar-width:none]">
-            {product.industries.map((industry) => (
-              <button key={industry} type="button" suppressHydrationWarning onClick={() => setActiveIndustry((current) => current === industry ? null : industry)} aria-pressed={activeIndustry === industry} className={`inline-flex shrink-0 items-center justify-center rounded-full border-2 border-white/35 px-3 py-1.5 text-[10px] font-medium uppercase tracking-[0.02em] transition-[color,background-color] duration-200 ${activeIndustry === industry ? "bg-[#d7e2ec] text-black" : "bg-[#e0e8ef] text-black"}`}>{industry}</button>
-            ))}
-          </div>
-
-          <ul className="mt-5 space-y-3">
-            {product.features.slice(0, 4).map((feature, index) => {
-              const Icon = icons[index];
-              return (
-                <li key={feature.title} className="flex items-center gap-2.5 text-xs text-body">
-                  <Icon size={18} strokeWidth={2} className="shrink-0 text-black" aria-hidden="true" />
-                  <span>{feature.title}</span>
-                </li>
-              );
-            })}
-          </ul>
-
-          <div className="mt-6 flex flex-col gap-3">
-            <Link href={`/products/${product.slug}`} className="inline-flex w-full items-center justify-center rounded-full border border-black bg-white py-3 text-sm font-semibold text-black transition-colors duration-200 hover:bg-black hover:text-white">View Full Product</Link>
-            <button type="button" onClick={() => setIsDialogOpen(true)} className="inline-flex w-full items-center justify-center rounded-full bg-ink py-3 text-sm font-semibold text-white transition-colors duration-200 hover:bg-ink/90">Request Demo</button>
-          </div>
-        </div>
-
-        <div className="min-w-0">
-          <ProductPreview slug={slug} />
-        </div>
-      </div>
-    </article>
+    <div className="space-y-0">
+      <MobileProductPresentation
+        category={product.tag}
+        product={product}
+        capabilities={mobileCapabilities}
+        viewHref={`/products/${product.slug}`}
+        onRequestDemo={() => setIsDialogOpen(true)}
+      />
+      <ProductInteractiveDemo
+        product={product}
+        tabs={interactiveTabs}
+        viewHref={`/products/${product.slug}`}
+        onRequestDemo={() => setIsDialogOpen(true)}
+      />
+    </div>
   );
 }
 
@@ -209,8 +382,6 @@ export function ProductExperienceCard({ product }: { product: Product }) {
       <div className="block lg:hidden">
         <MobileProductExperienceCard
           product={product}
-          activeIndustry={activeIndustry}
-          setActiveIndustry={setActiveIndustry}
           setIsDialogOpen={setIsDialogOpen}
         />
       </div>
@@ -263,4 +434,3 @@ export function ProductExperienceCard({ product }: { product: Product }) {
     </>
   );
 }
-

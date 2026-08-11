@@ -1,7 +1,7 @@
 "use client";
 
 import Link from "next/link";
-import { ArrowDown, ArrowRight, Box, HeartPulse, ShoppingBag } from "lucide-react";
+import { ArrowDown, ArrowRight } from "lucide-react";
 import { motion, useReducedMotion } from "framer-motion";
 import { useEffect, useMemo, useRef, useState } from "react";
 import type { MouseEvent, TouchEvent } from "react";
@@ -17,12 +17,6 @@ type HeroProduct = {
 type MobileProductsHeroProps = {
   products: readonly HeroProduct[];
 };
-
-const iconMap = {
-  zerpai: Box,
-  healthcare: HeartPulse,
-  retail: ShoppingBag,
-} as const;
 
 const MOBILE_PRODUCT_CYCLE_MS = 4200;
 
@@ -222,7 +216,6 @@ export function MobileProductsHero({ products }: MobileProductsHeroProps) {
         >
           {stack.map(({ product, role }) => {
             const isPrimary = role === "primary";
-            const Icon = iconMap[product.slug as keyof typeof iconMap];
             const config = {
               primary: { left: "0%", top: "3.75rem", width: "78%", zIndex: 30, scale: 1 },
               secondary: { left: "48%", top: "2.9rem", width: "40%", zIndex: 20, scale: 1 },
@@ -260,9 +253,6 @@ export function MobileProductsHero({ products }: MobileProductsHeroProps) {
               >
                 <div className={cardPadding}>
                   <div className={`flex items-start gap-3 ${isPrimary ? "mb-5" : "mb-4 flex-col"}`}>
-                    <div className={`grid place-items-center rounded-[18px] border border-[#e5e5e5] bg-white ${isPrimary ? "h-14 w-14 bg-black text-white" : "h-12 w-12 text-black"}`}>
-                      <Icon size={isPrimary ? 28 : 22} aria-hidden="true" />
-                    </div>
                     <div className="min-w-0">
                       <h2 className={`${isPrimary ? "text-[2rem]" : "text-[1rem]"} font-semibold leading-[1.02] tracking-[-0.055em] text-ink`}>
                         {product.name}
@@ -313,7 +303,7 @@ export function MobileProductsHero({ products }: MobileProductsHeroProps) {
           className="mt-3 flex flex-col items-center"
         >
           <Link
-            href="#products-list-heading"
+            href={`#product-${primaryProduct.slug}`}
             className="inline-flex flex-col items-center gap-3 text-[0.8rem] font-mono uppercase tracking-[0.28em] text-mute focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ink"
           >
             <span className="grid h-12 w-12 place-items-center rounded-full border border-[#d8d8d8] bg-white text-ink shadow-[0_8px_18px_rgba(15,23,42,0.05)]">

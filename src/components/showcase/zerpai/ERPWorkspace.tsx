@@ -13,7 +13,7 @@ import {
 type ModuleKey = "dashboard" | "inventory" | "sales" | "crm" | "finance" | "reports" | "analytics" | "settings";
 type WorkspaceProps = { compact?: boolean };
 
-const modules: { key: ModuleKey; label: string; icon: typeof Grid2X2 }[] = [
+export const zerpaiWorkspaceModules: { key: ModuleKey; label: string; icon: typeof Grid2X2 }[] = [
   { key: "dashboard", label: "Home", icon: Grid2X2 },
   { key: "inventory", label: "Inventory", icon: Package },
   { key: "sales", label: "Sales", icon: ShoppingCart },
@@ -24,7 +24,7 @@ const modules: { key: ModuleKey; label: string; icon: typeof Grid2X2 }[] = [
   { key: "settings", label: "Settings", icon: Settings },
 ];
 
-const metrics = [
+export const zerpaiWorkspaceMetrics = [
   ["Total Receivables", "₹12,45,890", ArrowUpRight, "blue"],
   ["Outstanding Payables", "₹4,12,300", ArrowDownLeft, "red"],
   ["Cash on Hand", "₹18,50,000", Wallet, "green"],
@@ -33,7 +33,7 @@ const metrics = [
   ["Picklists", "34", Box, "slate"],
 ] as const;
 
-const animatedMetrics = [
+export const zerpaiWorkspaceAnimatedMetrics = [
   { label: "Total Receivables", value: 1245890, prefix: "\u20B9", icon: ArrowUpRight, tone: "blue" },
   { label: "Outstanding Payables", value: 412300, prefix: "\u20B9", icon: ArrowDownLeft, tone: "red" },
   { label: "Cash on Hand", value: 1850000, prefix: "\u20B9", icon: Wallet, tone: "green" },
@@ -42,24 +42,32 @@ const animatedMetrics = [
   { label: "Picklists", value: 34, prefix: "", icon: Box, tone: "slate" },
 ] as const;
 
-const orders = [
+export const zerpaiWorkspaceOrders = [
   ["SO-2026-148", "Aster Healthcare", "₹1,84,500", "Packed"],
   ["PO-2026-087", "Medline Supplies", "₹94,280", "Approved"],
   ["INV-2026-526", "Zenith Retail", "₹3,42,990", "Paid"],
 ] as const;
 
-const inventory = [
+export const zerpaiWorkspaceInventory = [
   ["MED-650", "Paracetamol 650mg", "12,000", "₹24.50", "GST 12%"],
   ["MED-500", "Amoxicillin 500mg", "8,500", "₹74.00", "GST 12%"],
   ["SUP-102", "Nitrile Gloves", "1,180", "₹265.00", "GST 5%"],
   ["LAB-044", "Diagnostic Kit", "64", "₹1,240.00", "GST 12%"],
 ] as const;
 
-const customerRows = [
+export const zerpaiWorkspaceCustomerRows = [
   ["Aster Healthcare", "Kochi, India", "₹4,50,000", "Active"],
   ["Globex Distributors", "Mumbai, India", "₹3,10,000", "Active"],
   ["Zenith Retail", "Bengaluru, India", "₹1,84,500", "Follow-up"],
 ] as const;
+
+const modules = zerpaiWorkspaceModules;
+const metrics = zerpaiWorkspaceMetrics;
+const animatedMetrics = zerpaiWorkspaceAnimatedMetrics;
+const orders = zerpaiWorkspaceOrders;
+const inventory = zerpaiWorkspaceInventory;
+const customerRows = zerpaiWorkspaceCustomerRows;
+export const zerpaiSalesTrendHeights = [28, 48, 42, 62, 46, 76, 70, 88, 68, 82, 94, 76] as const;
 
 function MetricCard({
   metric,
@@ -82,7 +90,7 @@ function MetricCard({
 }
 
 function SalesChart({ animateOnView }: { animateOnView: boolean }) {
-  const heights = [28, 48, 42, 62, 46, 76, 70, 88, 68, 82, 94, 76];
+  const heights = zerpaiSalesTrendHeights;
   return <section className="rounded-xl border border-[#dfe5ed] bg-white p-4 shadow-[0_3px_12px_rgba(31,41,51,0.035)]">
     <div className="mb-4 flex items-start justify-between"><div><h3 className="text-sm font-semibold text-[#1f2933]">Sales Trend</h3><p className="mt-1 text-xs text-[#6b7280]">Revenue across the last 30 days</p></div><span className="rounded-full bg-emerald-50 px-2 py-1 text-[10px] font-medium text-emerald-700">Live</span></div>
     <div className="flex h-28 items-end gap-1.5 rounded-lg bg-[#f8fafc] px-3 py-3">{heights.map((height, index) => <motion.div key={index} initial={animateOnView ? { height: 0 } : false} animate={animateOnView ? { height: `${height}%` } : undefined} transition={{ duration: 0.45, delay: 1 + index * 0.025, ease: "easeOut" }} className="flex-1 rounded-t bg-gradient-to-t from-[#2563eb] via-[#6d3df5] to-[#ec4899]" style={animateOnView ? undefined : { height: `${height}%` }} />)}</div>
