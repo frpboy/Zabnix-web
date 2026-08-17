@@ -1793,25 +1793,22 @@ export function BlogClient({ posts }: BlogClientProps) {
                     Lead Engineering Story
                   </span>
                   <div className="mt-7 flex flex-wrap items-center gap-x-2 gap-y-1 text-[11px] font-mono uppercase tracking-[0.12em] text-mute">
-                    <span>Engineering</span>
+                    <span>{featuredPost.category}</span>
                     <span aria-hidden="true">&bull;</span>
-                    <time dateTime="2026-05-15">May 15, 2026</time>
+                    <time dateTime={featuredPost.isoDate}>{featuredPost.date}</time>
                     <span aria-hidden="true">&bull;</span>
-                    <span className="inline-flex items-center gap-1 normal-case tracking-normal"><Clock size={12} aria-hidden="true" />8 min read</span>
+                    <span className="inline-flex items-center gap-1 normal-case tracking-normal"><Clock size={12} aria-hidden="true" />{featuredPost.readTime} min read</span>
                   </div>
                   <h2 className="mt-6 max-w-xl text-4xl font-semibold tracking-tight text-ink text-balance md:text-[3.25rem] md:leading-[1.06]">
-                    Why We Choose Flutter
-                    <span className="block">for Enterprise Mobile</span>
-                    <span className="block">Apps in 2026</span>
+                    {featuredPost.title}
                   </h2>
                   <p className="mt-6 max-w-lg text-base leading-relaxed text-body md:text-lg">
-                    Flutter isn&apos;t just for startups. Here&apos;s why it&apos;s becoming the default choice for enterprise mobile development.
+                    {featuredPost.excerpt}
                   </p>
                   <div className="mt-8 flex items-center gap-3">
-                    <span className="flex size-10 items-center justify-center rounded-full bg-slate-900 text-xs font-semibold text-white">AM</span>
+                    <span className="flex size-10 items-center justify-center rounded-full bg-slate-900 text-xs font-semibold text-white">{featuredPost.author.slice(0, 2).toUpperCase()}</span>
                     <div className="min-w-0">
-                      <p className="text-sm font-semibold text-ink">Aditya Menon <span className="font-normal text-mute">Lead Flutter Engineer</span></p>
-                      <p className="mt-1 text-xs text-mute">Intermediate</p>
+                      <p className="text-sm font-semibold text-ink">{featuredPost.author}</p>
                     </div>
                   </div>
                   <div className="mt-8 border-t border-black/[0.08] pt-6">

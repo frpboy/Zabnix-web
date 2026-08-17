@@ -20,6 +20,7 @@ export const BLOG_POSTS_QUERY = defineQuery(
 
 export const BLOG_POST_QUERY = defineQuery(
   `*[_type == "blogPost" && slug.current == $slug][0]{
+    _id,
     "slug": slug.current,
     category,
     title,
@@ -29,6 +30,32 @@ export const BLOG_POST_QUERY = defineQuery(
     "readTime": coalesce(readTime, 5),
     "gradient": coalesce(gradient, "from-blue-600/20 to-cyan-600/20"),
     "border": coalesce(border, "border-blue-500/15"),
+    body
+  }`
+);
+
+export const ALL_PUBLISHED_BLOG_POSTS_QUERY = defineQuery(
+  `*[_type == "blogPost" && !(_id in path("drafts.**")) && defined(slug.current)]
+  | order(coalesce(publishedAt, _createdAt) desc){
+    _id,
+    "slug": slug.current,
+    category,
+    title,
+    excerpt,
+    "author": coalesce(author->name, "Zabnix Team"),
+    "publishedAt": coalesce(publishedAt, _createdAt),
+    body
+  }`
+);
+
+export const PUBLISHED_BLOG_POST_BY_ID_QUERY = defineQuery(
+  `*[_type == "blogPost" && _id == $documentId && !(_id in path("drafts.**")) && defined(slug.current)][0]{
+    _id,
+    "slug": slug.current,
+    category,
+    title,
+    excerpt,
+    "publishedAt": coalesce(publishedAt, _createdAt),
     body
   }`
 );

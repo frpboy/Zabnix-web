@@ -19,17 +19,6 @@ const INITIAL_PROMPTS = [
   "What services do you provide?",
 ];
 
-const AUTOMATED_RESPONSES: Record<string, string> = {
-  "What products does Zabnix offer?":
-    "Zabnix offers enterprise-grade software products including ZerpAI ERP (an intelligent operational workspace for finance, procurement, and inventory), Healthcare Suites, and RetailOS.",
-  "Tell me about ZerpAI ERP":
-    "ZerpAI ERP is our flagship operational workspace designed for Indian and international enterprises. It unifies GST accounting, purchase orders, inventory forecasting, and real-time business metrics.",
-  "How can I book a free consultation?":
-    "You can schedule a free consultation directly on our Contact page or by emailing hello@zabnix.com. Our engineering team will review your business requirements and suggest a tailored solution.",
-  "What services do you provide?":
-    "We provide end-to-end digital engineering services including Custom Software Development, Mobile Apps (Flutter/React Native), AI & Workflow Automation, Cloud Architecture & DevOps, and IT Strategy Consulting.",
-};
-
 export function ZabnixChatbot() {
   const [isOpen, setIsOpen] = useState(false);
   const [input, setInput] = useState("");
@@ -69,9 +58,9 @@ export function ZabnixChatbot() {
     return () => window.removeEventListener("keydown", handleKeyDown);
   }, [handleKeyDown]);
 
-  const sendMessage = (textToSend?: string) => {
+  const sendMessage = async (textToSend?: string) => {
     const query = (textToSend || input).trim();
-    if (!query) return;
+    if (!query || isTyping) return;
 
     const userMsg: Message = {
       id: Date.now().toString(),
@@ -81,25 +70,42 @@ export function ZabnixChatbot() {
     };
 
     setMessages((prev) => [...prev, userMsg]);
-    if (!textToSend) setInput("");
+    setInput("");
     setIsTyping(true);
 
-    // Simulate response or query matching
-    setTimeout(() => {
-      let replyText =
-        AUTOMATED_RESPONSES[query] ||
-        "Thank you for reaching out to Zabnix. Our engineering team specializes in enterprise software, ZerpAI ERP, and custom AI solutions. For tailored advice, feel free to visit our Contact page or email hello@zabnix.com.";
+    try {
+      const response = await fetch("/api/chat", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ message: query }),
+      });
+      const payload: unknown = await response.json();
+      const answer =
+        response.ok && payload && typeof payload === "object" && typeof (payload as { answer?: unknown }).answer === "string"
+          ? (payload as { answer: string }).answer
+          : "I couldn't answer that from the Zabnix knowledge base right now. Please try again shortly.";
 
       const botMsg: Message = {
         id: (Date.now() + 1).toString(),
         sender: "assistant",
-        text: replyText,
+        text: answer,
         timestamp: new Date().toLocaleTimeString([], { hour: "2-digit", minute: "2-digit" }),
       };
 
       setMessages((prev) => [...prev, botMsg]);
+    } catch {
+      setMessages((prev) => [
+        ...prev,
+        {
+          id: (Date.now() + 1).toString(),
+          sender: "assistant",
+          text: "I couldn't answer that from the Zabnix knowledge base right now. Please try again shortly.",
+          timestamp: new Date().toLocaleTimeString([], { hour: "2-digit", minute: "2-digit" }),
+        },
+      ]);
+    } finally {
       setIsTyping(false);
-    }, 600);
+    }
   };
 
   return (
@@ -219,6 +225,7 @@ export function ZabnixChatbot() {
                           key={prompt}
                           type="button"
                           onClick={() => sendMessage(prompt)}
+                          disabled={isTyping}
                           className="flex w-full items-center justify-between rounded-xl border border-slate-200 bg-white p-2.5 text-left text-xs font-medium text-slate-800 transition-colors hover:border-black hover:bg-slate-50 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-black"
                         >
                           <span>{prompt}</span>
@@ -284,7 +291,7 @@ export function ZabnixChatbot() {
                 />
                 <button
                   type="submit"
-                  disabled={!input.trim()}
+                  disabled={!input.trim() || isTyping}
                   aria-label="Send message"
                   className="flex h-9 w-9 shrink-0 items-center justify-center rounded-full bg-black text-white transition-opacity disabled:opacity-40 hover:bg-neutral-800 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-black"
                 >

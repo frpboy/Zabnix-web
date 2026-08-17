@@ -56,6 +56,115 @@ The visual language is modeled after a premium Vercel-inspired light-canvas desi
 
 All marketing copy and mock data are structured inside a single file `src/lib/data.ts` using timezone-safe formatting. This design prevents hydration mismatches between server and client environments while keeping lists easily maintainable.
 
+### Pinecone Content Indexing (Phase 1)
+
+Sanity content can be indexed server-side into the `zabnix-knowledge` Pinecone index. Pinecone integrated embeddings use the index's `llama-text-embed-v2` model, so the app sends source text in the configured `text` field and never creates embedding vectors locally. Records live in the `articles` namespace.
+
+Set these server-only variables in `.env.local` and in the deployment environment:
+
+```bash
+PINECONE_API_KEY=
+PINECONE_INDEX_NAME=zabnix-knowledge
+# Required only to permit indexing in production.
+PINECONE_INDEXING_SECRET=
+```
+
+In development, index the existing Sanity test article with:
+
+```bash
+curl -X POST http://localhost:3000/api/pinecone/index-sanity-article \
+  -H "Content-Type: application/json" \
+  -d '{"slug":"zabnix-cms-test-post"}'
+```
+
+Test semantic retrieval after Pinecone has finished indexing the record:
+
+```bash
+curl -X POST http://localhost:3000/api/pinecone/search \
+  -H "Content-Type: application/json" \
+  -d '{"query":"What is this Zabnix CMS test post about?"}'
+```
+
+Index all published Sanity blog posts with:
+
+```bash
+curl -X POST http://localhost:3000/api/pinecone/index-all-articles
+```
+
+`POST /api/pinecone/index-sanity-article` reindexes one published article by slug, and `POST /api/pinecone/upsert` accepts a validated manual article payload. Each article is converted from Portable Text to clean plain text, then split at paragraph boundaries into deterministic chunks of about 6,000 characters (with a small 400-character overlap). This stays conservatively below the model's 2,048-token input limit while preserving semantic context.
+
+Chunk IDs use `<slug>-chunk-<index>`, such as `zabnix-cms-test-post-chunk-0`. Reindexing upserts those stable IDs; after successful upserts, it lists only that slug's chunk-ID prefix and removes obsolete chunks. This avoids duplicates and never deletes records for other articles. Each record includes `articleId`, `slug`, `title`, `category`, `excerpt`, `chunkIndex`, optional `publishedAt`, `source: "sanity"`, and `documentType: "article"`; its searchable chunk is stored in `text`.
+
+Indexing endpoints are development-only unless requests include a matching `x-pinecone-indexing-secret` header in production. A future phase can pass semantic-search results to an LLM and then the website chatbot; neither is implemented here.
+
+### RAG Chat (Phase 3)
+
+`POST /api/chat` accepts `{ "message": "..." }`. It retrieves the most relevant `articles` records from Pinecone, excludes results below `PINECONE_MINIMUM_SIMILARITY` (default `0.15`; a retrieval filter, not a confidence percentage), and sends compact title/category/slug/text context to Gemini. Gemini is server-only and uses Vertex AI Application Default Credentials; no Google or Pinecone credential is sent to the browser.
+
+Set these non-secret configuration values locally and in the deployed server environment:
+
+```bash
+GOOGLE_CLOUD_PROJECT=shield-zabnix
+GOOGLE_CLOUD_LOCATION=global
+GOOGLE_GENAI_USE_VERTEXAI=true
+GEMINI_MODEL=gemini-2.5-flash
+```
+
+For local development, authenticate outside this repository with `gcloud auth application-default login`, and ensure the Vertex AI API and billing are enabled for the project. The endpoint returns a concise grounded `answer` plus a deduplicated `sources` array. It does not use web search, long-term memory, or an LLM tool chain.
+
+### Sanity → Pinecone Webhook (Phase 4)
+
+Published Sanity `blogPost` documents are synchronized through `POST https://<your-production-domain>/api/webhooks/sanity`.
+
+Add this server-only value locally and in the deployment environment; generate a long random secret and never prefix it with `NEXT_PUBLIC_`:
+
+```bash
+SANITY_WEBHOOK_SECRET=
+```
+
+In Sanity Manage, open project `lihbhllf`, then **API → Webhooks → Create webhook**:
+
+- Dataset: `production`; method: `POST`; URL: `https://<your-production-domain>/api/webhooks/sanity`
+- Trigger on `Create`, `Update`, and `Delete`; filter: `_type == "blogPost"`
+- Include drafts: off; include versions: off; set the webhook secret to `SANITY_WEBHOOK_SECRET`
+- Use this projection:
+
+```groq
+{
+  "documentId": _id,
+  "documentType": _type,
+  "slug": coalesce(after().slug.current, before().slug.current),
+  "previousSlug": before().slug.current,
+  "operation": delta::operation()
+}
+```
+
+The endpoint verifies Sanity’s `sanity-webhook-signature` against the raw body before parsing. It fetches the latest published document directly from Sanity, so delayed and retried deliveries converge on current content. Deterministic `<slug>-chunk-<index>` IDs make repeated deliveries safe, while reindexing removes stale chunks. Deleting or unpublishing removes every record whose `articleId` matches the Sanity document. The delivery `idempotency-key` is logged for traceability.
+
+Only `blogPost` is wired because it is the only registered Sanity schema in this repository. Products, case studies, jobs, services, and company knowledge remain code-owned and continue to use `POST /api/pinecone/index-website-knowledge`; no missing Sanity schemas were invented.
+
+#### Local webhook tests
+
+Start the app with a non-empty `SANITY_WEBHOOK_SECRET` in `.env.local`, then replace the placeholders with a published Sanity blog-post ID and slug. This produces a Sanity-format signature using the same verifier as the route.
+
+```powershell
+$articleId = "<published-sanity-blog-post-id>"
+$slug = "<current-slug>"
+$env:ARTICLE_ID = $articleId
+$env:ARTICLE_SLUG = $slug
+node -e "const {encodeSignatureHeader}=require('@sanity/webhook'); const body=JSON.stringify({documentId:process.env.ARTICLE_ID,documentType:'blogPost',slug:process.env.ARTICLE_SLUG,previousSlug:process.env.ARTICLE_SLUG,operation:'update'}); encodeSignatureHeader(body,Date.now(),process.env.SANITY_WEBHOOK_SECRET).then(async signature=>{const response=await fetch('http://localhost:3000/api/webhooks/sanity',{method:'POST',headers:{'content-type':'application/json','sanity-webhook-signature':signature,'idempotency-key':crypto.randomUUID()},body}); console.log(response.status,await response.text())})"
+```
+
+Run that command after publishing an update to verify chunk replacement. For deletion or unpublishing, change `operation` to `delete`, keep the last known `$slug`, remove the published document first, then send the request; `result.action` will be `deleted`.
+
+To validate authentication without touching Pinecone:
+
+```powershell
+Invoke-WebRequest -Method Post -Uri "http://localhost:3000/api/webhooks/sanity" -ContentType "application/json" -Headers @{ "sanity-webhook-signature" = "t=1700000000000,v1=invalid" } -Body '{"documentId":"test","documentType":"blogPost","operation":"update"}'
+```
+
+This returns HTTP `401`.
+
 ---
 
 ## Pages & Routing

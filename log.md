@@ -1187,3 +1187,135 @@ Backend Files:
 - (none this session)
 
 Timestamp: 2026-08-10 17:11:13
+
+
+### 48) Mobile Services Hero Process Rebuild and Animation Refinement
+
+1. **Mobile Services Hero Replacement**
+   - Updated `src/app/services/page.tsx` to replace the previous mobile hero cube/isometric graphic with the dedicated `MobileServicesHeroProcess` component.
+   - Preserved the desktop Services page path while routing only the mobile Services hero/process visual through the new component.
+
+2. **Mobile Process Card Stack**
+   - Added `src/components/sections/MobileServicesHeroProcess.tsx` with the mobile hero copy, process label, six process steps, lucide icons, dotted vertical connector, and ambient bottom wave.
+   - Built the approved flat white horizontal process-card style for all 6 steps with rounded corners, light borders, icon tiles, and existing process titles.
+
+3. **Active State Iteration**
+   - Tested and removed earlier active-card approaches that used a separate floating/absolute black overlay.
+   - Reworked the behavior so the actual process card morphs between normal white horizontal state and compact black square active state.
+   - Removed the active icon's inner marked box so active icons render directly on the black card.
+   - Removed the small process description text from every card, including active and inactive states.
+   - Removed the pagination dot row below the process stack.
+
+4. **Animation Behavior**
+   - Changed the active sequence from ping-pong to a forward loop: `01 -> 02 -> 03 -> 04 -> 05 -> 06 -> 01`.
+   - Kept the existing animation speed while refining transfer behavior so geometry, background color, border color, shadow, icon color, and text color animate together through Framer Motion.
+   - Preserved reduced-motion handling so automatic cycling stops and step `01` remains active.
+
+5. **Verification**
+   - Confirmed TypeScript with `npx.cmd tsc --noEmit --pretty false`.
+   - Confirmed the local Services page responded with HTTP `200` at `/services`.
+   - Noted that full `npm.cmd run lint` remains blocked by unrelated existing repository issues in blog/product files, not by the Services process component.
+
+Frontend Files:
+- src/app/services/page.tsx
+- src/components/sections/MobileServicesHeroProcess.tsx
+
+Backend Files:
+- (none this session)
+
+Timestamp: 2026-08-11 16:55:48
+
+### 49) Sanity Studio, Pinecone Knowledge Base, Retrieval Chat, and Gemini RAG Foundation
+
+1. **Standalone Sanity Studio**
+   - Moved Studio execution out of the embedded Next.js `/studio` route to prevent the Sanity Structure tool from loading through Next's incompatible React runtime.
+   - Preserved the existing `blogPost` schema, Sanity project `lihbhllf`, production dataset, frontend client, queries, loaders, and fallback content system.
+   - Added `sanity:dev` and `sanity:build` scripts for the standalone Sanity CLI/Vite workflow.
+
+2. **Blog CMS Rendering Fix**
+   - Bound the existing Blog featured card to the fetched `featuredPost` values for category, date, read time, title, excerpt, author, and article link.
+   - Kept the featured article excluded from the grid intentionally; when it is the only published article, the grid empty state is expected because the article is already rendered in the featured slot.
+
+3. **Pinecone Server Foundation and Article Ingestion**
+   - Added the official `@pinecone-database/pinecone` SDK and server-only Pinecone utilities.
+   - Added secure server routes for manual record upserts, semantic search, single Sanity article indexing, and bulk indexing of all published Sanity `blogPost` documents.
+   - Used Pinecone integrated embeddings exclusively through the index field map `text`; no application-side vectors or external embedding provider were added.
+   - Added Portable Text cleanup, deterministic paragraph-aware chunks (~6,000 characters with a 400-character overlap), batched upserts, stable `<slug>-chunk-<index>` record IDs, article metadata, and prefix-scoped stale-chunk cleanup.
+   - Verified live bulk indexing of 2 published articles, repeat indexing without duplicates, semantic retrieval of `zabnix-cms-test-post`, and retrieval of `how-ai-is-changing-modern-business-operations`.
+
+4. **Chatbot Retrieval and Gemini RAG Layer**
+   - Replaced the chatbot's static mock replies with server API calls while preserving its existing layout, positioning, animation, suggested questions, and message styling.
+   - Phase 2.5 connected the component to `/api/pinecone/search` for temporary retrieved-result responses.
+   - Phase 3 added server-only `@google/genai` integration and `POST /api/chat`, which retrieves relevant Pinecone chunks, applies a configurable minimum similarity filter, builds compact grounded context, and generates concise answers with Gemini `gemini-2.5-flash` through Vertex AI Application Default Credentials.
+   - Added returned source metadata for future traceability while leaving the current chatbot UI visually unchanged.
+   - Added safe non-secret Google Cloud configuration documentation for project `shield-zabnix`, location `global`, Vertex AI, and configurable Gemini model selection. No Google credentials, ADC token, Pinecone key, LLM client, or Pinecone client is exposed to the browser.
+   - No web search, long-term memory, streaming, LangChain, or chatbot redesign was added.
+
+5. **Validation and Environment Notes**
+   - `tsc --noEmit` and `next build` passed after the Phase 1-3 changes.
+   - Static build warnings for Sanity network calls are caused by the sandbox blocking outbound provider connections; the existing fallback behavior remains intact.
+   - The isolated `/api/chat` sandbox test returned its safe error contract because the environment cannot complete external provider requests. Live Gemini verification requires the developer's normal terminal with ADC, Vertex AI API, billing, and network access.
+   - The local server previously running at port `3000` was identified as a different checkout under `C:\Users\MOHAMMED SHAMIL\Downloads\Zabnix-web`; run `npm run dev` from `C:\Zabnix\Zabnix-web` to test this workspace.
+
+Frontend Files:
+- src/app/blog/BlogClient.tsx
+- src/components/ui/ZabnixChatbot.tsx
+
+Backend / Server Files:
+- sanity.config.ts
+- sanity.cli.ts
+- src/sanity/lib/queries.ts
+- src/lib/pinecone.ts
+- src/lib/pinecone-articles.ts
+- src/lib/pinecone-route.ts
+- src/lib/gemini.ts
+- src/lib/zabnix-rag.ts
+- src/app/api/pinecone/upsert/route.ts
+- src/app/api/pinecone/search/route.ts
+- src/app/api/pinecone/index-sanity-article/route.ts
+- src/app/api/pinecone/index-all-articles/route.ts
+- src/app/api/chat/route.ts
+
+Configuration / Documentation Files:
+- package.json
+- package-lock.json
+- .env.example
+- README.md
+
+Timestamp: 2026-08-13
+### 50) Phase 3.5 Full Website Knowledge Base
+
+1. Shared Website Knowledge Indexing
+   - Added a server-only general knowledge indexing utility that reuses the existing Pinecone articles namespace and chunking approach.
+   - Added deterministic type-prefixed record IDs for products, case studies, job roles, services, and company knowledge while preserving all existing blog article IDs unchanged.
+   - Added prefix-scoped stale chunk cleanup so re-indexing one item cannot remove records from another content type.
+
+2. Indexed Public Website Knowledge
+   - Added canonical website knowledge documents for products, case studies, careers, services, company overview, public team roles and values, contact information, and technology capabilities.
+   - Kept content clean and structured for retrieval: title, type/category, summary, relevant details, features, industries, specifications, outcomes, responsibilities, requirements, contact details, and technology categories.
+   - Excluded rendered HTML, UI-only copy, decorative content, navigation labels, and team social handles.
+
+3. Bulk Server-Side Indexing Endpoint
+   - Added POST /api/pinecone/index-website-knowledge.
+   - The endpoint indexes the existing published Sanity blog posts together with all supported website knowledge sources in one operation.
+   - It reports per-content-type item counts, chunks created, stale chunks removed, and failures, while retaining the existing server-only Pinecone security model.
+   - No webhooks or automatic Sanity synchronization were added.
+
+4. Live Indexing and Retrieval Verification
+   - Successfully indexed 22 items and 24 chunks: 3 products, 3 case studies, 6 job roles, 6 services, 4 company documents, and 2 published Sanity blog posts.
+   - Confirmed zero indexing failures and zero stale chunks on the initial Phase 3.5 run.
+   - Confirmed targeted semantic retrieval for ZerpAI ERP inventory management, the hospital scheduling case study, and the Senior Full-Stack Engineer role.
+   - Broad company/contact questions retrieve the company overview and contact knowledge records; detailed product and case-study records are present and retrievable through their topical queries.
+
+5. Validation
+   - Confirmed npx.cmd tsc --noEmit passes.
+   - Confirmed npm.cmd run build passes.
+   - Existing Tailwind ambiguity warnings and sandbox-blocked external Sanity fetch warnings during static generation remain non-blocking and unrelated to the Phase 3.5 implementation.
+
+Backend / Server Files:
+- src/lib/pinecone-knowledge.ts
+- src/lib/website-knowledge.ts
+- src/lib/website-knowledge-content.ts
+- src/app/api/pinecone/index-website-knowledge/route.ts
+
+Timestamp: 2026-08-13
